@@ -14,7 +14,7 @@ public class RecipeKeeper extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("NewInterface.fxml"));
-			Scene scene = new Scene(root, 543, 709);
+			Scene scene = new Scene(root, 529, 763);
 			scene.getStylesheets().add(getClass().getResource("RecipeKeeper.css").toExternalForm());
 			primaryStage.setTitle("Interface Demo");
 			primaryStage.setScene(scene);

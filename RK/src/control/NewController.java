@@ -37,15 +37,15 @@ public class NewController implements Initializable{
 
 	@FXML // fx:id="ingreQty"
 	TextField ingreQty = new TextField();
-
-	@FXML // fx:id="ingreUnit"
-	TextField ingreUnit = new TextField();
 	
 	@FXML // fx:id="textCategory"
 	TextField textCategory = new TextField();
 
 	@FXML // fx:id="servingSize"
 	ComboBox<String> servingSize = new ComboBox<>();
+	
+	@FXML // fx:id="ingreUnit"
+	ComboBox<String> ingreUnit = new ComboBox<>();
 
 	@FXML // fx:id="addIngredient"
 	Button addIngredient = new Button();
@@ -64,7 +64,11 @@ public class NewController implements Initializable{
 	
 	@FXML // fx:id="categoryTable"
 	ListView<String> categoryTable = new ListView<>();
-	ObservableList<String> categories =FXCollections.observableArrayList();
+	ObservableList<String> categories = FXCollections.observableArrayList();
+	
+	// list of units
+	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
+	
 
 	// temporary ingredients list
 	ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
@@ -89,6 +93,16 @@ public class NewController implements Initializable{
 			}
 		});
 
+		/**
+		 * Sets up unit ComboBox for ingredients and 
+		 * its handler
+		 */
+		ingreUnit.getItems().addAll(UNITS);
+		ingreUnit.setEditable(true);
+		ingreUnit.setOnAction(e -> {
+			// add more code for listener if needed
+		});
+		
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -116,23 +130,29 @@ public class NewController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 
-					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getText().equals(null) ||
-							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getText().equals("")) 
+					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) ||
+							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
 					else if (isNumeric(ingreName.getText())) throw new IngredientException("Ingredient Name");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient Quantity");
-					else if (isNumeric(ingreUnit.getText())) throw new IngredientException("Ingredient Unit");
+					else if (isNumeric(ingreUnit.getValue())) throw new IngredientException("Ingredient Unit");
 
 					String name, unit;
 					double qty;
 					name = ingreName.getText();
 					qty = Integer.valueOf(ingreQty.getText());
-					unit = ingreUnit.getText();
+					unit = ingreUnit.getValue();
 					Ingredient i = new Ingredient (name, qty, unit);
 					ingredients.add(i);
 					qtyPerServingSize.add(qty);
 
-				} catch (IngredientException e) {  }
+				} 
+				catch (IngredientException e) { 
+					// add more codes if needed
+				}
+				catch (NullPointerException np) {
+					AlertBox.display("Warning", "One or more fields are empty");
+				}
 			}
 		});
 

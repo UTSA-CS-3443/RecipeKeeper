@@ -68,9 +68,19 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="ingreName" prefHeight="27.0" prefWidth="139.0" promptText="ingredient" />
-                  <TextField fx:id="ingreQty" alignment="CENTER" prefHeight="27.0" prefWidth="72.0" promptText="quantity" />
-                  <TextField fx:id="ingreUnit" alignment="CENTER" prefHeight="27.0" prefWidth="47.0" promptText="unit" />
+                  <TextField fx:id="ingreName" prefHeight="27.0" prefWidth="139.0" promptText="ingredient">
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin></TextField>
+                  <TextField fx:id="ingreQty" alignment="CENTER" prefHeight="27.0" prefWidth="72.0" promptText="quantity">
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin></TextField>
+                  <ComboBox fx:id="ingreUnit" prefHeight="27.0" prefWidth="94.0" promptText="Unit">
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </ComboBox>
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="addIngredient" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" textAlignment="CENTER">
                      <font>
