@@ -10,15 +10,15 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.web.HTMLEditor?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="737.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NewController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="recipeName" alignment="CENTER" prefHeight="27.0" prefWidth="99.0" text="Burger" />
+                  <TextField fx:id="recipeName" alignment="CENTER" prefHeight="27.0" prefWidth="99.0" promptText="Name" />
                   <Region prefHeight="27.0" prefWidth="87.0" HBox.hgrow="ALWAYS" />
                   <ComboBox fx:id="servingSize" prefHeight="27.0" prefWidth="128.0" promptText="Serving Size" HBox.hgrow="ALWAYS" />
                </children>
@@ -58,7 +58,7 @@
    <center>
       <VBox prefHeight="616.0" prefWidth="543.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="ingredientsTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="ingredientsTable" prefHeight="173.0" prefWidth="529.0" VBox.vgrow="ALWAYS">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -105,7 +105,11 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;How to make this dish...&lt;/body&gt;&lt;/html&gt;" prefHeight="223.0" prefWidth="477.0" />
+                  <TextArea prefHeight="200.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </VBox.margin>
+                  </TextArea>
                </children>
             </VBox>
             <VBox prefHeight="177.0" prefWidth="543.0" VBox.vgrow="ALWAYS">

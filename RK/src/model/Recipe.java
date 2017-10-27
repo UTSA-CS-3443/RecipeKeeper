@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Recipe only store recipe name, ingredients and categories of the recipe
  * the instructions of the recipe is stored in a html file
- * @author hoapham
+ * @author Hoa Pham
  *
  */
 public class Recipe {
@@ -14,6 +14,16 @@ public class Recipe {
 	ArrayList<Ingredient> ingredients;
 	ArrayList<Category> categories;
 	
+	
+	/**
+	 * Default Constructor
+	 */
+	public Recipe() {
+		this.name = "";
+		this.ingredients = new ArrayList<Ingredient>();
+		this.categories = new ArrayList<Category>();
+	}
+	
 	/**
 	 * Constructor
 	 * @param name
@@ -21,12 +31,11 @@ public class Recipe {
 	 * @param categories
 	 */
 	public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<Category> categories) {
-		super();
 		this.name = name;
 		this.ingredients = ingredients;
 		this.categories = categories;
 	}
-
+	
 	/**
 	 * Get recipe name
 	 * @return
