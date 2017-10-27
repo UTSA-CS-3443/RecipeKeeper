@@ -12,7 +12,7 @@ public class Recipe {
 	
 	String name;
 	ArrayList<Ingredient> ingredients;
-	ArrayList<Category> categories;
+	ArrayList<String> categories;
 	
 	
 	/**
@@ -21,7 +21,7 @@ public class Recipe {
 	public Recipe() {
 		this.name = "";
 		this.ingredients = new ArrayList<Ingredient>();
-		this.categories = new ArrayList<Category>();
+		this.categories = new ArrayList<String>();
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class Recipe {
 	 * @param ingredients
 	 * @param categories
 	 */
-	public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<Category> categories) {
+	public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> categories) {
 		this.name = name;
 		this.ingredients = ingredients;
 		this.categories = categories;
@@ -72,7 +72,7 @@ public class Recipe {
 	 * Get categories the recipe belongs to
 	 * @return
 	 */
-	public ArrayList<Category> getCategories() {
+	public ArrayList<String> getCategories() {
 		return categories;
 	}
 
@@ -80,7 +80,7 @@ public class Recipe {
 	 * set categories the recipe belongs to
 	 * @param categories
 	 */
-	public void setCategories(ArrayList<Category> categories) {
+	public void setCategories(ArrayList<String> categories) {
 		this.categories = categories;
 	}
 	
