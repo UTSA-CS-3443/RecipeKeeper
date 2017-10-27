@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="motherPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ReadController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Savw" />
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+               <children>
+                  <TextField fx:id="readField" alignment="CENTER" editable="false" prefHeight="27.0" prefWidth="99.0" text="Burger" />
+                  <Region prefHeight="27.0" prefWidth="87.0" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="servingSize" prefHeight="27.0" prefWidth="128.0" promptText="Serving Size" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="616.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane prefHeight="30.0" prefWidth="523.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="105.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="120.0" minWidth="10.0" prefWidth="106.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="104.0" />
+                  <ColumnConstraints hgrow="ALWAYS" maxWidth="114.0" minWidth="10.0" prefWidth="106.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="121.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="84.0" text="Ingredients" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="65.0" text="Quantity" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="54.0" text="Unit" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+               </children>
+            </GridPane>
+            <ScrollPane fitToWidth="true" prefHeight="112.0" prefWidth="629.0">
+               <content>
+                  <GridPane prefHeight="206.0" prefWidth="525.0" vgap="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="readField" editable="false" text="You" />
+                        <TextField fx:id="readField" editable="false" text="Can't" GridPane.columnIndex="2" />
+                        <TextField fx:id="readField" editable="false" text="Edit" GridPane.columnIndex="4" />
+                        <TextField fx:id="readField" editable="false" text="These" GridPane.rowIndex="1" />
+                        <TextField fx:id="readField" editable="false" text="Field" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="readField" editable="false" text="Click" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="readField" editable="false" text="Edit" GridPane.rowIndex="2" />
+                        <TextField fx:id="readField" editable="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="readField" editable="false" text="." GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+            <VBox>
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Label text="Instructions" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="10.0" right="2.0" top="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="How to make this dish ..." />
+               </children>
+            </VBox>
+            <VBox prefHeight="177.0" prefWidth="543.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Categories">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="143.0" prefWidth="543.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ScrollPane prefHeight="170.0" prefWidth="543.0" HBox.hgrow="ALWAYS">
+                           <content>
+                              <GridPane prefHeight="153.0" prefWidth="182.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="92.0" minWidth="10.0" prefWidth="92.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="91.0" minWidth="10.0" prefWidth="90.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Label" />
+                                    <Label text="Label" GridPane.columnIndex="1" />
+                                    <Label text="Label" GridPane.rowIndex="1" />
+                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label text="Label" GridPane.rowIndex="2" />
+                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="Label" GridPane.rowIndex="3" />
+                                    <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                           </content>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox prefHeight="79.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="98.0" prefWidth="543.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" text="Bon Appétit" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

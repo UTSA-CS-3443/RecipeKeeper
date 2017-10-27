@@ -1,0 +1,11 @@
+.root {
+	
+}
+
+#ingredientsTable .table-column {
+	-fx-text-alignment: CENTER;
+}
+
+#ingredientsTable .table-cell {
+	-fx-alignment: CENTER;
+}
