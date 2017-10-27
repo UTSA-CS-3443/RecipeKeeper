@@ -16,8 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-
+import model.AlertBox;
 import model.Ingredient;
+import model.IngredientException;
 
 /**
  * NewController initializes when user chooses to create a new recipe

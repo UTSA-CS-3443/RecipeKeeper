@@ -1,4 +1,4 @@
-package control;
+package model;
 
 public class IngredientException extends Exception {
 	public IngredientException(String message) {
