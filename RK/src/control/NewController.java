@@ -23,7 +23,7 @@ import model.IngredientException;
 /**
  * NewController initializes when user chooses to create a new recipe
  * File -> New
- * @author hoapham
+ * @author Hoa Pham
  *
  */
 public class NewController implements Initializable{
