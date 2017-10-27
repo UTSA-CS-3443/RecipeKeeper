@@ -6,8 +6,10 @@ TODO
   + delIngredient (complete, delete from the bottom of the list)
   + servingSize Listener (complete)
   + responsive view (complete)
-  + addCategory (incomplete)
-  + delCategory
+  + addCategory (complete)
+  + delCategory (complete)
+  + change unit to drop-down menu (complete)
+  
   + Save, Save As Listener
   + Converter (later)
   
