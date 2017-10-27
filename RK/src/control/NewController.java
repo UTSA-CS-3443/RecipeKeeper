@@ -48,16 +48,16 @@ public class NewController implements Initializable{
 	ComboBox<String> ingreUnit = new ComboBox<>();
 
 	@FXML // fx:id="addIngredient"
-	Button addIngredient = new Button();
+	Button addIngredient = new Button();					// "+" button for ingredients
 
 	@FXML // fx:id="delIngredient"
-	Button delIngredient = new Button();
+	Button delIngredient = new Button();					// "-" button for ingredients
 
 	@FXML // fx:id="addCategory"
-	Button addCategory = new Button();
+	Button addCategory = new Button();					// "+" button for categories
 
 	@FXML // fx:id="delCategory"
-	Button delCategory = new Button();
+	Button delCategory = new Button();					// "-" button for categories
 
 	@FXML // fx:id="ingredientsTable"
 	TableView<Ingredient> ingredientsTable = new TableView<>();
@@ -70,10 +70,17 @@ public class NewController implements Initializable{
 	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
 	
 
-	// temporary ingredients list
+	/**
+	 * temporary ingredient list
+	 * will be added to part of a new recipe if the user wants to
+	 */
 	ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
 
-	// quantity per serving size
+	/**
+	 * Quantity per servingSize: created when an ingredient is added
+	 * used for changing servingSize. Ex: when user enter (chicken, 1, lb)
+	 * qtyPerServingSize will add 1 
+	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
 	
 	@Override
@@ -88,7 +95,6 @@ public class NewController implements Initializable{
 			for (int i = 0; i < ingredients.size(); i++) {
 				double tempQty;
 				tempQty = Double.parseDouble(servingSize.getValue()) * qtyPerServingSize.get(i);
-				System.out.println(String.valueOf(tempQty));
 				changeValueAt(i, 2, tempQty, ingredientsTable);
 			}
 		});

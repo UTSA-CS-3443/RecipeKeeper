@@ -23,9 +23,6 @@ public class EditController implements Initializable {
 	@Override	// Method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		
-		 assert servingSize != null : "fx:id=\"servingSize\" was not injected: "
-		 		+ "check your FXML file";
-		
 		// add serving sizes
 		servingSize.getItems().addAll("1","2","3");
 		
