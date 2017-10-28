@@ -5,27 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.AlertBox;
 import model.Ingredient;
 import model.IngredientException;
-import model.Recipe;
 
-public class EditController implements Initializable {
-
+/**
+ * NewController initializes when user chooses to create a new recipe
+ * File -> New
+ * @author Hoa Pham
+ *
+ */
+public class EditController implements Initializable{
 	@FXML // fx:id="motherPane"
 	BorderPane motherPane = new BorderPane();
-
+	
 	@FXML // fx:id="recipeName"
 	TextField recipeName = new TextField(); 
 
@@ -34,13 +38,13 @@ public class EditController implements Initializable {
 
 	@FXML // fx:id="ingreQty"
 	TextField ingreQty = new TextField();
-
+	
 	@FXML // fx:id="textCategory"
 	TextField textCategory = new TextField();
 
 	@FXML // fx:id="servingSize"
 	ComboBox<String> servingSize = new ComboBox<>();
-
+	
 	@FXML // fx:id="ingreUnit"
 	ComboBox<String> ingreUnit = new ComboBox<>();
 
@@ -59,37 +63,35 @@ public class EditController implements Initializable {
 	@FXML // fx:id="ingredientsTable"
 	TableView<Ingredient> ingredientsTable = new TableView<>();
 	
-	/**
-	 * Read data from model below this block of comments
-	 */
-	Recipe recipe = new Recipe();
+	@FXML // fx:id="categoryTable"
+	ListView<String> categoryTable = new ListView<>();
+	ObservableList<String> categories = FXCollections.observableArrayList();
 	
 	// list of units
 	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
 	
+
 	/**
-	 * Read ingredients from Recipe
+	 * temporary ingredient list
+	 * will be added to part of a new recipe if the user wants to
 	 */
 	ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
 
 	/**
-	 * Quantity per servingSize: 
-	 * Read the quantities of ingredients from model
+	 * Quantity per servingSize: created when an ingredient is added
+	 * used for changing servingSize. Ex: when user enter (chicken, 1, lb)
+	 * qtyPerServingSize will add 1 
 	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
-	@FXML // fx:id="categoryTable"
-	ListView<String> categoryTable = new ListView<>();
-	/**
-	 * Read data from model 
-	 */
-	ObservableList<String> categories = FXCollections.observableArrayList();
-
-	@Override	// Method is called by the FXMLLoader when initialization is complete
-	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-
-		// add serving sizes
-		servingSize.getItems().addAll("1","2","3");
+		/**
+		 * Sets up serving size ComboBox and
+		 * its handler 
+		 */
+		servingSize.getItems().addAll("1", "2", "3");		
 		servingSize.setOnAction( e -> {
 			for (int i = 0; i < ingredients.size(); i++) {
 				double tempQty;
@@ -126,7 +128,7 @@ public class EditController implements Initializable {
 
 		// Initialize Category table
 		categoryTable.setItems(categories);
-
+		
 		/**
 		 * EventHandler for adding an ingredient
 		 */
@@ -230,9 +232,8 @@ public class EditController implements Initializable {
 			}
 			
 		});
-
 	}
-	
+
 	/**
 	 * Check if a string is numeric
 	 * @param str
@@ -264,5 +265,5 @@ public class EditController implements Initializable {
 		newData.setQuantity(value);
 		table.getItems().set(row, newData);
 	}
-
+	
 }

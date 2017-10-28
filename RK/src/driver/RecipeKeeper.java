@@ -10,7 +10,7 @@ public class RecipeKeeper extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/EditInterface.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/NewInterface.fxml"));
 			Scene scene = new Scene(root, 529, 737);
 			scene.getStylesheets().add(getClass().getResource("/view/RecipeKeeper.css").toExternalForm());
 			primaryStage.setTitle("Interface Demo");
