@@ -19,10 +19,11 @@ import javafx.scene.layout.BorderPane;
 import model.AlertBox;
 import model.Ingredient;
 import model.IngredientException;
+import model.Recipe;
 
 /**
  * NewController initializes when user chooses to create a new recipe
- * File -> New
+ * File -> New or File -> Edit
  * @author Hoa Pham
  *
  */
@@ -66,6 +67,9 @@ public class EditController implements Initializable{
 	@FXML // fx:id="categoryTable"
 	ListView<String> categoryTable = new ListView<>();
 	ObservableList<String> categories = FXCollections.observableArrayList();
+	
+	// Recipe chose from model
+	Recipe recipe = new Recipe();
 	
 	// list of units
 	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
