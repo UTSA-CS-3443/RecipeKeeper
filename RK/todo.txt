@@ -1,7 +1,7 @@
 TODO
-- Create sample data file (parse data to control from model)
 
-- NewInferface, NewController:
+------------------------control------------------------
+- EditInferface, EditController:
   + addIngredient (complete)
   + delIngredient (complete, delete from the bottom of the list)
   + servingSize Listener (complete)
@@ -9,15 +9,18 @@ TODO
   + addCategory (complete)
   + delCategory (complete)
   + change unit to drop-down menu (complete)
-  
-  + Save, Save As Listener
-  + Converter (later)
-  
-- EditInterface, EditController:
+   + New, Edit, Save, Save As, Close
+  + Find By Name, Find By Ingredient, Find by Category
+
   + EditController should read data from model and renders on EditInterface -> Edit Listener
   + addIngredient, delIngredient, servingSize Listener, addCategory, delCategory, Save, Save As Listener from NewController 
   	upon completion of implementations
   + Integrate EditController and NewController from NewController
-  ****
-  + Create abstract control class 
-  + 
+
+  + Converter (later)
+  
+------------------------model------------------------
+  + Recipe
+  + RecipeList
+  
+------------------------view------------------------

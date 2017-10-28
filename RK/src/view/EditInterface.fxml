@@ -26,13 +26,22 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Edit" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As" />
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="menuNew" mnemonicParsing="false" text="New" />
+                        <MenuItem fx:id="menuEdit" mnemonicParsing="false" text="Edit" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="menuSave" mnemonicParsing="false" text="Save" />
+                        <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" text="Save As" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Find">
+                    <items>
+                      <MenuItem fx:id="findName" mnemonicParsing="false" text="By Name" />
+                        <MenuItem fx:id="findIngre" mnemonicParsing="false" text="By Ingredient" />
+                        <MenuItem fx:id="findCate" mnemonicParsing="false" text="By Category" />
+                    </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Find">
                     <items>
                         <MenuItem mnemonicParsing="false" text="By Ingredient" />
