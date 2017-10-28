@@ -73,6 +73,8 @@ public class EditController implements Initializable{
 	
 	// list of units
 	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
+	// serving Sizes
+	private static final String[] SERVSIZES = { "1", "2", "3" };
 	
 
 	/**
@@ -95,7 +97,7 @@ public class EditController implements Initializable{
 		 * Sets up serving size ComboBox and
 		 * its handler 
 		 */
-		servingSize.getItems().addAll("1", "2", "3");		
+		servingSize.getItems().addAll(SERVSIZES);		
 		servingSize.setOnAction( e -> {
 			for (int i = 0; i < ingredients.size(); i++) {
 				double tempQty;

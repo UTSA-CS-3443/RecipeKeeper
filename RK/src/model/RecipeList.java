@@ -31,16 +31,48 @@ public class RecipeList {
 	
 	/**
 	 * Get a recipe by its name
-	 * @param rName
-	 * @return recipe with the needed name
+	 * @param requested recipe name
+	 * @return a list of recipes that contains the requested name
 	 */
-	public Recipe getRecipeByName(String rName) {
-		Recipe recipeByName = null;
+	public ArrayList<Recipe> getRecipeByName(String rName) {
+		ArrayList<Recipe> result = new ArrayList<Recipe>();
 		for (Recipe r : recipeList) {
-			if (r.getName().equals(rName))
-				recipeByName = r;
+			if (r.getName().contains(rName))
+				result.add(r);
 		}
-		return recipeByName;
+		return result;
+	}
+	
+	/**
+	 * Get a recipe by the ingredient requested
+	 * @param requested ingredient
+	 * @return a list of recipes that contains the requested ingredient
+	 */
+	public ArrayList<Recipe> getRecipeByIngredients(String rIngre) {
+		ArrayList<Recipe> result = new ArrayList<Recipe>();
+		for (Recipe r : recipeList) {
+			for (String ingre : r.getCategories()) {
+				if (ingre.contains(rIngre))
+					result.add(r);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Get a recipe by category requested
+	 * @param requested category
+	 * @return a list of recipes that contains the requested category
+	 */
+	public ArrayList<Recipe> getRecipeByCategory(String rCat) {
+		ArrayList<Recipe> result = new ArrayList<Recipe>();
+		for (Recipe r : recipeList) {
+			for (String cate : r.getCategories()) {
+				if (cate.contains(rCat)) 
+					result.add(r);
+			}
+		}
+		return result;
 	}
 	
 	/**
