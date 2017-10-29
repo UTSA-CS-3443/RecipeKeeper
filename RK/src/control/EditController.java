@@ -70,6 +70,8 @@ public class EditController implements Initializable{
 	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
 	// serving Sizes
 	private static final String[] SERVSIZES = { "1", "2", "3" };
+	// minimum size of the window
+	private static final int[] MIN_SIZES = { 529,737 };
 	
 
 	/**

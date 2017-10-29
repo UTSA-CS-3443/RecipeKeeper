@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -27,8 +28,10 @@
                   <items>
                         <MenuItem fx:id="menuNew" mnemonicParsing="false" text="New" />
                         <MenuItem fx:id="menuEdit" mnemonicParsing="false" text="Edit" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="menuSave" mnemonicParsing="false" text="Save" />
                         <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" text="Save As" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
