@@ -67,7 +67,8 @@ public class EditController implements Initializable{
 	Recipe recipe = new Recipe();
 	
 	// list of units
-	private static final String[] UNITS = { "lb", "ml", "tps", "tbs" };
+	private static final String[] UNITS = { "kg", "hg", "dag", "g", "dg", "cg", "mg", 
+				"kl", "hl", "dal", "l", "dl", "cl", "ml" };
 	// serving Sizes
 	private static final String[] SERVSIZES = { "1", "2", "3" };
 	
