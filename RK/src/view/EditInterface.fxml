@@ -28,10 +28,8 @@
                   <items>
                         <MenuItem fx:id="menuNew" mnemonicParsing="false" text="New" />
                         <MenuItem fx:id="menuEdit" mnemonicParsing="false" text="Edit" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="menuSave" mnemonicParsing="false" text="Save" />
                         <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" text="Save As" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
