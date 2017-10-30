@@ -3,9 +3,9 @@ package model;
 import java.util.ArrayList;
 
 /**
- * Recipe only store recipe name, ingredients and categories of the recipe
- * the instructions of the recipe is stored in a html file
- * @author Hoa Pham
+ * Recipe class will store a recipe's name and instructions in strings, 
+ * and its ingredients and categories in ArrayLists.
+ * @author Robert Neuhaus
  *
  */
 public class Recipe {
@@ -13,7 +13,7 @@ public class Recipe {
 	String name;
 	ArrayList<Ingredient> ingredients;
 	ArrayList<String> categories;
-	
+	String instructions;
 	
 	/**
 	 * Default Constructor
