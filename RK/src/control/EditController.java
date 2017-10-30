@@ -43,6 +43,30 @@ public class EditController implements Initializable{
 	
 	@FXML // fx:id="ingreUnit"
 	ComboBox<String> ingreUnit = new ComboBox<>();
+	
+	@FXML // fx:id="menuNew"
+	MenuItem menuNew = new MenuItem();					// New...			
+	
+	@FXML // fx:id="menuEdit"
+	MenuItem menuEdit = new MenuItem();					// Edit
+	
+	@FXML // fx:id="menuSave"
+	MenuItem menuSave = new MenuItem();					// Save
+	
+	@FXML // fx:id="menuSaveAs"
+	MenuItem menuSaveAs = new MenuItem();				// Save As...
+	
+	@FXML // fx:id="menuClose"
+	MenuItem menuClose = new MenuItem();					// Close app
+	
+	@FXML // fx:id="findName"
+	MenuItem findName = new MenuItem();					// find by Name
+	
+	@FXML // fx:id="findIngre"
+	MenuItem findIngre = new MenuItem();					// find by Ingredient
+	
+	@FXML // fx:id="findCate"
+	MenuItem findCate = new MenuItem();					// find by Category
 
 	@FXML // fx:id="addIngredient"
 	Button addIngredient = new Button();					// "+" button for ingredients

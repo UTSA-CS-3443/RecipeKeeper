@@ -16,6 +16,7 @@ TODO
   + addIngredient, delIngredient, servingSize Listener, addCategory, delCategory, Save, Save As Listener from NewController 
   	upon completion of implementations
   + Integrate EditController and NewController from NewController
+  + If user click find another recipe while editing or creating a recipe, a window should pop up for save and save as..
 
   + Converter (later)
   
