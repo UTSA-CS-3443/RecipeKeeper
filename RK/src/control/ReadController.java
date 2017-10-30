@@ -27,6 +27,11 @@ import model.AlertBox;
 import model.Ingredient;
 import model.Recipe;
 
+/**
+ * Controller for Reading interface
+ * @author Hoa Pham
+ *
+ */
 public class ReadController implements Initializable {
 	
 	@FXML // fx:id="motherPane"
@@ -66,10 +71,12 @@ public class ReadController implements Initializable {
 	// Recipe chose from model
 	Recipe recipe = new Recipe();
 	
-	// serving Sizes
-	private static final String[] SERVSIZES = { "1", "2", "3" };
+	static Constants constants = new Constants();
 	
-	public static final int[] MIN_SIZES = { 529,737 };
+	// serving Sizes
+	private static final String[] SERVSIZES = constants.getServsizes();
+	// minimum size of the window
+	private static final int[] MIN_SIZES = constants.getMinSizes();
 
 	@Override	// Method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {

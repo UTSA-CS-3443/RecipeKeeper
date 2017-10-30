@@ -6,6 +6,11 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * Driver class of Recipe Keeper
+ * @author Hoa Pham
+ *
+ */
 public class RecipeKeeper extends Application {
 	
 	

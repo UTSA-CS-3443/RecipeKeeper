@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Recipe class will store a recipe's name and instructions in strings, 
  * and its ingredients and categories in ArrayLists.
- * @author Robert Neuhaus
+ * @author Robert Neuhaus, Hoa Pham
  *
  */
 public class Recipe {
