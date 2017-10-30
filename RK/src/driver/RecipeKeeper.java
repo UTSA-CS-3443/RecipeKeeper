@@ -1,5 +1,6 @@
 package driver;
 	
+import control.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -13,12 +14,12 @@ import javafx.scene.Scene;
  */
 public class RecipeKeeper extends Application {
 	
-	
+	Constants constants = new Constants();
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			final int[] MIN_SIZES = { 529,737 };
+			final int[] MIN_SIZES = constants.getMinSizes();
 			String fileDirectory = "/view/ReadInterface.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
 			Parent root = FXMLLoader.load(getClass().getResource(fileDirectory));
