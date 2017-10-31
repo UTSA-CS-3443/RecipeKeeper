@@ -118,6 +118,7 @@ public class EditController implements Initializable{
 	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
 	
+	@SuppressWarnings({ "unchecked", "unchecked" })
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -180,7 +181,8 @@ public class EditController implements Initializable{
 				try {
 
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) 
-						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
+						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")
+						) 
 						throw new IngredientException("One or more fields are empty");
 					else if (isNumeric(ingreName.getText())) throw new IngredientException("Ingredient Name");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient Quantity");
@@ -306,6 +308,16 @@ public class EditController implements Initializable{
 		Ingredient newData = table.getItems().get(row);
 		newData.setQuantity(value);
 		table.getItems().set(row, newData);
+	}
+	
+	/**
+	 * Check if a string contains an element from a string array
+	 * @param inputStr
+	 * @param items
+	 * @return
+	 */
+	public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+	    return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
 	}
 	
 }
