@@ -2,6 +2,7 @@ package control;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -15,6 +16,7 @@ import model.AlertBox;
 import model.Ingredient;
 import model.IngredientException;
 import model.Recipe;
+import model.WriteData;
 
 /**
  * NewController initializes when user chooses to create a new recipe
@@ -90,6 +92,9 @@ public class EditController implements Initializable{
 	// Recipe chose from model
 	Recipe recipe = new Recipe();
 	
+	// Data writer
+	WriteData dataWriter = new WriteData();
+	
 	static Constants constants = new Constants();
 	
 	// list of units
@@ -129,6 +134,14 @@ public class EditController implements Initializable{
 			}
 		});
 
+		menuSaveAs.setOnAction(action -> {
+			try {
+				recipeName.getText();
+			} catch (NullPointerException e) {
+				AlertBox.display("Warnning", "Recipe name is empty");
+			}
+		});
+		
 		/**
 		 * Sets up unit ComboBox for ingredients and 
 		 * its handler
@@ -166,8 +179,8 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 
-					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) ||
-							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
+					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) 
+						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
 					else if (isNumeric(ingreName.getText())) throw new IngredientException("Ingredient Name");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient Quantity");
