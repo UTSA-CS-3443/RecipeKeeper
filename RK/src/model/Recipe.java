@@ -30,10 +30,11 @@ public class Recipe {
 	 * @param ingredients
 	 * @param categories
 	 */
-	public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> categories) {
+	public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<String> categories, String instructions) {
 		this.name = name;
 		this.ingredients = ingredients;
 		this.categories = categories;
+		this.instructions = instructions;
 	}
 	
 	/**
@@ -84,5 +85,15 @@ public class Recipe {
 		this.categories = categories;
 	}
 	
+	public String toString() {
+		String str="";
+		for (Ingredient i : ingredients){
+			str = str + i + "\n";
+		}
+		for (String j : categories){
+			str = str + j + "\n,\n";
+		}
+		return str + instructions;
+	}
 	
 }

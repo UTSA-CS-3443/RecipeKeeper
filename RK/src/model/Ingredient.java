@@ -70,4 +70,8 @@ public class Ingredient {
 		this.unit = unit;
 	}
 	
+	public String toString(){
+		return this.name + "," + this.quantity + "," + this.unit;
+	}
+	
 }
