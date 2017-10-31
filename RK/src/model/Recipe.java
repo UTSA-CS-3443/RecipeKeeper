@@ -16,6 +16,22 @@ public class Recipe {
 	String instructions;
 	
 	/**
+	 * get Intructions
+	 * @return intructions as a string
+	 */
+	public String getInstructions() {
+		return instructions;
+	}
+
+	/**
+	 * set Instructions of the recipe
+	 * @param instructions
+	 */
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
+	}
+
+	/**
 	 * Default Constructor
 	 */
 	public Recipe() {
