@@ -180,8 +180,8 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 
-					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) 
-						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
+					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
+						ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name contains digit");
@@ -202,6 +202,9 @@ public class EditController implements Initializable{
 					// add more codes if needed
 				}
 				catch (IllegalArgumentException np) {
+					AlertBox.display("Warning", "One or more fields are empty");
+				}
+				catch (NullPointerException e) {
 					AlertBox.display("Warning", "One or more fields are empty");
 				}
 			}
