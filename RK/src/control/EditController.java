@@ -183,10 +183,10 @@ public class EditController implements Initializable{
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) 
 						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
-					if (containsDigit(ingreName.getText())) throw new IngredientException;
-					else if (isNumeric(ingreName.getText())) throw new IngredientException("Ingredient Name");
-					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient Quantity");
-					else if (isNumeric(ingreUnit.getValue())) throw new IngredientException("Ingredient Unit");
+					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name contains digit");
+					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name contains digit");
+					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
+					
 
 					String name, unit;
 					double qty;
@@ -346,6 +346,12 @@ public class EditController implements Initializable{
 				break;
 			}
 		}
+		return result;
+	}
+	
+	private static boolean validateIngredient(String ingreName, double ingreQty, String ingreUnit) {
+		boolean result = false;
+		
 		return result;
 	}
 }

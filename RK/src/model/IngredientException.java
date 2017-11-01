@@ -8,6 +8,6 @@ public class IngredientException extends Exception {
 	}
 
 	public IngredientException(String message) {
-		AlertBox.display("Warning", "Illegal Input Type: " + message);
+		AlertBox.display("Warning", "Input Error: " + message);
 	}
 }
