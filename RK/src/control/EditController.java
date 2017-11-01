@@ -95,14 +95,14 @@ public class EditController implements Initializable{
 	// Data writer
 	WriteData dataWriter = new WriteData();
 	
-	static Constants constants = new Constants();
+	private static Constants constants = new Constants();
 	
 	// list of units
-	private static final String[] UNITS = constants.getUnits();
+	private final String[] UNITS = constants.getUnits();
 	// serving Sizes
-	private static final String[] SERVSIZES = constants.getServsizes();
+	private final String[] SERVSIZES = constants.getServsizes();
 	// minimum size of the window
-	private static final int[] MIN_SIZES = constants.getMinSizes();
+	private final int[] MIN_SIZES = constants.getMinSizes();
 	
 
 	/**
@@ -181,9 +181,9 @@ public class EditController implements Initializable{
 				try {
 
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) 
-						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")
-						) 
+						|| ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
+					if (containsDigit(ingreName.getText())) throw new IngredientException;
 					else if (isNumeric(ingreName.getText())) throw new IngredientException("Ingredient Name");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient Quantity");
 					else if (isNumeric(ingreUnit.getValue())) throw new IngredientException("Ingredient Unit");
@@ -201,7 +201,7 @@ public class EditController implements Initializable{
 				catch (IngredientException e) { 
 					// add more codes if needed
 				}
-				catch (NullPointerException np) {
+				catch (IllegalArgumentException np) {
 					AlertBox.display("Warning", "One or more fields are empty");
 				}
 			}
@@ -283,7 +283,7 @@ public class EditController implements Initializable{
 	 * @param str
 	 * @return true if it is, false if otherwise
 	 */
-	public static boolean isNumeric(String str)  
+	private static boolean isNumeric(String str)  
 	{  
 		try  
 		{  
@@ -314,10 +314,38 @@ public class EditController implements Initializable{
 	 * Check if a string contains an element from a string array
 	 * @param inputStr
 	 * @param items
-	 * @return
+	 * @return true if it does, false otherwise
 	 */
-	public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+	private static boolean stringContainsItemFromList(String inputStr, String[] items) {
 	    return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
 	}
 	
+	/**
+	 * check if a string contains an alphabet letter
+	 * @param s
+	 * @return true if it does, false otherwise
+	 */
+	private static boolean stringContainsAlpha(String s) {
+		boolean result = false;
+		boolean containsUpper = stringContainsItemFromList(s, constants.getUpAlpha());
+		boolean containsLower = stringContainsItemFromList(s, constants.getLowAlpha());
+		result = containsUpper || containsLower;
+		return result;
+	}
+	
+	/**
+	 * check if a String contains a digit
+	 * @param a String
+	 * @return true if it does, false otherwise
+	 */
+	private static boolean containsDigit(String s) {
+		boolean result = false;
+		for (char c : s.toCharArray()) {
+			if (Character.isDigit(c)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 }
