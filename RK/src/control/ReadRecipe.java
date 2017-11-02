@@ -16,15 +16,16 @@ public class ReadRecipe {
 		File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
-		String line = "";
-		String newInstructions = "";
-		Recipe newRecipe = new Recipe();
 		ArrayList<Recipe> newRecipeArray = new ArrayList<Recipe>();
-		ArrayList<Ingredient> newIngredientArray = new ArrayList<Ingredient>();
-		ArrayList<String> newCategories = new ArrayList<String>();
-		Ingredient newIngredient;
 		if (recipeFiles != null){
 			for ( File child : recipeFiles){
+				String line = "";
+				String newInstructions = "";
+				Recipe newRecipe = new Recipe();
+
+				ArrayList<Ingredient> newIngredientArray = new ArrayList<Ingredient>();
+				ArrayList<String> newCategories = new ArrayList<String>();
+				Ingredient newIngredient;
 				try {
 					br = new BufferedReader(new FileReader(child));
 					while ((line = br.readLine()) != null && !line.equals(",")){
