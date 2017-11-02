@@ -1,6 +1,10 @@
-package model;
+package control;
 
 import java.io.FileWriter;
+
+import model.AlertBox;
+import model.Ingredient;
+import model.Recipe;
 
 public class WriteData {
 
