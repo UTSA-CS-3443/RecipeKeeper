@@ -16,7 +16,6 @@ import model.AlertBox;
 import model.Ingredient;
 import model.IngredientException;
 import model.Recipe;
-import model.WriteData;
 
 /**
  * NewController initializes when user chooses to create a new recipe
@@ -118,7 +117,6 @@ public class EditController implements Initializable{
 	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
 	
-	@SuppressWarnings({ "unchecked", "unchecked" })
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
