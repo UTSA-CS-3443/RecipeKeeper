@@ -74,6 +74,7 @@ public class ReadController implements Initializable {
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
 	
+	// constant values
 	static Constants constants = new Constants();
 	
 	// serving Sizes
@@ -114,13 +115,6 @@ public class ReadController implements Initializable {
 		// Quantity column
 		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
 		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
-		
-		// Set ingredientsTable
-		ingredientsTable.setItems((ObservableList<Ingredient>) recipe.getIngredients());
-		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
-		
-		// Initialize Category table
-		categoryTable.setItems((ObservableList<String>) recipe.getCategories());
 		
 		// menuNew listener
 		menuNew.setOnAction(action -> {
