@@ -39,7 +39,7 @@ public class ReadRecipe {
 						newCategories.addAll(Arrays.asList(lines));
 					}
 					while ((line = br.readLine()) != null){
-						newInstructions += line;
+						newInstructions += line + "\n";
 					}
 					newRecipe.setName(child.getName().substring(0,child.getName().length()-4));
 					newRecipe.setIngredients(newIngredientArray);
