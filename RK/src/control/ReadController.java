@@ -80,21 +80,6 @@ public class ReadController implements Initializable {
 	private static final String[] SERVSIZES = constants.getServsizes();
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
-
-	public ReadController (Recipe recipe) {
-		this.setRecipe(recipe);
-		try {
-			String fxmlFileDir = "/view/ReadInterface.fxml";
-			String cssFileDir = "/view/RecipeKeeper.css";
-			Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
-			Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-			editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-			Stage originalStage = (Stage) motherPane.getScene().getWindow();
-			originalStage.setScene(editWindow);
-		} catch (IOException e) {
-			
-		}
-	}
 	
 	@Override	// Method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {

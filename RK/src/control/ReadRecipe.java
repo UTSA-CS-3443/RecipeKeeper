@@ -14,6 +14,10 @@ import model.RecipeList;
 public class ReadRecipe {
 	public static RecipeList readRecipes() {
 		File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
+		if (!dir.exists()) {
+			dir = new File("../model.Recipes");
+		}
+		//File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
 		ArrayList<Recipe> newRecipeArray = new ArrayList<Recipe>();

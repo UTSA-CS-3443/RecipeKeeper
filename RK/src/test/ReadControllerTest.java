@@ -45,7 +45,7 @@ public class ReadControllerTest {
 		categories.add("category 2");
 		String instructions = "Do something........";
 		Recipe testRecipe = new Recipe(name, ingredients, categories, instructions);
-		new ReadController(testRecipe);
+		//new ReadController(testRecipe);
 	}
 
 }
