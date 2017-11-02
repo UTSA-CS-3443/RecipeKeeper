@@ -41,7 +41,7 @@ public class ReadRecipe {
 					while ((line = br.readLine()) != null){
 						newInstructions += line;
 					}
-					newRecipe.setName(child.getName());
+					newRecipe.setName(child.getName().substring(0,child.getName().length()-4));
 					newRecipe.setIngredients(newIngredientArray);
 					newRecipe.setCategories(newCategories);
 					newRecipe.setInstructions(newInstructions);

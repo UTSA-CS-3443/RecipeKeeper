@@ -103,7 +103,7 @@ public class Recipe {
 	}
 	
 	public String toString() {
-		String str="";
+		String str = "";
 		for (Ingredient i : ingredients){
 			str = str + i + "\n";
 		}
