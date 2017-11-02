@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import model.Ingredient;
 import model.Recipe;
 import model.RecipeList;
@@ -16,7 +15,7 @@ import model.RecipeList;
 public class ReadRecipe {
 	public static RecipeList readRecipes() {
 		Path currentRelativePath = Paths.get("");
-		String path = currentRelativePath.toAbsolutePath().toString() + "\\\\\\\\src\\\\\\\\model\\\\\\\\Recipes";
+		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes";
 		File dir = new File(path);
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
@@ -37,7 +36,6 @@ public class ReadRecipe {
 						newIngredient = new Ingredient(lines[0], Double.parseDouble(lines[1]), lines[2]);
 						newIngredientArray.add(newIngredient);
 					}
-					br.readLine();
 					while ((line = br.readLine()) != null && !line.equals(",")){
 						String[] lines = line.split(",");
 						newCategories.addAll(Arrays.asList(lines));
