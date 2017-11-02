@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import model.Ingredient;
 import model.Recipe;
+import control.*;
 
 public class WriteDataTest {
 
@@ -22,7 +23,7 @@ public class WriteDataTest {
 		testCategories.add("christmas");
 		testCategories.add("spooky");
 		Recipe test = new Recipe("test", testIngredients, testCategories, "cook");
-
+		new WriteData(test.getName(), test);
 	}
 
 }

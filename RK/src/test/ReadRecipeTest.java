@@ -35,7 +35,7 @@ public class ReadRecipeTest {
 	public void testReadRecipes() {
 		RecipeList rl = ReadRecipe.readRecipes();
 		for (Recipe r : rl.getRecipeList()) {
-			System.out.println(r.toString()+"\n");
+			System.out.println(r.toString());
 		}
 	}
 
