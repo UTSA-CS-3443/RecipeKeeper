@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.FileWriter;
 
 import model.AlertBox;
@@ -22,10 +23,15 @@ public class WriteData {
 	 * @param Recipe
 	 */
 	public WriteData(String fileName, Recipe recipe) {
-		FileWriter fileWriter = null;
+		File file = new File(fileName);
 		try {
-			fileWriter = new FileWriter(fileName);
-			fileWriter.append(recipe.toString());
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			FileWriter writer = new FileWriter(fileName);
+			writer.write(recipe.toString());
+			writer.flush();
+			writer.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
