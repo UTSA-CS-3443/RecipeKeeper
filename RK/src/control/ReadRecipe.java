@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,7 +15,9 @@ import model.RecipeList;
 
 public class ReadRecipe {
 	public static RecipeList readRecipes() {
-		File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
+		Path currentRelativePath = Paths.get("");
+		String path = currentRelativePath.toAbsolutePath().toString() + "\\\\\\\\src\\\\\\\\model\\\\\\\\Recipes";
+		File dir = new File(path);
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
 		ArrayList<Recipe> newRecipeArray = new ArrayList<Recipe>();
