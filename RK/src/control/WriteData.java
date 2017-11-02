@@ -28,15 +28,15 @@ public class WriteData {
 		CreateRecipeFile(fileName, recipe);
 	}
 	
-	public static void CreateRecipeFile(String fileName, Recipe recipe) {
+	public static void CreateRecipeFile(String recipeName, Recipe recipe) {
 		Path currentRelativePath = Paths.get("");
 		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes/";
-		File file = new File( path + fileName + ".csv");
+		File file = new File( path + recipeName + ".csv");
 		try {
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			FileWriter writer = new FileWriter(fileName);
+			FileWriter writer = new FileWriter(file);
 			writer.write(recipe.toString());
 			writer.flush();
 			writer.close();
