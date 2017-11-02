@@ -107,9 +107,11 @@ public class Recipe {
 		for (Ingredient i : ingredients){
 			str = str + i + "\n";
 		}
+		str = str + ",\n";
 		for (String j : categories){
-			str = str + j + "\n,\n";
+			str = str + j + ",";
 		}
+		str = str + "\n,\n";
 		return str + instructions;
 	}
 	

@@ -4,20 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import model.Ingredient;
 import model.Recipe;
 import model.RecipeList;
 
 public class ReadRecipe {
 	public static RecipeList readRecipes() {
-		File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
-		if (!dir.exists()) {
-			dir = new File("../model.Recipes");
-		}
-		//File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
+		Path currentRelativePath = Paths.get("");
+		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes";
+		File dir = new File(path);
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
 		ArrayList<Recipe> newRecipeArray = new ArrayList<Recipe>();
@@ -37,7 +36,6 @@ public class ReadRecipe {
 						newIngredient = new Ingredient(lines[0], Double.parseDouble(lines[1]), lines[2]);
 						newIngredientArray.add(newIngredient);
 					}
-					br.readLine();
 					while ((line = br.readLine()) != null && !line.equals(",")){
 						String[] lines = line.split(",");
 						newCategories.addAll(Arrays.asList(lines));
