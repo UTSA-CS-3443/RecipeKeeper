@@ -11,7 +11,7 @@ public class RecipeList {
 	/**
 	 * List of recipes
 	 */
-	ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 
 	/**
 	 * constructor
