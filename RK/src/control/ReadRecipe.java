@@ -32,8 +32,26 @@ public class ReadRecipe {
 				try {
 					br = new BufferedReader(new FileReader(child));
 					while ((line = br.readLine()) != null && !line.equals(",")){
-						String[] lines = line.split(",");
-						newIngredient = new Ingredient(lines[0], Double.parseDouble(lines[1]), lines[2]);
+						ArrayList<String> lines = new ArrayList<String>();
+						lines.addAll(Arrays.asList(line.split(",")));
+							double quant;
+							String name = "", unit = "";
+							try {
+								quant = Double.parseDouble(lines.get(1));
+							} catch(Exception e) {
+								quant = 0;
+							}
+							try {
+								name = lines.get(0);
+							} catch(Exception e) {
+								lines.add(0, "");
+							}
+							try {
+								unit = lines.get(2);
+							} catch(Exception e) {
+								lines.add(2, "");
+							}					
+						newIngredient = new Ingredient(name, quant, unit);
 						newIngredientArray.add(newIngredient);
 					}
 					while ((line = br.readLine()) != null && !line.equals(",")){
