@@ -13,7 +13,7 @@ import model.RecipeList;
 
 public class ReadRecipe {
 	public static RecipeList readRecipes() {
-		File dir = new File("/model.Recipes");
+		File dir = new File("C:\\Users\\urban\\git\\RecipeKeeper\\RK\\src\\model\\Recipes");
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;
 		String line = "";
@@ -32,6 +32,7 @@ public class ReadRecipe {
 						newIngredient = new Ingredient(lines[0], Double.parseDouble(lines[1]), lines[2]);
 						newIngredientArray.add(newIngredient);
 					}
+					br.readLine();
 					while ((line = br.readLine()) != null && !line.equals(",")){
 						String[] lines = line.split(",");
 						newCategories.addAll(Arrays.asList(lines));
