@@ -23,7 +23,7 @@ public class WriteDataTest {
 		testCategories.add("christmas");
 		testCategories.add("spooky");
 		Recipe test = new Recipe("test", testIngredients, testCategories, "cook");
-		new WriteData(test.getName(), test);
+		WriteData.CreateRecipeFile(test.getName(), test);
 	}
 
 }

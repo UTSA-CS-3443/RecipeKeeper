@@ -2,6 +2,8 @@ package control;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import model.AlertBox;
 import model.Ingredient;
@@ -23,7 +25,13 @@ public class WriteData {
 	 * @param Recipe
 	 */
 	public WriteData(String fileName, Recipe recipe) {
-		File file = new File(fileName);
+		CreateRecipeFile(fileName, recipe);
+	}
+	
+	public static void CreateRecipeFile(String fileName, Recipe recipe) {
+		Path currentRelativePath = Paths.get("");
+		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes/";
+		File file = new File( path + fileName + ".csv");
 		try {
 			if (!file.exists()) {
 				file.createNewFile();
@@ -35,7 +43,5 @@ public class WriteData {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
 }
