@@ -1,6 +1,7 @@
 package control;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class ReadRecipe {
 				String line = "";
 				String newInstructions = "";
 				Recipe newRecipe = new Recipe();
-
 				ArrayList<Ingredient> newIngredientArray = new ArrayList<Ingredient>();
 				ArrayList<String> newCategories = new ArrayList<String>();
 				Ingredient newIngredient;
@@ -50,6 +50,7 @@ public class ReadRecipe {
 					newRecipeArray.add(newRecipe);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					// Hoa will do this
 				}
 			}
 		}
