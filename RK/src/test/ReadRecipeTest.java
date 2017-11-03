@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import control.ReadRecipe;
+import control.ReadData;
 import model.Recipe;
 import model.RecipeList;
 
@@ -33,7 +33,7 @@ public class ReadRecipeTest {
 
 	@Test
 	public void testReadRecipes() {
-		RecipeList rl = ReadRecipe.readRecipes();
+		RecipeList rl = ReadData.readRecipes();
 		for (Recipe r : rl.getRecipeList()) {
 			System.out.println(r.toString());
 		}

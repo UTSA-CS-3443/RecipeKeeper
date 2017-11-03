@@ -13,7 +13,7 @@ import model.Ingredient;
 import model.Recipe;
 import model.RecipeList;
 
-public class ReadRecipe {
+public class ReadData {
 	public static RecipeList readRecipes() {
 		Path currentRelativePath = Paths.get("");
 		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes";
