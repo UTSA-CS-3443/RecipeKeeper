@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -10,7 +11,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.javafx.fxml.LoadListener;
+
+import control.Constants;
 import control.ReadController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Ingredient;
 import model.Recipe;
 
@@ -34,6 +44,8 @@ public class ReadControllerTest {
 
 	@Test
 	public void testReadController() {
+		
+		
 		String name = "TestName";
 		Ingredient i1 = new Ingredient("ingreName", 1, "ingreUnit");
 		Ingredient i2 = new Ingredient("ingreName2", 2, "ingreUnit2");
@@ -45,7 +57,42 @@ public class ReadControllerTest {
 		categories.add("category 2");
 		String instructions = "Do something........";
 		Recipe testRecipe = new Recipe(name, ingredients, categories, instructions);
-		//new ReadController(testRecipe);
+		
+		try {
+			Constants constants = new Constants();
+			final int[] MIN_SIZES = constants.getMinSizes();
+			/**
+			 * load file
+			 */
+			FXMLLoader loader = new FXMLLoader( getClass().getResource("/view/ReadInterface.fxml"));
+			
+			/**
+			 * set up controller
+			 */
+			ReadController controller = loader.<ReadController>getController();
+			controller.initData(testRecipe);
+			
+			/**
+			 * set to scene
+			 */
+			String cssDirectory = "/view/RecipeKeeper.css";
+			Parent root = loader.load();
+			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+			scene.getStylesheets().add(getClass().getResource(cssDirectory).toExternalForm());
+			
+			/**
+			 * set stage
+			 */
+			Stage primaryStage = new Stage();
+			primaryStage.setTitle("Interface Demo");
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
+	
 }
