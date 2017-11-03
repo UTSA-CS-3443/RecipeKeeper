@@ -39,41 +39,41 @@ import model.RecipeList;
 public class ReadController implements Initializable {
 	
 	@FXML // fx:id="motherPane"
-	BorderPane motherPane = new BorderPane();
+	BorderPane motherPane;
 	
 	@FXML // fx:id="recipeName"
-	TextField recipeName = new TextField(); 
+	TextField recipeName; 
 	
 	@FXML // fx:id="instructions"
-	TextArea instructions = new TextArea();
+	TextArea instructions;
 
 	@FXML // fx:id="servingSize"
-	ComboBox<String> servingSize = new ComboBox<>();
+	ComboBox<String> servingSize;
 
 	@FXML // fx:id="ingredientsTable"
-	TableView<Ingredient> ingredientsTable = new TableView<>();
+	TableView<Ingredient> ingredientsTable;
 	
 	@FXML // fx:id="categoryTable"
-	ListView<String> categoryTable = new ListView<>();
-	ObservableList<String> rCategories = FXCollections.observableArrayList();
+	ListView<String> categoryTable;
+	ObservableList<String> rCategories  = FXCollections.observableArrayList();
 	
 	@FXML // fx:id="menuNew"
-	MenuItem menuNew = new MenuItem();					// New...			
+	MenuItem menuNew;					// New...			
 	
 	@FXML // fx:id="menuEdit"
-	MenuItem menuEdit = new MenuItem();					// Edit
+	MenuItem menuEdit;					// Edit
 	
 	@FXML // fx:id="menuSave"
-	MenuItem menuSave = new MenuItem();					// Save
+	MenuItem menuSave;					// Save
 	
 	@FXML // fx:id="menuSaveAs"
-	MenuItem menuSaveAs = new MenuItem();				// Save As...
+	MenuItem menuSaveAs;				// Save As...
 	
 	@FXML // fx:id="menuClose"
-	MenuItem menuClose = new MenuItem();					// Close app
+	MenuItem menuClose;					// Close app
 	
 	// Recipe chose from model
-	private Recipe recipe = new Recipe();
+	private Recipe recipe;
 	
 	// ingredients from recipe for reading
 	ObservableList<Ingredient> rIngredients = FXCollections.observableArrayList();
@@ -86,8 +86,13 @@ public class ReadController implements Initializable {
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
 	
+	public ReadController() {
+		super();
+	}
+
 	/**
-	 * constructor
+	 * Constructor
+	 * @param r
 	 */
 	public ReadController(Recipe r) {
 		initData(r);

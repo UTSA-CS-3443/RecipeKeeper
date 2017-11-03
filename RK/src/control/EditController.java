@@ -25,67 +25,67 @@ import model.Recipe;
  */
 public class EditController implements Initializable{
 	@FXML // fx:id="motherPane"
-	BorderPane motherPane = new BorderPane();
+	BorderPane motherPane;
 	
 	@FXML // fx:id="recipeName"
-	TextField recipeName = new TextField(); 
+	TextField recipeName; 
 
 	@FXML // fx:id="ingreName"
-	TextField ingreName = new TextField();
+	TextField ingreName;
 
 	@FXML // fx:id="ingreQty"
-	TextField ingreQty = new TextField();
+	TextField ingreQty;
 	
 	@FXML // fx:id="textCategory"
-	TextField textCategory = new TextField();
+	TextField textCategory;
 
 	@FXML // fx:id="servingSize"
-	ComboBox<String> servingSize = new ComboBox<>();
+	ComboBox<String> servingSize;
 	
 	@FXML // fx:id="ingreUnit"
-	ComboBox<String> ingreUnit = new ComboBox<>();
+	ComboBox<String> ingreUnit;
 	
 	@FXML // fx:id="menuNew"
-	MenuItem menuNew = new MenuItem();					// New...			
+	MenuItem menuNew;					// New...			
 	
 	@FXML // fx:id="menuEdit"
-	MenuItem menuEdit = new MenuItem();					// Edit
+	MenuItem menuEdit;					// Edit
 	
 	@FXML // fx:id="menuSave"
-	MenuItem menuSave = new MenuItem();					// Save
+	MenuItem menuSave;					// Save
 	
 	@FXML // fx:id="menuSaveAs"
-	MenuItem menuSaveAs = new MenuItem();				// Save As...
+	MenuItem menuSaveAs;				// Save As...
 	
 	@FXML // fx:id="menuClose"
-	MenuItem menuClose = new MenuItem();					// Close app
+	MenuItem menuClose;					// Close app
 	
 	@FXML // fx:id="findName"
-	MenuItem findName = new MenuItem();					// find by Name
+	MenuItem findName;					// find by Name
 	
 	@FXML // fx:id="findIngre"
-	MenuItem findIngre = new MenuItem();					// find by Ingredient
+	MenuItem findIngre;					// find by Ingredient
 	
 	@FXML // fx:id="findCate"
-	MenuItem findCate = new MenuItem();					// find by Category
+	MenuItem findCate;					// find by Category
 
 	@FXML // fx:id="addIngredient"
-	Button addIngredient = new Button();					// "+" button for ingredients
+	Button addIngredient;					// "+" button for ingredients
 
 	@FXML // fx:id="delIngredient"
-	Button delIngredient = new Button();					// "-" button for ingredients
+	Button delIngredient;					// "-" button for ingredients
 
 	@FXML // fx:id="addCategory"
-	Button addCategory = new Button();					// "+" button for categories
+	Button addCategory;					// "+" button for categories
 
 	@FXML // fx:id="delCategory"
-	Button delCategory = new Button();					// "-" button for categories
+	Button delCategory;					// "-" button for categories
 
 	@FXML // fx:id="ingredientsTable"
-	TableView<Ingredient> ingredientsTable = new TableView<>();
+	TableView<Ingredient> ingredientsTable;
 	
 	@FXML // fx:id="categoryTable"
-	ListView<String> categoryTable = new ListView<>();
+	ListView<String> categoryTable;
 	ObservableList<String> categories = FXCollections.observableArrayList();
 	
 	// Recipe chose from model
