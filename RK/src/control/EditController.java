@@ -46,28 +46,28 @@ public class EditController implements Initializable{
 	ComboBox<String> ingreUnit;
 	
 	@FXML // fx:id="menuNew"
-	MenuItem menuNew;					// New...			
+	MenuItem menuNew;						// New...			
 	
 	@FXML // fx:id="menuEdit"
-	MenuItem menuEdit;					// Edit
+	MenuItem menuEdit;						// Edit
 	
 	@FXML // fx:id="menuSave"
-	MenuItem menuSave;					// Save
+	MenuItem menuSave;						// Save
 	
 	@FXML // fx:id="menuSaveAs"
-	MenuItem menuSaveAs;				// Save As...
+	MenuItem menuSaveAs;						// Save As...
 	
 	@FXML // fx:id="menuClose"
-	MenuItem menuClose;					// Close app
+	MenuItem menuClose;						// Close app
 	
 	@FXML // fx:id="findName"
-	MenuItem findName;					// find by Name
+	MenuItem findName;						// find by Name
 	
 	@FXML // fx:id="findIngre"
-	MenuItem findIngre;					// find by Ingredient
+	MenuItem findIngre;						// find by Ingredient
 	
 	@FXML // fx:id="findCate"
-	MenuItem findCate;					// find by Category
+	MenuItem findCate;						// find by Category
 
 	@FXML // fx:id="addIngredient"
 	Button addIngredient;					// "+" button for ingredients
@@ -76,10 +76,10 @@ public class EditController implements Initializable{
 	Button delIngredient;					// "-" button for ingredients
 
 	@FXML // fx:id="addCategory"
-	Button addCategory;					// "+" button for categories
+	Button addCategory;						// "+" button for categories
 
 	@FXML // fx:id="delCategory"
-	Button delCategory;					// "-" button for categories
+	Button delCategory;						// "-" button for categories
 
 	@FXML // fx:id="ingredientsTable"
 	TableView<Ingredient> ingredientsTable;

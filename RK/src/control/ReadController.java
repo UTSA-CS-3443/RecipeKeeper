@@ -67,7 +67,7 @@ public class ReadController implements Initializable {
 	MenuItem menuSave;					// Save
 	
 	@FXML // fx:id="menuSaveAs"
-	MenuItem menuSaveAs;				// Save As...
+	MenuItem menuSaveAs;					// Save As...
 	
 	@FXML // fx:id="menuClose"
 	MenuItem menuClose;					// Close app
@@ -86,10 +86,15 @@ public class ReadController implements Initializable {
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
 	
+	/**
+	 * 
+	 */
 	public ReadController() {
 		super();
 	}
 
+	public void initialize() {}
+	
 	/**
 	 * Constructor
 	 * @param r
@@ -166,11 +171,19 @@ public class ReadController implements Initializable {
 	}	
 	
 	/**
-	 * Initialize data
+	 * Initialize data, Recipe setter
 	 * @param recipe
 	 */
 	public void initData(Recipe r) {
 		this.recipe = r;
+	}
+	
+	/**
+	 * get Data, recipe getter
+	 * @return the recipe is being read
+	 */
+	public Recipe getData() {
+		return this.recipe;
 	}
 	
 	/**
