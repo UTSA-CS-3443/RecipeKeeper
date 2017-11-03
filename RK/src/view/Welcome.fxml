@@ -26,14 +26,14 @@
                <children>
                   <VBox prefHeight="101.0" prefWidth="165.0" spacing="10.0">
                      <children>
-                        <TextField promptText="by name" />
-                        <TextField promptText="by ingredient" />
-                        <TextField promptText="by category" />
+                        <TextField fx:id="byName" promptText="by name" />
+                        <TextField fx:id="byIngredient" promptText="by ingredient" />
+                        <TextField fx:id="byCategory" promptText="by category" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="110.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="110.0" text="Find A Recipe" />
+                        <Button fx:id="findRep" mnemonicParsing="false" prefHeight="52.0" prefWidth="110.0" text="Find A Recipe" />
                      </children>
                   </VBox>
                </children>

@@ -10,8 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Recipe;
+import model.RecipeList;
 
 /**
  * Welcome Controller
@@ -22,6 +25,15 @@ public class WelcomeController implements Initializable {
 	
 	@FXML // fx:id="motherPane"
 	BorderPane motherPane = new BorderPane();
+	
+	@FXML // fx:id="byName"
+	TextField byName = new TextField();
+	
+	@FXML // fx:id="byIngredient"
+	TextField byIngredient = new TextField();
+	
+	@FXML // fx:id="byCategory"
+	TextField byCategory = new TextField();
 	
 	@FXML // fx:id="startRep"
 	Button startRep = new Button();
