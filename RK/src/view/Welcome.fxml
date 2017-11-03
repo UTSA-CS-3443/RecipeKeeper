@@ -2,22 +2,47 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="motherPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.WelcomeController">
+<BorderPane fx:id="motherPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.WelcomeController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="360.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome To Recipe Keeper">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="startRep" mnemonicParsing="false" text="Start Your Own Recipe" />
-            <Button fx:id="findRep" mnemonicParsing="false" text="Try Our Go-Tos" />
-            <Button fx:id="editRep" mnemonicParsing="false" text="Change A Recipe" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="startRep" mnemonicParsing="false" prefHeight="27.0" prefWidth="286.0" text="Start Your Own Recipe" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <VBox prefHeight="101.0" prefWidth="165.0" spacing="10.0">
+                     <children>
+                        <TextField promptText="by name" />
+                        <TextField promptText="by ingredient" />
+                        <TextField promptText="by category" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="110.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="110.0" text="Find A Recipe" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="editRep" mnemonicParsing="false" prefHeight="27.0" prefWidth="287.0" text="Change A Recipe" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
