@@ -13,7 +13,7 @@ import control.ReadData;
 import model.Recipe;
 import model.RecipeList;
 
-public class ReadRecipeTest {
+public class ReadDataTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
