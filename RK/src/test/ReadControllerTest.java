@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -67,18 +69,16 @@ public class ReadControllerTest {
 			FXMLLoader loader = new FXMLLoader( getClass().getResource("/view/ReadInterface.fxml"));
 			
 			/**
+			 * set to scene
+			 */
+			Parent root = loader.load();
+			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+			
+			/**
 			 * set up controller
 			 */
 			ReadController controller = loader.<ReadController>getController();
 			controller.initData(testRecipe);
-			
-			/**
-			 * set to scene
-			 */
-			String cssDirectory = "/view/RecipeKeeper.css";
-			Parent root = loader.load();
-			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-			scene.getStylesheets().add(getClass().getResource(cssDirectory).toExternalForm());
 			
 			/**
 			 * set stage
