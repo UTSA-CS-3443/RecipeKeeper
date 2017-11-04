@@ -108,7 +108,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextArea prefHeight="200.0" prefWidth="200.0">
+                  <TextArea fx:id="instructions" prefHeight="200.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </VBox.margin>

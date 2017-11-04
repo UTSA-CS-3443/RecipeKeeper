@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import control.Constants;
+import control.EditController;
 import control.ReadController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -50,12 +51,11 @@ public class RecipeKeeper extends Application {
 			controller.initData(testRecipe);
 			controller.initialize(location, loader.getResources());
 			
-			
 			final int[] MIN_SIZES = constants.getMinSizes();
 			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 			
 			scene.getStylesheets().add(getClass().getResource(cssDirectory).toExternalForm());
-			primaryStage.setTitle("Interface Demo");
+			primaryStage.setTitle(controller.getData().getName() + " - View Mode");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

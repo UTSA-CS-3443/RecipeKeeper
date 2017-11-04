@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.stage.Stage;
@@ -15,6 +16,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -88,6 +91,13 @@ public class ReadController implements Initializable {
 	private static final int[] MIN_SIZES = constants.getMinSizes();
 
 	/**
+	 * Quantity per servingSize: created when an ingredient is added
+	 * used for changing servingSize. Ex: when user enter (chicken, 1, lb)
+	 * qtyPerServingSize will add 1 
+	 */
+	private List<Double> qtyPerServingSize = new ArrayList<Double>();
+	
+	/**
 	 * 
 	 */
 	public ReadController() {
@@ -105,7 +115,69 @@ public class ReadController implements Initializable {
 	// Method is called by the FXMLLoader when initialization is complete
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		/**
+		 * Second method for serving size listener
+		 * Listen for changes to the serving size selection
+		 * and update the displayed serving size
+		 */
+		servingSize.setOnAction( e -> {
+			for (int i = 0; i < getData().getIngredients().size(); i++) {
+				double tempQty;
+				tempQty = Double.parseDouble(servingSize.getValue()) * qtyPerServingSize.get(i);
+				changeValueAt(i, 2, tempQty, ingredientsTable);
+			}
+		});
+		
+		// menuNew listener
+		menuNew.setOnAction(new EventHandler<ActionEvent>() {
+			@Override 
+			public void handle(ActionEvent e) {
+				try {
+					String fxmlFileDir = "/view/EditInterface.fxml";
+					String cssFileDir = "/view/RecipeKeeper.css";
+					Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+					
+					originalStage.setTitle(getData().getName() + " - Edit Mode");
+					originalStage.setScene(editWindow);
+					originalStage.show();
+				} catch (IOException ioe) {
 
+				}
+			}
+		});
+		
+		menuEdit.setOnAction(new EventHandler<ActionEvent>() {
+			@SuppressWarnings("static-access")
+			@Override 
+			public void handle(ActionEvent e) {
+				try {
+					String fxmlFileDir = "/view/EditInterface.fxml";
+					String cssFileDir = "/view/RecipeKeeper.css";
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load(getClass().getResource(fxmlFileDir));
+					URL location = new URL(loader.getLocation().toString());
+
+					EditController controller = loader.getController();
+					controller.initData(recipe);
+					controller.initialize(location, loader.getResources());
+
+					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+					
+					originalStage.setTitle(getData().getName() + " - Edit Mode");
+					originalStage.setScene(editWindow);
+					originalStage.show();
+
+				} catch (IOException ioe) {
+
+				}
+			}
+		});
 	}	
 
 	/**
@@ -122,18 +194,6 @@ public class ReadController implements Initializable {
 
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
-		/**
-		 * Second method for serving size listener
-		 * Listen for changes to the serving size selection
-		 * and update the displayed serving size
-		 */
-		servingSize.setOnAction( e -> {
-			for (int i = 0; i < recipe.getIngredients().size(); i++) {
-				double tempQty;
-				tempQty = Double.parseDouble(servingSize.getValue()) * recipe.getIngredients().get(i).getQuantity();
-				changeValueAt(i, 2, tempQty, ingredientsTable);
-			}
-		});
 
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
@@ -150,6 +210,7 @@ public class ReadController implements Initializable {
 		// Set ingredientsTable
 		for (Ingredient i : recipe.getIngredients()) {
 			rIngredients.add(i);
+			qtyPerServingSize.add(i.getQuantity());
 		}
 		ingredientsTable.setItems(rIngredients);
 		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
@@ -159,21 +220,6 @@ public class ReadController implements Initializable {
 			rCategories.add(s);
 		}
 		categoryTable.setItems(rCategories);
-
-		// menuNew listener
-		menuNew.setOnAction(action -> {
-			try {
-				String fxmlFileDir = "/view/EditInterface.fxml";
-				String cssFileDir = "/view/RecipeKeeper.css";
-				Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
-				Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-				editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-				Stage originalStage = (Stage) motherPane.getScene().getWindow();
-				originalStage.setScene(editWindow);
-			} catch (IOException e) {
-
-			}
-		});
 
 	}
 
