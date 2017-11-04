@@ -39,6 +39,9 @@ public class EditController implements Initializable{
 	@FXML // fx:id="textCategory"
 	private TextField textCategory;
 
+	@FXML //fx:id="instructions"
+	private TextArea instructions;
+	
 	@FXML // fx:id="servingSize"
 	private ComboBox<String> servingSize;
 	
@@ -117,6 +120,18 @@ public class EditController implements Initializable{
 	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
 	
+	public EditController() {
+		super();
+	}
+	
+	/**
+	 * Constructor
+	 * @param r
+	 */
+	public EditController(Recipe r) {
+		initData(r);
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -124,7 +139,6 @@ public class EditController implements Initializable{
 		 * Sets up serving size ComboBox and
 		 * its handler 
 		 */
-		servingSize.getItems().addAll(SERVSIZES);		
 		servingSize.setOnAction( e -> {
 			for (int i = 0; i < ingredients.size(); i++) {
 				double tempQty;
@@ -133,6 +147,9 @@ public class EditController implements Initializable{
 			}
 		});
 
+		/**
+		 * menuSaveAs handler
+		 */
 		menuSaveAs.setOnAction(action -> {
 			try {
 				recipeName.getText();
@@ -142,33 +159,12 @@ public class EditController implements Initializable{
 		});
 		
 		/**
-		 * Sets up unit ComboBox for ingredients and 
-		 * its handler
+		 * Sets up handler for unit ComboBox for ingredients 
+		 * 
 		 */
-		ingreUnit.getItems().addAll(UNITS);
-		ingreUnit.setEditable(true);
 		ingreUnit.setOnAction(e -> {
 			// add more code for listener if needed
 		});
-		
-		// Ingredient column
-		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
-		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		// Quantity column
-		TableColumn<Ingredient, String> quantityColumn = new TableColumn<>("Quantity");
-		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));	
-
-		// Quantity column
-		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
-		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
-
-		// Set ingredientsTable
-		ingredientsTable.setItems(ingredients);
-		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
-
-		// Initialize Category table
-		categoryTable.setItems(categories);
 		
 		/**
 		 * EventHandler for adding an ingredient
@@ -281,6 +277,55 @@ public class EditController implements Initializable{
 		});
 	}
 
+	/**
+	 * Initialize data, Recipe setter
+	 * @param recipe
+	 */
+	public void initData(Recipe r) {
+		this.recipe = r;
+		
+		recipeName.setText(recipe.getName());
+		instructions.setText(recipe.getInstructions());
+		
+		// servingSize
+		servingSize.getItems().addAll(SERVSIZES);
+		
+		// ComboBox for ingredient's units
+		ingreUnit.getItems().addAll(UNITS);
+		ingreUnit.setEditable(true);
+		
+		// Ingredient column
+		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
+		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+		// Quantity column
+		TableColumn<Ingredient, String> quantityColumn = new TableColumn<>("Quantity");
+		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));	
+
+		// Quantity column
+		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
+		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+
+		// Set ingredientsTable
+		for (Ingredient i : recipe.getIngredients()) {
+			ingredients.add(i);
+			qtyPerServingSize.add(i.getQuantity());
+		}
+		ingredientsTable.setItems(ingredients);
+		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
+
+		// Initialize Category table
+		categoryTable.setItems(categories);
+	}
+	
+	/**
+	 * get Data, recipe getter
+	 * @return the recipe is being read
+	 */
+	public Recipe getData() {
+		return this.recipe;
+	}
+	
 	/**
 	 * Check if a string is numeric
 	 * @param str
