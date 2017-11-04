@@ -38,13 +38,13 @@ import model.RecipeList;
  *
  */
 public class ReadController implements Initializable {
-	
+
 	@FXML // fx:id="motherPane"
 	private BorderPane motherPane;
-	
+
 	@FXML // fx:id="recipeName"
 	private TextField recipeName; 
-	
+
 	@FXML // fx:id="instructions"
 	private TextArea instructions;
 
@@ -53,47 +53,47 @@ public class ReadController implements Initializable {
 
 	@FXML // fx:id="ingredientsTable"
 	private TableView<Ingredient> ingredientsTable;
-	
+
 	@FXML // fx:id="categoryTable"
 	private ListView<String> categoryTable;
 	private ObservableList<String> rCategories  = FXCollections.observableArrayList();
-	
+
 	@FXML // fx:id="menuNew"
 	private MenuItem menuNew;					// New...			
-	
+
 	@FXML // fx:id="menuEdit"
 	private MenuItem menuEdit;					// Edit
-	
+
 	@FXML // fx:id="menuSave"
 	private MenuItem menuSave;					// Save
-	
+
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;					// Save As...
-	
+
 	@FXML // fx:id="menuClose"
 	private MenuItem menuClose;					// Close app
-	
+
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
-	
+
 	// ingredients from recipe for reading
 	private ObservableList<Ingredient> rIngredients = FXCollections.observableArrayList();
-	
+
 	// constant values
 	static Constants constants = new Constants();
-	
+
 	// serving Sizes
 	private static final String[] SERVSIZES = constants.getServsizes();
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
-	
+
 	/**
 	 * 
 	 */
 	public ReadController() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor
 	 * @param r
@@ -101,17 +101,25 @@ public class ReadController implements Initializable {
 	public ReadController(Recipe r) {
 		initData(r);
 	}
-	
+
 	// Method is called by the FXMLLoader when initialization is complete
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// Initialize and set editable to false
+	}	
+
+	/**
+	 * Initialize data, Recipe setter
+	 * @param recipe
+	 */
+	public void initData(Recipe r) {
+		this.recipe = r;
+		// Initialize and set editable to false (recipeName and instructions
 		recipeName.setText(recipe.getName());
 		recipeName.setEditable(false);
-		// disable instructions field
+		instructions.setText(recipe.getInstructions());
 		instructions.setEditable(false);
-		
+
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
 		/**
@@ -138,20 +146,20 @@ public class ReadController implements Initializable {
 		// Quantity column
 		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
 		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
-		
+
 		// Set ingredientsTable
 		for (Ingredient i : recipe.getIngredients()) {
 			rIngredients.add(i);
 		}
 		ingredientsTable.setItems(rIngredients);
 		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
-		
+
 		// Initialize categoryTable
 		for (String s : recipe.getCategories()) {
 			rCategories.add(s);
 		}
 		categoryTable.setItems(rCategories);
-		
+
 		// menuNew listener
 		menuNew.setOnAction(action -> {
 			try {
@@ -163,20 +171,12 @@ public class ReadController implements Initializable {
 				Stage originalStage = (Stage) motherPane.getScene().getWindow();
 				originalStage.setScene(editWindow);
 			} catch (IOException e) {
-				
+
 			}
 		});
-		
-	}	
-	
-	/**
-	 * Initialize data, Recipe setter
-	 * @param recipe
-	 */
-	public void initData(Recipe r) {
-		this.recipe = r;
+
 	}
-	
+
 	/**
 	 * get Data, recipe getter
 	 * @return the recipe is being read
@@ -184,7 +184,7 @@ public class ReadController implements Initializable {
 	public Recipe getData() {
 		return this.recipe;
 	}
-	
+
 	/**
 	 * Change value at specific location of TableView
 	 * used for servingSize onAction
