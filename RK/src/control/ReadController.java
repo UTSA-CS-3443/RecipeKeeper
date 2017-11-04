@@ -4,6 +4,7 @@ package control;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.stage.Stage;
@@ -39,44 +40,44 @@ import model.RecipeList;
 public class ReadController implements Initializable {
 	
 	@FXML // fx:id="motherPane"
-	BorderPane motherPane;
+	private BorderPane motherPane;
 	
 	@FXML // fx:id="recipeName"
-	TextField recipeName; 
+	private TextField recipeName; 
 	
 	@FXML // fx:id="instructions"
-	TextArea instructions;
+	private TextArea instructions;
 
 	@FXML // fx:id="servingSize"
-	ComboBox<String> servingSize;
+	private ComboBox<String> servingSize;
 
 	@FXML // fx:id="ingredientsTable"
-	TableView<Ingredient> ingredientsTable;
+	private TableView<Ingredient> ingredientsTable;
 	
 	@FXML // fx:id="categoryTable"
-	ListView<String> categoryTable;
-	ObservableList<String> rCategories  = FXCollections.observableArrayList();
+	private ListView<String> categoryTable;
+	private ObservableList<String> rCategories  = FXCollections.observableArrayList();
 	
 	@FXML // fx:id="menuNew"
-	MenuItem menuNew;					// New...			
+	private MenuItem menuNew;					// New...			
 	
 	@FXML // fx:id="menuEdit"
-	MenuItem menuEdit;					// Edit
+	private MenuItem menuEdit;					// Edit
 	
 	@FXML // fx:id="menuSave"
-	MenuItem menuSave;					// Save
+	private MenuItem menuSave;					// Save
 	
 	@FXML // fx:id="menuSaveAs"
-	MenuItem menuSaveAs;					// Save As...
+	private MenuItem menuSaveAs;					// Save As...
 	
 	@FXML // fx:id="menuClose"
-	MenuItem menuClose;					// Close app
+	private MenuItem menuClose;					// Close app
 	
 	// Recipe chose from model
-	private Recipe recipe;
+	private Recipe recipe = new Recipe();
 	
 	// ingredients from recipe for reading
-	ObservableList<Ingredient> rIngredients = FXCollections.observableArrayList();
+	private ObservableList<Ingredient> rIngredients = FXCollections.observableArrayList();
 	
 	// constant values
 	static Constants constants = new Constants();
@@ -92,8 +93,6 @@ public class ReadController implements Initializable {
 	public ReadController() {
 		super();
 	}
-
-	public void initialize() {}
 	
 	/**
 	 * Constructor
@@ -105,7 +104,7 @@ public class ReadController implements Initializable {
 	
 	// Method is called by the FXMLLoader when initialization is complete
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL location, ResourceBundle resources) {
 
 		// Initialize and set editable to false
 		recipeName.setText(recipe.getName());
@@ -199,4 +198,5 @@ public class ReadController implements Initializable {
 		newData.setQuantity(value);
 		table.getItems().set(row, newData);
 	}
+
 }

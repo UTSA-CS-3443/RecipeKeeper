@@ -20,7 +20,7 @@ public class RecipeKeeper extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			final int[] MIN_SIZES = constants.getMinSizes();
-			String fileDirectory = "/view/EditInterface.fxml";
+			String fileDirectory = "/view/ReadInterface.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
 			Parent root = FXMLLoader.load(getClass().getResource(fileDirectory));
 			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
