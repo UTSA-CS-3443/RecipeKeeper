@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.AlertBox;
 import model.Recipe;
 import model.RecipeList;
 
@@ -76,11 +78,18 @@ public class WelcomeController implements Initializable {
 			try {
 				if ( (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
 						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
-						&& (byCategory.getText().isEmpty() || byCategory.getText().equals("")) || StringUtils.isBlank(byCategory.getText())) 
+						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) 
 					throw new NullPointerException();
+				else if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+						&& !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
+						&& !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
+					String neededIngredient = byIngredient.getText();
+					String needCategory = byCategory.getText();
+					ArrayList<Recipe> data = ReadData.readRecipes().getRecipeList();
+				}
 			} 
 			catch (NullPointerException e) {
-
+				AlertBox.display("Warning", "");
 			}
 		});
 
