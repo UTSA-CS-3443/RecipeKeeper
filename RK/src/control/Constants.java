@@ -5,11 +5,6 @@ public class Constants {
 	private static final String[] UNITS = { "kg", "hg", "dag", "g", "dg", "cg", "mg", 
 					"kl", "hl", "dal", "l", "dl", "cl", "ml" };
 	
-	private static final String[] LOWER_ALPHA = { "a", "b", "c", "d", "e", "f", 
-												 "g", "h", "i", "j", "k", "l",
-												 "m", "n", "o", "p", "q", "r", 
-												 "t", "u", "v", "w", "x", "y", "z" };
-	
 	// serving Sizes
 	private static final String[] SERVSIZES = { "1", "2", "3" };
 	// minimum size of the window
@@ -26,27 +21,6 @@ public class Constants {
 	 */
 	public String[] getUnits() {
 		return UNITS;
-	}
-	
-	/**
-	 * get Lower Alphabet
-	 * @return LOWER_ALPHA
-	 */
-	public String[] getLowAlpha() {
-		return LOWER_ALPHA;
-	}
-	
-	/**
-	 * get Upper Alphabet
-	 * @return Upper version of LOWER_ALPHA
-	 */
-	public String[] getUpAlpha() {
-		String[] uppers = {}; 
-		int index = 0;
-		for (String i : LOWER_ALPHA) {
-			uppers[index] = i.toUpperCase();
-		}
-		return uppers;
 	}
 	
 	/**

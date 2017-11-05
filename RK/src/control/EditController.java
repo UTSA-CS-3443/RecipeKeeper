@@ -189,10 +189,10 @@ public class EditController implements Initializable{
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
 						ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
-					else if (!stringContainsAlpha(ingreName.getText())) throw new IngredientException("Ingredient name only contain alphabetical letters");
-					else if (!stringContainsAlpha(ingreUnit.getValue())) throw new IngredientException("Ingredient unit only contain alphabetical letters");
-					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient cannot be blank");
+					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
 					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
+					else if (!ingreName.getText().contains("[a-zA-Z]+")) throw new IngredientException("Ingredient name can only contain alphabetical letters");
+					else if (!ingreUnit.getValue().contains("[a-zA-Z]+")) throw new IngredientException("Ingredient unit only contain alphabetical letters");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
@@ -373,30 +373,7 @@ public class EditController implements Initializable{
 		Ingredient newData = table.getItems().get(row);
 		newData.setQuantity(value);
 		table.getItems().set(row, newData);
-	}
-	
-	/**
-	 * Check if a string contains an element from a string array
-	 * @param inputStr
-	 * @param items
-	 * @return true if it does, false otherwise
-	 */
-	private static boolean stringContainsItemFromList(String inputStr, String[] items) {
-	    return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
-	}
-	
-	/**
-	 * check if a string contains an alphabet letter
-	 * @param s
-	 * @return true if it does, false otherwise
-	 */
-	private static boolean stringContainsAlpha(String s) {
-		boolean result = false;
-		boolean containsUpper = stringContainsItemFromList(s, constants.getUpAlpha());
-		boolean containsLower = stringContainsItemFromList(s, constants.getLowAlpha());
-		result = containsUpper || containsLower;
-		return result;
-	}
+	}	
 	
 	/**
 	 * check if a String contains a digit
