@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * 
+ * @author Hoa Pham
+ *
+ */
 public class IngredientException extends Exception {
 
 	public IngredientException() {

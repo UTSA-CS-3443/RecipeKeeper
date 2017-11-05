@@ -22,6 +22,11 @@ import model.AlertBox;
 import model.Recipe;
 import model.RecipeList;
 
+/**
+ * 
+ * @author Hoa Pham
+ *
+ */
 public class SearchInterfaceController implements Initializable {
 
 	@FXML // fx:id="motherPane"
@@ -90,7 +95,7 @@ public class SearchInterfaceController implements Initializable {
 						AlertBox.display("Warning", "File not found.");
 					}
 				} else {
-					AlertBox.display("Warnign", "No item selected");
+					AlertBox.display("Warning", "No item selected");
 				}
 			}
 

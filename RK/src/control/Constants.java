@@ -1,5 +1,10 @@
 package control;
 
+/**
+ *
+ * @author Hoa Pham
+ *
+ */
 public class Constants {
 	// list of units
 	private static final String[] UNITS = { "kg", "hg", "dag", "g", "dg", "cg", "mg", 
