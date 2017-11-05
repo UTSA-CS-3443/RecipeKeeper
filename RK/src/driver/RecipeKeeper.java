@@ -42,14 +42,14 @@ public class RecipeKeeper extends Application {
 			String instructions = "Do something........";
 			Recipe testRecipe = new Recipe(name, ingredients, categories, instructions);
 			
-			String fileDirectory = "/view/EditInterface.fxml";
+			String fileDirectory = "/view/ReadInterface.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
 			URL location = getClass().getResource(fileDirectory);
 
  			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
  			Parent root = loader.load();
  			
- 			EditController controller = loader.getController();
+ 			ReadController controller = loader.getController();
  			controller.initData(testRecipe);
  			controller.initialize(location, loader.getResources());
 			

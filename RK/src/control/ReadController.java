@@ -141,7 +141,7 @@ public class ReadController implements Initializable {
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
 					
-					originalStage.setTitle(getData().getName() + " - Edit Mode");
+					originalStage.setTitle("New Recipe - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
 				} catch (IOException ioe) {
@@ -151,18 +151,17 @@ public class ReadController implements Initializable {
 		});
 		
 		menuEdit.setOnAction(new EventHandler<ActionEvent>() {
-			@SuppressWarnings("static-access")
 			@Override 
 			public void handle(ActionEvent e) {
 				try {
 					String fxmlFileDir = "/view/EditInterface.fxml";
 					String cssFileDir = "/view/RecipeKeeper.css";
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-					Parent root = loader.load(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
 					URL location = new URL(loader.getLocation().toString());
 
 					EditController controller = loader.getController();
-					controller.initData(recipe);
+					controller.initData(getData());
 					controller.initialize(location, loader.getResources());
 
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -175,6 +174,8 @@ public class ReadController implements Initializable {
 
 				} catch (IOException ioe) {
 
+				} catch (NullPointerException npe) {
+					npe.printStackTrace();
 				}
 			}
 		});
@@ -185,6 +186,7 @@ public class ReadController implements Initializable {
 	 * @param recipe
 	 */
 	public void initData(Recipe r) {
+		
 		this.recipe = r;
 		// Initialize and set editable to false (recipeName and instructions
 		recipeName.setText(recipe.getName());
