@@ -107,6 +107,7 @@ public class SearchInterfaceController implements Initializable {
 			recipeNames.add(r.getName());
 		}
 		this.readingData = result;
+		// for 
 		repList.setItems(recipeNames);
 		
 	}
