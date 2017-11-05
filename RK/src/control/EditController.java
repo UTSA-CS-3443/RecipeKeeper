@@ -95,7 +95,7 @@ public class EditController implements Initializable{
 	private Recipe recipe = new Recipe();
 	
 	// Data writer
-	private WriteData dataWriter = new WriteData();
+	private WriteData dataWriter;
 	
 	private static Constants constants = new Constants();
 	
@@ -315,6 +315,9 @@ public class EditController implements Initializable{
 		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
 
 		// Initialize Category table
+		for (String s : recipe.getCategories()) {
+			categories.add(s);
+		}
 		categoryTable.setItems(categories);
 	}
 	

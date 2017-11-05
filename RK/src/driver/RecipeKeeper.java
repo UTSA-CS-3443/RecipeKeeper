@@ -2,6 +2,7 @@ package driver;
 	
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import control.Constants;
 import control.EditController;
@@ -41,15 +42,16 @@ public class RecipeKeeper extends Application {
 			String instructions = "Do something........";
 			Recipe testRecipe = new Recipe(name, ingredients, categories, instructions);
 			
-			String fileDirectory = "/view/ReadInterface.fxml";
+			String fileDirectory = "/view/EditInterface.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
-			Parent root = loader.load();
-			URL location = new URL(loader.getLocation().toString());
-			
-			ReadController controller = loader.getController();
-			controller.initData(testRecipe);
-			controller.initialize(location, loader.getResources());
+			URL location = getClass().getResource(fileDirectory);
+
+ 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
+ 			Parent root = loader.load();
+ 			
+ 			EditController controller = loader.getController();
+ 			controller.initData(testRecipe);
+ 			controller.initialize(location, loader.getResources());
 			
 			final int[] MIN_SIZES = constants.getMinSizes();
 			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
