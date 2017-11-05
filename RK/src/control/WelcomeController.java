@@ -45,6 +45,9 @@ public class WelcomeController implements Initializable {
 	@FXML // fx:id="findRep"
 	private Button findRep = new Button();
 
+	// search result
+	private ArrayList<Recipe> result;
+
 	// constant values
 	private static Constants constants = new Constants();
 
@@ -52,7 +55,7 @@ public class WelcomeController implements Initializable {
 	private static final int[] MIN_SIZES = constants.getMinSizes();
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL url, ResourceBundle rs) {
 
 		/**
 		 * Start a new recipe
@@ -87,7 +90,7 @@ public class WelcomeController implements Initializable {
 						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
 					String neededName = byName.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByName(neededName);
+					result = data.getRecipeByName(neededName);
 				}
 				// search by only ingredient
 				else if ( !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
@@ -95,7 +98,7 @@ public class WelcomeController implements Initializable {
 						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText()))  {
 					String neededIngredient = byIngredient.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByIngredients(neededIngredient);
+					result = data.getRecipeByIngredients(neededIngredient);
 				}
 				// search by only category
 				else if ( !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())
@@ -103,7 +106,7 @@ public class WelcomeController implements Initializable {
 						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) )  {
 					String neededCategory = byCategory.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByCategory(neededCategory);
+					result = data.getRecipeByCategory(neededCategory);
 				}
 				// search by ingredient and category
 				else if (   (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
@@ -112,7 +115,7 @@ public class WelcomeController implements Initializable {
 					String neededIngredient = byIngredient.getText();
 					String needCategory = byCategory.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByIngreCat(neededIngredient, needCategory);
+					result = data.getRecipeByIngreCat(neededIngredient, needCategory);
 				} 
 				// search by name and category
 				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
@@ -121,7 +124,7 @@ public class WelcomeController implements Initializable {
 					String neededName = byName.getText();
 					String neededCategory = byCategory.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByNameCate(neededName, neededCategory);
+					result = data.getRecipeByNameCate(neededName, neededCategory);
 				}
 				// search by name and ingredient
 				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
@@ -130,7 +133,7 @@ public class WelcomeController implements Initializable {
 					String neededName = byName.getText();
 					String neededIngredient = byIngredient.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByNameIngre(neededName, neededIngredient);
+					result = data.getRecipeByNameIngre(neededName, neededIngredient);
 				}
 				// search by all 3 elements
 				else {
@@ -138,11 +141,51 @@ public class WelcomeController implements Initializable {
 					String neededIngredient = byIngredient.getText();
 					String neededCategory = byCategory.getText();
 					RecipeList data = ReadData.readRecipes();
-					ArrayList<Recipe> result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
+					result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
 				}
+
+				// switch to recipeList view
+				String fxmlFileDir = "/view/SearchInterface.fxml";
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+				Parent root = loader.load();
+				URL location = new URL(loader.getLocation().toString());
+
+				SearchInterfaceController controller = loader.getController();
+				controller.initData(result);
+				controller.initialize(location, loader.getResources());
+
+				Scene recipeListView = new Scene(root, 300, 270);
+				Stage originalStage = (Stage) motherPane.getScene().getWindow();
+				originalStage.setTitle("Recipe Keeper");
+				originalStage.setScene(recipeListView);
+				originalStage.show();
 			} 
 			catch (NullPointerException e) {
-				AlertBox.display("Warning", "All of searching fields are empty.");
+				RecipeList data = ReadData.readRecipes();
+				result = data.getRecipeList();
+
+				try {
+					// switch to recipeList view
+					String fxmlFileDir = "/view/SearchInterface.fxml";
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
+
+					SearchInterfaceController controller = loader.getController();
+					controller.initData(result);
+					controller.initialize(location, loader.getResources());
+
+					Scene recipeListView = new Scene(root, 300, 270);
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+					originalStage.setTitle("Recipe Keeper");
+					originalStage.setScene(recipeListView);
+					originalStage.show();
+				} catch (IOException io) {
+					AlertBox.display("Warning", "File not found.");
+				}
+			}
+			catch (IOException ioe) {
+				AlertBox.display("Warning", "File not found.");
 			}
 		});
 
