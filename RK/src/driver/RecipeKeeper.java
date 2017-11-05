@@ -29,35 +29,17 @@ public class RecipeKeeper extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
-			String name = "TestName";
-			Ingredient i1 = new Ingredient("ingreName", 1, "ingreUnit");
-			Ingredient i2 = new Ingredient("ingreName2", 2, "ingreUnit2");
-			ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-			ingredients.add(i1);
-			ingredients.add(i2);
-			ArrayList<String> categories = new ArrayList<String>();
-			categories.add("Category 1");
-			categories.add("category 2");
-			String instructions = "Do something........";
-			Recipe testRecipe = new Recipe(name, ingredients, categories, instructions);
-			
-			String fileDirectory = "/view/ReadInterface.fxml";
+						
+			String fileDirectory = "/view/Welcome.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
-			URL location = getClass().getResource(fileDirectory);
 
  			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
  			Parent root = loader.load();
  			
- 			ReadController controller = loader.getController();
- 			controller.initData(testRecipe);
- 			controller.initialize(location, loader.getResources());
-			
-			final int[] MIN_SIZES = constants.getMinSizes();
-			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+			Scene scene = new Scene(root, 370, 250);
 			
 			scene.getStylesheets().add(getClass().getResource(cssDirectory).toExternalForm());
-			primaryStage.setTitle(controller.getData().getName() + " - View Mode");
+			primaryStage.setTitle("Recipe Keeper");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -28,25 +28,25 @@ import model.RecipeList;
 public class WelcomeController implements Initializable {
 
 	@FXML // fx:id="motherPane"
-	BorderPane motherPane = new BorderPane();
+	private BorderPane motherPane = new BorderPane();
 
 	@FXML // fx:id="byName"
-	TextField byName = new TextField();
+	private TextField byName = new TextField();
 
 	@FXML // fx:id="byIngredient"
-	TextField byIngredient = new TextField();
+	private TextField byIngredient = new TextField();
 
 	@FXML // fx:id="byCategory"
-	TextField byCategory = new TextField();
+	private TextField byCategory = new TextField();
 
 	@FXML // fx:id="startRep"
-	Button startRep = new Button();
+	private Button startRep = new Button();
 
 	@FXML // fx:id="findRep"
-	Button findRep = new Button();
+	private Button findRep = new Button();
 
 	// constant values
-	static Constants constants = new Constants();
+	private static Constants constants = new Constants();
 
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
@@ -76,20 +76,73 @@ public class WelcomeController implements Initializable {
 		 */
 		findRep.setOnAction(action -> {
 			try {
-				if ( (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+				// if all 3 fields empty, null, blank
+				if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
 						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
 						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) 
 					throw new NullPointerException();
-				else if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+				// search by only name
+				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
+						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
+					String neededName = byName.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByName(neededName);
+				}
+				// search by only ingredient
+				else if ( !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
+						&& (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText())) 
+						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText()))  {
+					String neededIngredient = byIngredient.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByIngredients(neededIngredient);
+				}
+				// search by only category
+				else if ( !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())
+						&& (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) )  {
+					String neededCategory = byCategory.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByCategory(neededCategory);
+				}
+				// search by ingredient and category
+				else if (   (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
 						&& !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
 						&& !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
 					String neededIngredient = byIngredient.getText();
 					String needCategory = byCategory.getText();
-					ArrayList<Recipe> data = ReadData.readRecipes().getRecipeList();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByIngreCat(neededIngredient, needCategory);
+				} 
+				// search by name and category
+				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
+						&& !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
+					String neededName = byName.getText();
+					String neededCategory = byCategory.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByNameCate(neededName, neededCategory);
+				}
+				// search by name and ingredient
+				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
+						&& !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
+						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
+					String neededName = byName.getText();
+					String neededIngredient = byIngredient.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByNameIngre(neededName, neededIngredient);
+				}
+				// search by all 3 elements
+				else {
+					String neededName = byName.getText();
+					String neededIngredient = byIngredient.getText();
+					String neededCategory = byCategory.getText();
+					RecipeList data = ReadData.readRecipes();
+					ArrayList<Recipe> result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
 				}
 			} 
 			catch (NullPointerException e) {
-				AlertBox.display("Warning", "");
+				AlertBox.display("Warning", "All of searching fields are empty.");
 			}
 		});
 

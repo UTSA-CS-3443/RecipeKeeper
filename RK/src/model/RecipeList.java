@@ -137,6 +137,31 @@ public class RecipeList {
 	}
 	
 	/**
+	 * get recipe by name, ingredient and category
+	 * @param name
+	 * @param ingre
+	 * @param cate
+	 * @returna list of recipes that contains the requested category, name, and ingredient
+	 */
+	public ArrayList<Recipe> getRecipeByAll (String name, String ingre, String cate) {
+		ArrayList<Recipe> result = new ArrayList<Recipe>();
+		for (Recipe r : recipeList) {
+			if (r.getName().contains(name)) {
+				for (String category : r.getCategories()) {
+					if (category.contains(cate)) result.add(r); {
+						for (Ingredient ingredient : r.getIngredients()) {
+							if (ingredient.getName().contains(ingre)) result.add(r);
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * RecipeList getter
 	 * @return ArrayList<Recipe>
 	 */
