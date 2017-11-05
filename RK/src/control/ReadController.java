@@ -96,7 +96,7 @@ public class ReadController implements Initializable {
 	 * qtyPerServingSize will add 1 
 	 */
 	private List<Double> qtyPerServingSize = new ArrayList<Double>();
-	
+
 	/**
 	 * 
 	 */
@@ -115,7 +115,7 @@ public class ReadController implements Initializable {
 	// Method is called by the FXMLLoader when initialization is complete
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		/**
 		 * disable elements in reading mode
 		 */
@@ -123,7 +123,7 @@ public class ReadController implements Initializable {
 		instructions.setEditable(false);
 		menuSave.setDisable(true);
 		menuSaveAs.setDisable(true);
-		
+
 		/**
 		 * Second method for serving size listener
 		 * Listen for changes to the serving size selection
@@ -136,7 +136,7 @@ public class ReadController implements Initializable {
 				changeValueAt(i, 2, tempQty, ingredientsTable);
 			}
 		});
-		
+
 		// menuNew listener
 		menuNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
@@ -148,16 +148,16 @@ public class ReadController implements Initializable {
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
-					
+
 					originalStage.setTitle("New Recipe - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
 				} catch (IOException ioe) {
-
+					AlertBox.display("Warning", "File not found.");
 				}
 			}
 		});
-		
+
 		menuEdit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
@@ -175,7 +175,7 @@ public class ReadController implements Initializable {
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
-					
+
 					originalStage.setTitle(getData().getName() + " - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
@@ -194,7 +194,7 @@ public class ReadController implements Initializable {
 	 * @param recipe
 	 */
 	public void initData(Recipe r) {
-		
+
 		this.recipe = r;
 		// Initialize and set editable to false (recipeName and instructions
 		recipeName.setText(recipe.getName());
