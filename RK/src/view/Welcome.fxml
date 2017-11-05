@@ -24,6 +24,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="110.0">
+                     <children>
+                        <Button fx:id="findRep" mnemonicParsing="false" prefHeight="122.0" prefWidth="110.0" text="Find A Recipe" />
+                     </children>
+                  </VBox>
                   <VBox prefHeight="101.0" prefWidth="165.0" spacing="10.0">
                      <children>
                         <TextField fx:id="byName" promptText="by name" />
@@ -31,18 +36,9 @@
                         <TextField fx:id="byCategory" promptText="by category" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="110.0">
-                     <children>
-                        <Button fx:id="findRep" mnemonicParsing="false" prefHeight="52.0" prefWidth="110.0" text="Find A Recipe" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <Button fx:id="editRep" mnemonicParsing="false" prefHeight="27.0" prefWidth="287.0" text="Change A Recipe" />
-               </children>
-            </HBox>
+            <HBox alignment="CENTER" />
          </children>
       </VBox>
    </center>

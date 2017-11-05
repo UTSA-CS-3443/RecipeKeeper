@@ -9,13 +9,13 @@ TODO
   + addCategory (complete)
   + delCategory (complete)
   + change unit to drop-down menu (complete)
-   + New, Edit, Save, Save As, Close
+  + New √, Edit √, Save, Save As, Close
   + Find By Name, Find By Ingredient, Find by Category
 
-  + EditController should read data from model and renders on EditInterface -> Edit Listener
+  + EditController should read data from model and renders on EditInterface √
   + addIngredient, delIngredient, servingSize Listener, addCategory, delCategory, Save, Save As Listener from NewController 
-  	upon completion of implementations
-  + Integrate EditController and NewController from NewController
+  	upon completion of implementations √
+  + Integrate EditController and NewController from NewController √
   + If user click find another recipe while editing or creating a recipe, a window should pop up for save and save as..
 
   + Converter (later)
