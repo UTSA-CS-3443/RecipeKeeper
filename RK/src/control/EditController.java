@@ -6,10 +6,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.fxml.*;
-import javafx.scene.control.*;
+import org.apache.commons.lang3.StringUtils;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.AlertBox;
@@ -179,6 +191,8 @@ public class EditController implements Initializable{
 						throw new IngredientException("One or more fields are empty");
 					else if (!stringContainsAlpha(ingreName.getText())) throw new IngredientException("Ingredient name only contain alphabetical letters");
 					else if (!stringContainsAlpha(ingreUnit.getValue())) throw new IngredientException("Ingredient unit only contain alphabetical letters");
+					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient cannot be blank");
+					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
@@ -282,8 +296,8 @@ public class EditController implements Initializable{
 	 * @param recipe
 	 */
 	public void initData(Recipe r) {
-		this.recipe = r;
 		
+		this.recipe = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
 		

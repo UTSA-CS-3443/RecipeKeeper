@@ -117,6 +117,14 @@ public class ReadController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		/**
+		 * disable elements in reading mode
+		 */
+		recipeName.setEditable(false);
+		instructions.setEditable(false);
+		menuSave.setDisable(true);
+		menuSaveAs.setDisable(true);
+		
+		/**
 		 * Second method for serving size listener
 		 * Listen for changes to the serving size selection
 		 * and update the displayed serving size
@@ -190,9 +198,7 @@ public class ReadController implements Initializable {
 		this.recipe = r;
 		// Initialize and set editable to false (recipeName and instructions
 		recipeName.setText(recipe.getName());
-		recipeName.setEditable(false);
 		instructions.setText(recipe.getInstructions());
-		instructions.setEditable(false);
 
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
