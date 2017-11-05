@@ -72,7 +72,7 @@ public class SearchInterfaceController implements Initializable {
 						String fxmlFileDir = "/view/ReadInterface.fxml";
 						String cssFileDir = "/view/RecipeKeeper.css";
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-						Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
 						
 						ReadController controller = loader.getController();
