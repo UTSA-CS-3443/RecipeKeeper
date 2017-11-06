@@ -35,7 +35,8 @@ public class AlertBox {
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
-
+        VBox.setMargin(closeButton, new Insets(0,0,3,0));
+        
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
