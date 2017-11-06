@@ -73,9 +73,6 @@ public class ReadController implements Initializable {
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;					// Save As...
 
-	@FXML // fx:id="menuClose"
-	private MenuItem menuClose;					// Close app
-
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
 
@@ -158,6 +155,7 @@ public class ReadController implements Initializable {
 			}
 		});
 
+		// menuEdit listener
 		menuEdit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
@@ -187,8 +185,9 @@ public class ReadController implements Initializable {
 				}
 			}
 		});
+		
 	}	
-
+	
 	/**
 	 * Initialize data, Recipe setter
 	 * @param recipe

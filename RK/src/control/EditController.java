@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.AlertBox;
 import model.Ingredient;
 import model.IngredientException;
@@ -38,7 +39,7 @@ import model.Recipe;
 public class EditController implements Initializable{
 	@FXML // fx:id="motherPane"
 	private BorderPane motherPane;
-	
+
 	@FXML // fx:id="recipeName"
 	private TextField recipeName; 
 
@@ -47,40 +48,37 @@ public class EditController implements Initializable{
 
 	@FXML // fx:id="ingreQty"
 	private TextField ingreQty;
-	
+
 	@FXML // fx:id="textCategory"
 	private TextField textCategory;
 
 	@FXML //fx:id="instructions"
 	private TextArea instructions;
-	
+
 	@FXML // fx:id="servingSize"
 	private ComboBox<String> servingSize;
-	
+
 	@FXML // fx:id="ingreUnit"
 	private ComboBox<String> ingreUnit;
-	
+
 	@FXML // fx:id="menuNew"
 	private MenuItem menuNew;						// New...			
-	
+
 	@FXML // fx:id="menuEdit"
 	private MenuItem menuEdit;						// Edit
-	
+
 	@FXML // fx:id="menuSave"
 	private MenuItem menuSave;						// Save
-	
+
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;						// Save As...
-	
-	@FXML // fx:id="menuClose"
-	private MenuItem menuClose;						// Close app
-	
+
 	@FXML // fx:id="findName"
 	private MenuItem findName;						// find by Name
-	
+
 	@FXML // fx:id="findIngre"
 	private MenuItem findIngre;						// find by Ingredient
-	
+
 	@FXML // fx:id="findCate"
 	private MenuItem findCate;						// find by Category
 
@@ -98,26 +96,26 @@ public class EditController implements Initializable{
 
 	@FXML // fx:id="ingredientsTable"
 	private TableView<Ingredient> ingredientsTable;
-	
+
 	@FXML // fx:id="categoryTable"
 	private ListView<String> categoryTable;
 	private ObservableList<String> categories = FXCollections.observableArrayList();
-	
+
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
-	
+
 	// Data writer
 	private WriteData dataWriter;
-	
+
 	private static Constants constants = new Constants();
-	
+
 	// list of units
 	private final String[] UNITS = constants.getUnits();
 	// serving Sizes
 	private final String[] SERVSIZES = constants.getServsizes();
 	// minimum size of the window
 	private final int[] MIN_SIZES = constants.getMinSizes();
-	
+
 
 	/**
 	 * temporary ingredient list
@@ -131,11 +129,11 @@ public class EditController implements Initializable{
 	 * qtyPerServingSize will add 1 
 	 */
 	List<Double> qtyPerServingSize = new ArrayList<Double>();
-	
+
 	public EditController() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor
 	 * @param r
@@ -143,10 +141,12 @@ public class EditController implements Initializable{
 	public EditController(Recipe r) {
 		initData(r);
 	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		menuEdit.setDisable(true);
+		
 		/**
 		 * Sets up serving size ComboBox and
 		 * its handler 
@@ -169,7 +169,7 @@ public class EditController implements Initializable{
 				AlertBox.display("Warnning", "Recipe name is empty");
 			}
 		});
-		
+
 		/**
 		 * Sets up handler for unit ComboBox for ingredients 
 		 * 
@@ -177,7 +177,7 @@ public class EditController implements Initializable{
 		ingreUnit.setOnAction(e -> {
 			// add more code for listener if needed
 		});
-		
+
 		/**
 		 * EventHandler for adding an ingredient
 		 */
@@ -187,7 +187,7 @@ public class EditController implements Initializable{
 				try {
 
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
-						ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
+							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
 					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
 					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
@@ -196,7 +196,7 @@ public class EditController implements Initializable{
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
-					
+
 
 					String name, unit;
 					double qty;
@@ -228,7 +228,7 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 					if (ingredients.size() < 1) throw new RuntimeException(); 
-					
+
 					int selectedIndex = ingredientsTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						ingredientsTable.getItems().remove(selectedIndex);
@@ -251,7 +251,7 @@ public class EditController implements Initializable{
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+
 				try {
 					if (textCategory.getText().equals(null) || textCategory.getText().equals("")) throw new IllegalArgumentException();
 					if (isNumeric(textCategory.getText())) throw new IllegalArgumentException();
@@ -259,11 +259,11 @@ public class EditController implements Initializable{
 				} catch (IllegalArgumentException e) {
 					AlertBox.display("Warning", "Category field cannot be a number or empty");
 				}
-				
+
 			}
-			
+
 		});
-		
+
 		/**
 		 * Event Handler for deleting a category
 		 */
@@ -271,10 +271,10 @@ public class EditController implements Initializable{
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+
 				try {
 					if (categories.size() < 1) throw new RuntimeException();
-					
+
 					int selectedIndex = categoryTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						categoryTable.getItems().remove(selectedIndex);
@@ -285,9 +285,9 @@ public class EditController implements Initializable{
 				} catch (RuntimeException e) {
 					AlertBox.display("Warning", "Category List Is Empty");
 				}
-				
+
 			}
-			
+
 		});
 	}
 
@@ -296,18 +296,18 @@ public class EditController implements Initializable{
 	 * @param recipe
 	 */
 	public void initData(Recipe r) {
-		
+
 		this.recipe = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
-		
+
 		// servingSize
 		servingSize.getItems().addAll(SERVSIZES);
-		
+
 		// ComboBox for ingredient's units
 		ingreUnit.getItems().addAll(UNITS);
 		ingreUnit.setEditable(true);
-		
+
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -334,7 +334,7 @@ public class EditController implements Initializable{
 		}
 		categoryTable.setItems(categories);
 	}
-	
+
 	/**
 	 * get Data, recipe getter
 	 * @return the recipe is being read
@@ -342,7 +342,7 @@ public class EditController implements Initializable{
 	public Recipe getData() {
 		return this.recipe;
 	}
-	
+
 	/**
 	 * Check if a string is numeric
 	 * @param str
@@ -360,7 +360,7 @@ public class EditController implements Initializable{
 		}  
 		return true;  
 	}
-	
+
 	/**
 	 * Change value at specific location of TableView
 	 * used for servingSize onAction
@@ -374,7 +374,7 @@ public class EditController implements Initializable{
 		newData.setQuantity(value);
 		table.getItems().set(row, newData);
 	}	
-	
+
 	/**
 	 * check if a String contains a digit
 	 * @param a String
@@ -390,5 +390,5 @@ public class EditController implements Initializable{
 		}
 		return result;
 	}
-	
+
 }

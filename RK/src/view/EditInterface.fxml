@@ -32,8 +32,6 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="menuSave" mnemonicParsing="false" text="Save" />
                         <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" text="Save As" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Find">
