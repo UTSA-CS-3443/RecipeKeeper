@@ -88,28 +88,37 @@ public class WelcomeController implements Initializable {
 			try {
 			for (int i = 0; i < data.getRecipes().size(); i++) 
 			{
-				int fName = 0, fIng = 0, fCat = 0;
-				if (!byName.getText().isEmpty() || !byName.getText().equals(null) || !StringUtils.isBlank(byName.getText()))
+				int fName = 1, fIng = 1, fCat = 1;
+				if (!byName.getText().isEmpty() && !byName.getText().equals(null) && !StringUtils.isBlank(byName.getText()))
 				{
-					if (!data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
-							fName = 1;
+					if (data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
+							fName = 0;
 				}
-				else if (!byIngredient.getText().isEmpty() || !byIngredient.getText().equals(null) || !StringUtils.isBlank(byIngredient.getText())) {
+				//else {
+					//fName = 0;
+				//}
+				if (!byIngredient.getText().isEmpty() && !byIngredient.getText().equals(null) && !StringUtils.isBlank(byIngredient.getText())) {
 					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
-						if (!data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
-							fIng = 1;
-							break;
+						if (data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
+							fIng = 0;
+							//break;
 						}
 				}
-				else if (!byCategory.getText().isEmpty() || !byCategory.getText().equals(null) || !StringUtils.isBlank(byCategory.getText().toLowerCase())) {
+				//else {
+				//	fIng = 0;
+				//}
+				if (!byCategory.getText().isEmpty() && !byCategory.getText().equals(null) && !StringUtils.isBlank(byCategory.getText())) {
 					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
-						if (!data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText())){
-							fCat = 1;
-							break;
+						if (data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText().toLowerCase())){
+							fCat = 0;
+							//break;
 						}
 					}
 				}
-				if (fName == 1 || fIng == 1 || fCat == 1){
+				//else {
+				//	fCat = 0;
+				//}
+				if (fName == 1 && fIng == 1 && fCat == 1){
 					data.getRecipes().remove(i);
 					i--;
 				}
