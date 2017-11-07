@@ -88,22 +88,30 @@ public class WelcomeController implements Initializable {
 			try {
 			for (int i = 0; i < data.getRecipes().size(); i++) 
 			{
-				
+				int fName = 0, fIng = 0, fCat = 0;
 				if (!byName.getText().isEmpty() || !byName.getText().equals(null) || !StringUtils.isBlank(byName.getText()))
 				{
-					if (!data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText()))	
-							data.getRecipes().remove(i);
+					if (!data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
+							fName = 1;
 				}
 				else if (!byIngredient.getText().isEmpty() || !byIngredient.getText().equals(null) || !StringUtils.isBlank(byIngredient.getText())) {
 					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
-						if (!data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText()))
-							data.getRecipes().remove(i);
+						if (!data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
+							fIng = 1;
+							break;
+						}
 				}
-				else if (!byCategory.getText().isEmpty() || !byCategory.getText().equals(null) || !StringUtils.isBlank(byCategory.getText())) {
+				else if (!byCategory.getText().isEmpty() || !byCategory.getText().equals(null) || !StringUtils.isBlank(byCategory.getText().toLowerCase())) {
 					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
-						if (!data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText()))
-							data.getRecipes().remove(i);
+						if (!data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText())){
+							fCat = 1;
+							break;
+						}
 					}
+				}
+				if (fName == 1 || fIng == 1 || fCat == 1){
+					data.getRecipes().remove(i);
+					i--;
 				}
 			}
 			for (int i = 0; i < data.getRecipes().size(); i++)
