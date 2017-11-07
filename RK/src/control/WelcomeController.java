@@ -94,37 +94,39 @@ public class WelcomeController implements Initializable {
 					if (data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
 							fName = 0;
 				}
-				//else {
-					//fName = 0;
-				//}
+				else {
+					fName = -1;
+				}
 				if (!byIngredient.getText().isEmpty() && !byIngredient.getText().equals(null) && !StringUtils.isBlank(byIngredient.getText())) {
 					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
 						if (data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
 							fIng = 0;
-							//break;
+							break;
 						}
 				}
-				//else {
-				//	fIng = 0;
-				//}
+				else {
+					fIng = -1;
+				}
 				if (!byCategory.getText().isEmpty() && !byCategory.getText().equals(null) && !StringUtils.isBlank(byCategory.getText())) {
 					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
 						if (data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText().toLowerCase())){
 							fCat = 0;
-							//break;
+							break;
 						}
 					}
 				}
-				//else {
-				//	fCat = 0;
-				//}
-				if (fName == 1 && fIng == 1 && fCat == 1){
+				else {
+					fCat = -1;
+				}
+				if ((fName == 1 && fIng != 0 && fCat != 0) || (fName != 0 && fIng == 1 && fCat != 0) || (fName != 0 && fIng != 0 && fCat == 1)
+						|| (fName == 0 && (fIng == 1 || fCat == 1)) || (fIng == 0 && (fName == 1 || fCat == 1)) || (fCat == 0 && (fIng == 1 || fName == 1))){
 					data.getRecipes().remove(i);
 					i--;
 				}
 			}
-			for (int i = 0; i < data.getRecipes().size(); i++)
-				System.out.println(data.getRecipes().get(i).getName()); //Test Print
+			//for (int i = 0; i < data.getRecipes().size(); i++)
+				//System.out.println(data.getRecipes().get(i).getName()); //Test Print
+			
 			/*
 			try {
 				// if all 3 fields empty, null, blank
