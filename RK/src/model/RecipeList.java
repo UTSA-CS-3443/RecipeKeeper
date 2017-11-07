@@ -24,10 +24,15 @@ public class RecipeList {
 	 * Add a recipe to the list
 	 * @param recipe
 	 */
+	public ArrayList<Recipe> getRecipes(){
+		return this.recipeList;
+	}
+	
 	public void addRecipe(Recipe recipe) {
 		recipeList.add(recipe);
 	}
 
+	
 	/**
 	 * Get a recipe by its name
 	 * @param requested recipe name

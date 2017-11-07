@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import model.AlertBox;
 import model.Recipe;
 import model.RecipeList;
+import model.Ingredient;
 
 /**
  * Welcome Controller
@@ -78,6 +80,35 @@ public class WelcomeController implements Initializable {
 		 * find a recipe and enter read mode
 		 */
 		findRep.setOnAction(action -> {
+			/**
+			 * Copies all recipes into RecipeList data,
+			 * then removes all recipes from data that do not contain the search criteria. 
+			 */
+			RecipeList data = ReadData.readRecipes();
+			try {
+			for (int i = 0; i < data.getRecipes().size(); i++) 
+			{
+				
+				if (!byName.getText().isEmpty() || !byName.getText().equals(null) || !StringUtils.isBlank(byName.getText()))
+				{
+					if (!data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText()))	
+							data.getRecipes().remove(i);
+				}
+				else if (!byIngredient.getText().isEmpty() || !byIngredient.getText().equals(null) || !StringUtils.isBlank(byIngredient.getText())) {
+					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
+						if (!data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText()))
+							data.getRecipes().remove(i);
+				}
+				else if (!byCategory.getText().isEmpty() || !byCategory.getText().equals(null) || !StringUtils.isBlank(byCategory.getText())) {
+					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
+						if (!data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText()))
+							data.getRecipes().remove(i);
+					}
+				}
+			}
+			for (int i = 0; i < data.getRecipes().size(); i++)
+				System.out.println(data.getRecipes().get(i).getName()); //Test Print
+			/*
 			try {
 				// if all 3 fields empty, null, blank
 				if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
@@ -143,7 +174,7 @@ public class WelcomeController implements Initializable {
 					RecipeList data = ReadData.readRecipes();
 					result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
 				}
-
+				*/
 				// switch to recipeList view
 				String fxmlFileDir = "/view/SearchInterface.fxml";
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
@@ -159,9 +190,9 @@ public class WelcomeController implements Initializable {
 				originalStage.setTitle("Recipe Keeper");
 				originalStage.setScene(recipeListView);
 				originalStage.show();
-			} 
+			}
 			catch (NullPointerException e) {
-				RecipeList data = ReadData.readRecipes();
+				//RecipeList data = ReadData.readRecipes();
 				result = data.getRecipeList();
 
 				try {

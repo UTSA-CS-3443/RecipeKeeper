@@ -75,7 +75,7 @@ public class Recipe {
 	 * @return
 	 */
 	public ArrayList<Ingredient> getIngredients() {
-		return ingredients;
+		return this.ingredients;
 	}
 
 	/**
