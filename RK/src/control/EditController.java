@@ -253,11 +253,16 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 
 				try {
-					if (textCategory.getText().contains("[a-zA-Z]+")) throw new IllegalArgumentException();
-					else if (StringUtils.isBlank(textCategory.getText())) throw new IllegalArgumentException();
+					if (textCategory.getText().equals(null) || textCategory.getText().equals("")) throw new NullPointerException();
+					else if (textCategory.getText().contains("[a-zA-Z]+")) throw new IllegalArgumentException();
+					else if (StringUtils.isBlank(textCategory.getText())) throw new IngredientException();
 					categories.add(textCategory.getText());
+				} catch (NullPointerException npe) {
+					AlertBox.display("Warning", "Category field cannot be empty");
 				} catch (IllegalArgumentException e) {
-					AlertBox.display("Warning", "Category field cannot be a number or empty");
+					AlertBox.display("Warning", "Category field cannot be a number");
+				} catch (IngredientException ie) {
+					AlertBox.display("Warning", "Category field cannot contain all spaces");
 				}
 
 			}
