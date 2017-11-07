@@ -12,7 +12,6 @@ public class RecipeList {
 	 * List of recipes
 	 */
 	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-
 	/**
 	 * constructor
 	 * @param recipeList

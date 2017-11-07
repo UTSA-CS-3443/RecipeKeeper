@@ -51,11 +51,13 @@ public class ReadData {
 							} catch(Exception e) {
 								lines.add(2, "");
 							}					
-						newIngredient = new Ingredient(name, quant, unit);
+						newIngredient = new Ingredient(name.trim(), quant, unit.trim());
 						newIngredientArray.add(newIngredient);
 					}
 					while ((line = br.readLine()) != null && !line.equals(",")){
 						String[] lines = line.split(",");
+						for (int i = 0; i < lines.length; i++)
+							lines[i] = lines[i].trim();
 						newCategories.addAll(Arrays.asList(lines));
 					}
 					while ((line = br.readLine()) != null){
