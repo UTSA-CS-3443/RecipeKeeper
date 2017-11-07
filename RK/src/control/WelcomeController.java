@@ -194,6 +194,7 @@ public class WelcomeController implements Initializable {
 					result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
 				}
 				*/
+			
 				// switch to recipeList view
 				String fxmlFileDir = "/view/SearchInterface.fxml";
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
