@@ -62,7 +62,7 @@ public class SearchInterfaceController implements Initializable {
 	 * @param result
 	 */
 	public SearchInterfaceController(ArrayList<Recipe> result) {
-
+		initData(result);
 	}
 
 	@Override

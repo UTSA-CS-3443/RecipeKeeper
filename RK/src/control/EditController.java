@@ -253,8 +253,8 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 
 				try {
-					if (textCategory.getText().equals(null) || textCategory.getText().equals("")) throw new IllegalArgumentException();
-					if (isNumeric(textCategory.getText())) throw new IllegalArgumentException();
+					if (textCategory.getText().contains("[a-zA-Z]+")) throw new IllegalArgumentException();
+					else if (StringUtils.isBlank(textCategory.getText())) throw new IllegalArgumentException();
 					categories.add(textCategory.getText());
 				} catch (IllegalArgumentException e) {
 					AlertBox.display("Warning", "Category field cannot be a number or empty");
