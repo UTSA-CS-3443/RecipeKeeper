@@ -85,6 +85,8 @@ public class WelcomeController implements Initializable {
 			 * then removes all recipes from data that do not contain the search criteria. 
 			 */
 			RecipeList data = ReadData.readRecipes();
+			RecipeList dataB = data;
+			int tName = 0, tIng = 0, tCat = 0;
 			try {
 			for (int i = 0; i < data.getRecipes().size(); i++) 
 			{
@@ -93,6 +95,7 @@ public class WelcomeController implements Initializable {
 				{
 					if (data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
 							fName = 0;
+							tName++;
 				}
 				else {
 					fName = -1;
@@ -101,6 +104,7 @@ public class WelcomeController implements Initializable {
 					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
 						if (data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
 							fIng = 0;
+							tIng++;
 							break;
 						}
 				}
@@ -111,6 +115,7 @@ public class WelcomeController implements Initializable {
 					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
 						if (data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText().toLowerCase())){
 							fCat = 0;
+							tCat++;
 							break;
 						}
 					}
@@ -124,77 +129,22 @@ public class WelcomeController implements Initializable {
 					i--;
 				}
 			}
-			//for (int i = 0; i < data.getRecipes().size(); i++)
-				//System.out.println(data.getRecipes().get(i).getName()); //Test Print
 			
-			/*
-			try {
-				// if all 3 fields empty, null, blank
-				if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
-						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) 
-					throw new NullPointerException();
-				// search by only name
-				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
-						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
-					String neededName = byName.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByName(neededName);
+				if (tName == 0) 
+				{
+					//Error handle for no Name results
+					data = dataB;
 				}
-				// search by only ingredient
-				else if ( !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) 
-						&& (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText())) 
-						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText()))  {
-					String neededIngredient = byIngredient.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByIngredients(neededIngredient);
+				if (tCat == 0) 
+				{
+					//Error handle for no Category results
+					data = dataB;
 				}
-				// search by only category
-				else if ( !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())
-						&& (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText())) )  {
-					String neededCategory = byCategory.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByCategory(neededCategory);
+				if (tIng == 0) {
+					//Error handle for no Ingredient results
+					data = dataB;
 				}
-				// search by ingredient and category
-				else if (   (byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
-						&& !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
-					String neededIngredient = byIngredient.getText();
-					String needCategory = byCategory.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByIngreCat(neededIngredient, needCategory);
-				} 
-				// search by name and category
-				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& (byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
-						&& !(byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
-					String neededName = byName.getText();
-					String neededCategory = byCategory.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByNameCate(neededName, neededCategory);
-				}
-				// search by name and ingredient
-				else if ( !(byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
-						&& !(byIngredient.getText().isEmpty() || byIngredient.getText().equals(null) || StringUtils.isBlank(byIngredient.getText()))
-						&& (byCategory.getText().isEmpty() || byCategory.getText().equals(null)) || StringUtils.isBlank(byCategory.getText())) {
-					String neededName = byName.getText();
-					String neededIngredient = byIngredient.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByNameIngre(neededName, neededIngredient);
-				}
-				// search by all 3 elements
-				else {
-					String neededName = byName.getText();
-					String neededIngredient = byIngredient.getText();
-					String neededCategory = byCategory.getText();
-					RecipeList data = ReadData.readRecipes();
-					result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
-				}
-				*/
-			
+				
 				// switch to recipeList view
 				String fxmlFileDir = "/view/SearchInterface.fxml";
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
