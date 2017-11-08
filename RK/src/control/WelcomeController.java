@@ -85,7 +85,6 @@ public class WelcomeController implements Initializable {
 			 * then removes all recipes from data that do not contain the search criteria. 
 			 */
 			RecipeList data = ReadData.readRecipes();
-			RecipeList dataB = data;
 			int tName = 0, tIng = 0, tCat = 0;
 			try {
 			for (int i = 0; i < data.getRecipes().size(); i++) 
@@ -133,16 +132,13 @@ public class WelcomeController implements Initializable {
 				if (tName == 0) 
 				{
 					//Error handle for no Name results
-					data = dataB;
 				}
 				if (tCat == 0) 
 				{
 					//Error handle for no Category results
-					data = dataB;
 				}
 				if (tIng == 0) {
 					//Error handle for no Ingredient results
-					data = dataB;
 				}
 				
 				// switch to recipeList view
