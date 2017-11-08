@@ -86,48 +86,48 @@ public class WelcomeController implements Initializable {
 			 */
 			RecipeList data = ReadData.readRecipes();
 			try {
-			for (int i = 0; i < data.getRecipes().size(); i++) 
-			{
-				int fName = 1, fIng = 1, fCat = 1;
-				if (!byName.getText().isEmpty() && !byName.getText().equals(null) && !StringUtils.isBlank(byName.getText()))
+				for (int i = 0; i < data.getRecipes().size(); i++) 
 				{
-					if (data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
+					int fName = 1, fIng = 1, fCat = 1;
+					if (!byName.getText().isEmpty() && !byName.getText().equals(null) && !StringUtils.isBlank(byName.getText()))
+					{
+						if (data.getRecipes().get(i).getName().toLowerCase().contains(byName.getText().toLowerCase()))	
 							fName = 0;
-				}
-				else {
-					fName = -1;
-				}
-				if (!byIngredient.getText().isEmpty() && !byIngredient.getText().equals(null) && !StringUtils.isBlank(byIngredient.getText())) {
-					for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
-						if (data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
-							fIng = 0;
-							break;
-						}
-				}
-				else {
-					fIng = -1;
-				}
-				if (!byCategory.getText().isEmpty() && !byCategory.getText().equals(null) && !StringUtils.isBlank(byCategory.getText())) {
-					for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
-						if (data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText().toLowerCase())){
-							fCat = 0;
-							break;
+					}
+					else {
+						fName = -1;
+					}
+					if (!byIngredient.getText().isEmpty() && !byIngredient.getText().equals(null) && !StringUtils.isBlank(byIngredient.getText())) {
+						for (int j = 0; j < data.getRecipes().get(i).getIngredients().size(); j++)
+							if (data.getRecipes().get(i).getIngredients().get(j).getName().toLowerCase().contains(byIngredient.getText().toLowerCase())){
+								fIng = 0;
+								break;
+							}
+					}
+					else {
+						fIng = -1;
+					}
+					if (!byCategory.getText().isEmpty() && !byCategory.getText().equals(null) && !StringUtils.isBlank(byCategory.getText())) {
+						for (int j = 0; j < data.getRecipes().get(i).getCategories().size(); j++) {
+							if (data.getRecipes().get(i).getCategories().get(j).toLowerCase().contains(byCategory.getText().toLowerCase())){
+								fCat = 0;
+								break;
+							}
 						}
 					}
+					else {
+						fCat = -1;
+					}
+					if ((fName == 1 && fIng != 0 && fCat != 0) || (fName != 0 && fIng == 1 && fCat != 0) || (fName != 0 && fIng != 0 && fCat == 1)
+							|| (fName == 0 && (fIng == 1 || fCat == 1)) || (fIng == 0 && (fName == 1 || fCat == 1)) || (fCat == 0 && (fIng == 1 || fName == 1))){
+						data.getRecipes().remove(i);
+						i--;
+					}
 				}
-				else {
-					fCat = -1;
-				}
-				if ((fName == 1 && fIng != 0 && fCat != 0) || (fName != 0 && fIng == 1 && fCat != 0) || (fName != 0 && fIng != 0 && fCat == 1)
-						|| (fName == 0 && (fIng == 1 || fCat == 1)) || (fIng == 0 && (fName == 1 || fCat == 1)) || (fCat == 0 && (fIng == 1 || fName == 1))){
-					data.getRecipes().remove(i);
-					i--;
-				}
-			}
-			//for (int i = 0; i < data.getRecipes().size(); i++)
+				//for (int i = 0; i < data.getRecipes().size(); i++)
 				//System.out.println(data.getRecipes().get(i).getName()); //Test Print
-			
-			/*
+
+				/*
 			try {
 				// if all 3 fields empty, null, blank
 				if ((byName.getText().isEmpty() || byName.getText().equals(null) || StringUtils.isBlank(byName.getText()))
@@ -193,8 +193,8 @@ public class WelcomeController implements Initializable {
 					RecipeList data = ReadData.readRecipes();
 					result = data.getRecipeByAll(neededName, neededIngredient, neededCategory);
 				}
-				*/
-			
+				 */
+
 				// switch to recipeList view
 				String fxmlFileDir = "/view/SearchInterface.fxml";
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
