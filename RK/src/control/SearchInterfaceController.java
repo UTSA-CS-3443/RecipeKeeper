@@ -12,11 +12,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AlertBox;
 import model.Constants;
@@ -92,6 +94,12 @@ public class SearchInterfaceController implements Initializable {
 						originalStage.setTitle(readingData.get(selectedIndex).getName() + " - View Mode");
 						originalStage.setScene(editWindow);
 						originalStage.show();
+						
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						
 					} catch (IOException ioe) {
 						AlertBox.display("Warning", "File not found.");
 					}

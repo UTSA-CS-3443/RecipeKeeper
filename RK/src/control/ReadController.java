@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -175,6 +177,12 @@ public class ReadController implements Initializable {
 					originalStage.setTitle("New Recipe - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
+					
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					
 				} catch (IOException ioe) {
 					AlertBox.display("Warning", "File not found.");
 				}
@@ -203,6 +211,11 @@ public class ReadController implements Initializable {
 					originalStage.setTitle(getData().getName() + " - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
+					
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 
 				} catch (IOException ioe) {
 

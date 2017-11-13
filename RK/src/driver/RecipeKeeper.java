@@ -8,6 +8,8 @@ import control.EditController;
 import control.ReadController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Constants;
 import model.Ingredient;
@@ -42,6 +44,12 @@ public class RecipeKeeper extends Application {
 			primaryStage.setTitle("Recipe Keeper");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			// center the stage
+			Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

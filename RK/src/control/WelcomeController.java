@@ -11,11 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AlertBox;
 import model.Constants;
@@ -157,6 +159,12 @@ public class WelcomeController implements Initializable {
 				originalStage.setTitle("Recipe Keeper");
 				originalStage.setScene(recipeListView);
 				originalStage.show();
+				
+				// center the stage
+				Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+				originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+				originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+				
 			}
 			catch (NullPointerException e) {
 				//RecipeList data = ReadData.readRecipes();
@@ -178,6 +186,12 @@ public class WelcomeController implements Initializable {
 					originalStage.setTitle("Recipe Keeper");
 					originalStage.setScene(recipeListView);
 					originalStage.show();
+					
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					
 				} catch (IOException io) {
 					AlertBox.display("Warning", "File not found.");
 				}
