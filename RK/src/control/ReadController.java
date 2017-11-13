@@ -128,6 +128,7 @@ public class ReadController implements Initializable {
 		 */
 		recipeName.setEditable(false);
 		instructions.setEditable(false);
+		instructions.setWrapText(true);
 		menuSave.setDisable(true);
 		menuSaveAs.setDisable(true);
 

@@ -143,6 +143,7 @@ public class EditController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		instructions.setWrapText(true);
 		menuEdit.setDisable(true);
 
 		/**
