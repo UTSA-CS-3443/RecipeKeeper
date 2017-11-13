@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -31,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.AlertBox;
+import model.Constants;
 import model.Ingredient;
 import model.Recipe;
 import model.RecipeList;
@@ -72,6 +74,12 @@ public class ReadController implements Initializable {
 
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;					// Save As...
+	
+	@FXML // fx:id="backward"
+	private Button backward;						// <
+	
+	@FXML // fx:id"forward"
+	private Button forward;						// >
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
@@ -121,6 +129,24 @@ public class ReadController implements Initializable {
 		menuSave.setDisable(true);
 		menuSaveAs.setDisable(true);
 
+		// return to the previous page
+		backward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		// return to the the page behind 
+		forward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		/**
 		 * Second method for serving size listener
 		 * Listen for changes to the serving size selection

@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.AlertBox;
+import model.Constants;
 import model.Recipe;
 import model.RecipeList;
 

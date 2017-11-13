@@ -41,7 +41,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false" text="&lt;" />
+                  <Button fx:id="backward" mnemonicParsing="false" text="&lt;" />
                   <Button fx:id="forward" mnemonicParsing="false" text="&gt;" />
                   <Region prefHeight="27.0" prefWidth="108.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="recipeName" alignment="CENTER" prefHeight="27.0" prefWidth="150.0" promptText="Name" />

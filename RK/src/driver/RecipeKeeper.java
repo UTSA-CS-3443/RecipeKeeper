@@ -4,12 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import control.Constants;
 import control.EditController;
 import control.ReadController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.Constants;
 import model.Ingredient;
 import model.Recipe;
 import javafx.scene.Parent;

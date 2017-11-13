@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.AlertBox;
+import model.Constants;
 import model.Recipe;
 import model.RecipeList;
 import model.Ingredient;
@@ -151,7 +152,7 @@ public class WelcomeController implements Initializable {
 				controller.initData(result);
 				controller.initialize(location, loader.getResources());
 
-				Scene recipeListView = new Scene(root, 300, 270);
+				Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 				Stage originalStage = (Stage) motherPane.getScene().getWindow();
 				originalStage.setTitle("Recipe Keeper");
 				originalStage.setScene(recipeListView);
@@ -172,7 +173,7 @@ public class WelcomeController implements Initializable {
 					controller.initData(result);
 					controller.initialize(location, loader.getResources());
 
-					Scene recipeListView = new Scene(root, 300, 270);
+					Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
 					originalStage.setTitle("Recipe Keeper");
 					originalStage.setScene(recipeListView);

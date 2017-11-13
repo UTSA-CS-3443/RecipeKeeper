@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.AlertBox;
+import model.Constants;
 import model.Ingredient;
 import model.IngredientException;
 import model.Recipe;
@@ -73,14 +74,11 @@ public class EditController implements Initializable{
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;						// Save As...
 
-	@FXML // fx:id="findName"
-	private MenuItem findName;						// find by Name
+	@FXML // fx:id="backward"
+	private Button backward;							// <
 
-	@FXML // fx:id="findIngre"
-	private MenuItem findIngre;						// find by Ingredient
-
-	@FXML // fx:id="findCate"
-	private MenuItem findCate;						// find by Category
+	@FXML // fx:id"forward"
+	private Button forward;							// >
 
 	@FXML // fx:id="addIngredient"
 	private Button addIngredient;					// "+" button for ingredients
@@ -146,7 +144,7 @@ public class EditController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 		menuEdit.setDisable(true);
-		
+
 		/**
 		 * Sets up serving size ComboBox and
 		 * its handler 
@@ -167,6 +165,24 @@ public class EditController implements Initializable{
 				recipeName.getText();
 			} catch (NullPointerException e) {
 				AlertBox.display("Warnning", "Recipe name is empty");
+			}
+		});
+
+		// return to the previous page
+		backward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// return to the the page behind 
+		forward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+
 			}
 		});
 
