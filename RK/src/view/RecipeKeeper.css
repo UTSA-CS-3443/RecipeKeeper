@@ -17,6 +17,10 @@
 	-fx-font-weight: bold;
 }
 .label {
-	-fx-text-fill: rgb(0,0,0)
+	-fx-text-fill: rgb(0,0,0);
 	
+}
+#search-back {
+	-fx-background-color: #A1B56C;
+	-fx-font-size: 11 pt;
 }

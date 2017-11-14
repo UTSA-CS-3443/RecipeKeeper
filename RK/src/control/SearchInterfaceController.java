@@ -107,7 +107,7 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "No item selected");
 				}
 			}
-
+			
 		});
 
 	}
@@ -123,7 +123,9 @@ public class SearchInterfaceController implements Initializable {
 		this.readingData = result;
 		// for 
 		repList.setItems(recipeNames);
-		
+		repList.setStyle("-fx-background-color: #A1B56C");
+		motherPane.setStyle("-fx-background-color: #A1B56C");
+		open.setStyle("-fx-background-color: #DC9656");
 	}
 
 }

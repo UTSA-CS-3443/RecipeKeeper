@@ -59,7 +59,7 @@ public class WelcomeController implements Initializable {
 
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
-
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rs) {
 
@@ -75,12 +75,13 @@ public class WelcomeController implements Initializable {
 				editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 				Stage originalStage = (Stage) motherPane.getScene().getWindow();
 				originalStage.setScene(editWindow);
+				
 			} catch (IOException ioe) {
 
 			}
 			
 		});
-
+		
 		/**
 		 * find a recipe and enter read mode
 		 */
