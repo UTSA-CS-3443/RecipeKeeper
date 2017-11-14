@@ -78,6 +78,7 @@ public class WelcomeController implements Initializable {
 			} catch (IOException ioe) {
 
 			}
+			
 		});
 
 		/**
