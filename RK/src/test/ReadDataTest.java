@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import control.ReadData;
+import model.ReadData;
 import model.Recipe;
 import model.RecipeList;
 

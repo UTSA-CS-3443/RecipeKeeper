@@ -1,4 +1,4 @@
-package control;
+package model;
 
 import java.io.BufferedReader;
 
@@ -9,9 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import model.Ingredient;
-import model.Recipe;
-import model.RecipeList;
 
 public class ReadData {
 	public static RecipeList readRecipes() {

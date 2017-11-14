@@ -102,9 +102,7 @@ public class EditController implements Initializable{
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
 
-	// Data writer
-	private WriteData dataWriter;
-
+	// constants
 	private static Constants constants = new Constants();
 
 	// list of units
@@ -164,9 +162,10 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 					recipeName.getText();
+					if (instructions.getText().equals(null)) instructions.setText("");
 				} catch (NullPointerException npe) {
 					AlertBox.display("Warning", "Recipe name is empty");
-				}
+				} 
 			}
 			
 		});

@@ -1,13 +1,9 @@
-package control;
+package model;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import model.AlertBox;
-import model.Ingredient;
-import model.Recipe;
 
 public class WriteData {
 	

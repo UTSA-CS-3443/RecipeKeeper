@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import model.Ingredient;
 import model.Recipe;
+import model.WriteData;
 import control.*;
 
 public class WriteDataTest {
