@@ -14,7 +14,9 @@
 	-fx-background-color: #DC9656;
 	-fx-text-fill: #FFFFFF;
 	-fx-background-radius: 6;
+	-fx-font-weight: bold;
 }
 .label {
-	-fx-text-fill: rgb(255,107,0)
+	-fx-text-fill: rgb(0,0,0)
+	
 }
