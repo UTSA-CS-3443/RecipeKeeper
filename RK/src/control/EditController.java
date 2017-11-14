@@ -157,6 +157,19 @@ public class EditController implements Initializable{
 				changeValueAt(i, 2, tempQty, ingredientsTable);
 			}
 		});
+		
+		menuSave.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					recipeName.getText();
+				} catch (NullPointerException npe) {
+					AlertBox.display("Warning", "Recipe name is empty");
+				}
+			}
+			
+		});
 
 		/**
 		 * menuSaveAs handler

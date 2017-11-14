@@ -37,7 +37,21 @@ public class WriteData {
 				file.createNewFile();
 			}
 			FileWriter writer = new FileWriter(file);
-			writer.write(recipe.toString());
+			
+			// parse the recipe into the same format with other files
+			String textForm = "";
+			for (Ingredient i : recipe.getIngredients()) {
+				textForm += i.getName() + "," + i.getQuantity() + "," + i.getUnit() + ",,,\n";
+			}
+			textForm += ",\n";
+			for (String category : recipe.getCategories()) {
+				textForm += category + ",";
+			}
+			textForm += "\n,\n";
+			textForm += recipe.getInstructions();
+			
+			// write into model.Recipes
+			writer.write(textForm);
 			writer.flush();
 			writer.close();
 		} catch(Exception e) {
