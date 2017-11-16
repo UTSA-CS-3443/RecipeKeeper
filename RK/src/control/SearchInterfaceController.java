@@ -123,9 +123,9 @@ public class SearchInterfaceController implements Initializable {
 		this.readingData = result;
 		// for 
 		repList.setItems(recipeNames);
-		repList.setStyle("-fx-background-color: #A1B56C");
-		motherPane.setStyle("-fx-background-color: #A1B56C");
-		open.setStyle("-fx-background-color: #DC9656");
+		repList.setStyle("-fx-background-color: #FFFFFF; -fx-accent: #ff6c00; -fx-focus-color: #ff6c00;");
+		motherPane.setStyle("-fx-background-color: #FFFFFF");
+		open.setStyle("-fx-background-color: #ff9900");
 	}
 
 }

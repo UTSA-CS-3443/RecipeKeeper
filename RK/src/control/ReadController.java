@@ -241,11 +241,10 @@ public class ReadController implements Initializable {
 
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
-
+		servingSize.setStyle("-fx-background-color: #ff9900");
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
 		// Quantity column
 		TableColumn<Ingredient, String> quantityColumn = new TableColumn<>("Quantity");
 		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));	
@@ -260,6 +259,7 @@ public class ReadController implements Initializable {
 			qtyPerServingSize.add(i.getQuantity());
 		}
 		ingredientsTable.setItems(rIngredients);
+		ingredientsTable.setStyle("-fx-background-color: #ff9900");
 		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
 
 		// Initialize categoryTable
@@ -277,6 +277,7 @@ public class ReadController implements Initializable {
 	public Recipe getData() {
 		return this.recipe;
 	}
+	
 
 	/**
 	 * Change value at specific location of TableView
