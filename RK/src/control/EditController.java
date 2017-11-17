@@ -30,6 +30,7 @@ import model.Constants;
 import model.Ingredient;
 import model.IngredientException;
 import model.Recipe;
+import model.WriteData;
 
 /**
  * NewController initializes when user chooses to create a new recipe
@@ -161,9 +162,11 @@ public class EditController implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					recipeName.getText();
-					if (instructions.getText().equals(null)) instructions.setText("");
-				} catch (NullPointerException npe) {
+					if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
+						throw new IllegalArgumentException();
+					WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+					AlertBox.display("Notice", recipeName.getText() + " is saved");
+				} catch (IllegalArgumentException npe) {
 					AlertBox.display("Warning", "Recipe name is empty");
 				} 
 			}
@@ -219,9 +222,8 @@ public class EditController implements Initializable{
 							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
 					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
+					else if (StringUtils.isBlank(ingreQty.getText())) throw new IngredientException("Quantity cannot be blank");
 					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
-					else if (!ingreName.getText().contains("[a-zA-Z]+")) throw new IngredientException("Ingredient name can only contain alphabetical letters");
-					else if (!ingreUnit.getValue().contains("[a-zA-Z]+")) throw new IngredientException("Ingredient unit only contain alphabetical letters");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
@@ -233,9 +235,10 @@ public class EditController implements Initializable{
 					qty = Integer.valueOf(ingreQty.getText());
 					unit = ingreUnit.getValue();
 					Ingredient i = new Ingredient (name, qty, unit);
+					// add to view and internal data
 					ingredients.add(i);
 					qtyPerServingSize.add(qty);
-
+					recipe.getIngredients().add(i);
 				} 
 				catch (IngredientException e) { 
 					// add more codes if needed
@@ -260,8 +263,10 @@ public class EditController implements Initializable{
 
 					int selectedIndex = ingredientsTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						// remove from view and internal data
 						ingredientsTable.getItems().remove(selectedIndex);
 						qtyPerServingSize.remove(selectedIndex);
+						recipe.getIngredients().remove(selectedIndex);
 					}
 					else {
 						AlertBox.display("Warning", "No Item Selected");
@@ -285,7 +290,9 @@ public class EditController implements Initializable{
 					if (textCategory.getText().equals(null) || textCategory.getText().equals("")) throw new NullPointerException();
 					else if (textCategory.getText().contains("[a-zA-Z]+")) throw new IllegalArgumentException();
 					else if (StringUtils.isBlank(textCategory.getText())) throw new IngredientException();
+					// add to view and internal data
 					categories.add(textCategory.getText());
+					recipe.getCategories().add(textCategory.getText());
 				} catch (NullPointerException npe) {
 					AlertBox.display("Warning", "Category field cannot be empty");
 				} catch (IllegalArgumentException e) {
@@ -311,7 +318,9 @@ public class EditController implements Initializable{
 
 					int selectedIndex = categoryTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						// remove from view and internal data
 						categoryTable.getItems().remove(selectedIndex);
+						recipe.getCategories().remove(selectedIndex);
 					}
 					else {
 						AlertBox.display("Warning", "No Item Selected");
