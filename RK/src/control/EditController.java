@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.AlertBox;
+import model.ConfirmBox;
 import model.Constants;
 import model.Ingredient;
 import model.IngredientException;
@@ -157,6 +158,9 @@ public class EditController implements Initializable{
 			}
 		});
 		
+		/**
+		 * menuSave
+		 */
 		menuSave.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -164,8 +168,12 @@ public class EditController implements Initializable{
 				try {
 					if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 						throw new IllegalArgumentException();
-					WriteData.CreateRecipeFile(recipeName.getText(), recipe);
-					AlertBox.display("Notice", recipeName.getText() + " is saved");
+					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
+					if (wantToSave) {
+						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+						AlertBox.display("Notice", recipeName.getText() + " is saved");
+					}
+					else return;
 				} catch (IllegalArgumentException npe) {
 					AlertBox.display("Warning", "Recipe name is empty");
 				} 
@@ -178,8 +186,9 @@ public class EditController implements Initializable{
 		 */
 		menuSaveAs.setOnAction(action -> {
 			try {
-				recipeName.getText();
-			} catch (NullPointerException e) {
+				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
+					throw new IllegalArgumentException();
+			} catch (IllegalArgumentException e) {
 				AlertBox.display("Warnning", "Recipe name is empty");
 			}
 		});
