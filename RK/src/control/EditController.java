@@ -155,6 +155,7 @@ public class EditController implements Initializable{
 
 		// ComboBox for ingredient's units
 		ingreUnit.getItems().addAll(UNITS);
+		ingreUnit.setEditable(true);
 		
 		/**
 		 * Sets up serving size ComboBox and
