@@ -103,6 +103,7 @@ public class EditController implements Initializable{
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
+	private String oldName;
 
 	// constants
 	private static Constants constants = new Constants();
@@ -157,7 +158,7 @@ public class EditController implements Initializable{
 				changeValueAt(i, 2, tempQty, ingredientsTable);
 			}
 		});
-		
+
 		/**
 		 * menuSave
 		 */
@@ -178,7 +179,7 @@ public class EditController implements Initializable{
 					AlertBox.display("Warning", "Recipe name is empty");
 				} 
 			}
-			
+
 		});
 
 		/**
@@ -188,6 +189,23 @@ public class EditController implements Initializable{
 			try {
 				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 					throw new IllegalArgumentException();
+				if (oldName.equals(recipeName.getText())) {
+					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
+							+ "\n" + "Clicking yes is to overwrite " + oldName);
+					if (notChangeName) {
+						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+						AlertBox.display("Notice", recipeName.getText() + " is saved");
+					}
+					else return;
+				}
+				else {
+					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
+					if (wantToSave) {
+						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+						AlertBox.display("Notice", recipeName.getText() + " is saved");
+					}
+					else return;
+				}
 			} catch (IllegalArgumentException e) {
 				AlertBox.display("Warnning", "Recipe name is empty");
 			}
@@ -350,6 +368,7 @@ public class EditController implements Initializable{
 	public void initData(Recipe r) {
 
 		this.recipe = r;
+		this.oldName = r.getName();
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
 
