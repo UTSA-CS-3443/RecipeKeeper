@@ -143,10 +143,19 @@ public class EditController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
+		// instructions TextArea
 		instructions.setWrapText(true);
+		
+		// disable edit button
 		menuEdit.setDisable(true);
 
+		// servingSize
+		servingSize.getItems().addAll(SERVSIZES);
+
+		// ComboBox for ingredient's units
+		ingreUnit.getItems().addAll(UNITS);
+		
 		/**
 		 * Sets up serving size ComboBox and
 		 * its handler 
@@ -371,13 +380,6 @@ public class EditController implements Initializable{
 		this.oldName = r.getName();
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
-
-		// servingSize
-		servingSize.getItems().addAll(SERVSIZES);
-
-		// ComboBox for ingredient's units
-		ingreUnit.getItems().addAll(UNITS);
-		ingreUnit.setEditable(true);
 
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
