@@ -81,6 +81,9 @@ public class EditController implements Initializable{
 
 	@FXML // fx:id"forward"
 	private Button forward;							// >
+	
+	@FXML // fx:id="home"
+	private Button home;							// home (⌂)
 
 	@FXML // fx:id="addIngredient"
 	private Button addIngredient;					// "+" button for ingredients
@@ -232,6 +235,15 @@ public class EditController implements Initializable{
 
 		// return to the the page behind 
 		forward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		// return to home screen
+		home.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub

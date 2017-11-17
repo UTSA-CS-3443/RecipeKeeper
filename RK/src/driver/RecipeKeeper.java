@@ -23,23 +23,20 @@ import javafx.scene.Scene;
  *
  */
 public class RecipeKeeper extends Application {
-	
-	Constants constants = new Constants();
-	int[] MIN_SIZES = constants.getMinSizes();
-	
-	
+		
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-						
+			Constants constants = new Constants();
+			int[] MIN_SIZES = constants.getMinSizes();
+			
 			String fileDirectory = "/view/Welcome.fxml";
 			String cssDirectory = "/view/RecipeKeeper.css";
 
  			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
  			Parent root = loader.load();
- 			
+	
 			Scene scene = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-			
 			scene.getStylesheets().add(getClass().getResource(cssDirectory).toExternalForm());
 			primaryStage.setTitle("Recipe Keeper");
 			primaryStage.setScene(scene);

@@ -76,12 +76,15 @@ public class ReadController implements Initializable {
 
 	@FXML // fx:id="menuSaveAs"
 	private MenuItem menuSaveAs;					// Save As...
-	
+
 	@FXML // fx:id="backward"
 	private Button backward;						// <
-	
-	@FXML // fx:id"forward"
+
+	@FXML // fx:id="forward"
 	private Button forward;						// >
+
+	@FXML // fx:id="home"
+	private Button home;							// home (⌂)
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
@@ -137,16 +140,43 @@ public class ReadController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
+
 		// return to the the page behind 
 		forward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				
+
+			}
+		});
+
+		// return to home screen
+		home.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					String fxmlFileDir = "/view/Welcome.fxml";
+					String cssFileDir = "/view/RecipeKeeper.css";
+					Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+					Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+					originalStage.setTitle("New Recipe - Edit Mode");
+					originalStage.setScene(homeWindow);
+					originalStage.show();
+
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+				} catch (IOException ioe) {
+					AlertBox.display("Warning", "File not found.");
+				}
 			}
 		});
 		
@@ -178,12 +208,12 @@ public class ReadController implements Initializable {
 					originalStage.setTitle("New Recipe - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
-					
+
 					// center the stage
 					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
 					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-					
+
 				} catch (IOException ioe) {
 					AlertBox.display("Warning", "File not found.");
 				}
@@ -212,7 +242,7 @@ public class ReadController implements Initializable {
 					originalStage.setTitle(getData().getName() + " - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
-					
+
 					// center the stage
 					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
@@ -225,9 +255,9 @@ public class ReadController implements Initializable {
 				}
 			}
 		});
-		
+
 	}	
-	
+
 	/**
 	 * Initialize data, Recipe setter
 	 * @param recipe
@@ -277,7 +307,7 @@ public class ReadController implements Initializable {
 	public Recipe getData() {
 		return this.recipe;
 	}
-	
+
 
 	/**
 	 * Change value at specific location of TableView

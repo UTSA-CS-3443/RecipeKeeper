@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Hoa Pham
  *
  */
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
 	
 	String name;
 	ArrayList<Ingredient> ingredients;
@@ -102,6 +102,9 @@ public class Recipe {
 		this.categories = categories;
 	}
 	
+	/**
+	 * toString method
+	 */
 	public String toString() {
 		String str = "";
 		for (Ingredient i : ingredients){
@@ -113,6 +116,39 @@ public class Recipe {
 		}
 		str = str + "\n,\n";
 		return str + instructions;
+	}
+
+	/**
+	 * 
+	 * @param other
+	 * @return 1 if two recipes are identical, 0 otherwise
+	 */
+	public int compareTo(Recipe other) {
+		int result = 0;
+		
+		if (this.getName().equals(other.getName())) {
+			for (Ingredient thisIngre : this.getIngredients()) {
+				for (Ingredient otherIngre : other.getIngredients()) {
+					result = otherIngre.compareTo(thisIngre);
+					if (result == 0) break;
+				}
+				if (result == 0) break;
+			}
+			if (result != 0) {
+				for (String thisCategory : this.getCategories()) {
+					for (String otherCategory : other.getCategories()) {
+						result = otherCategory.compareTo(thisCategory);
+						if (result == 0) break;
+					}
+					if (result == 0) break;
+				}
+				if (result != 0) {
+					result = this.getInstructions().compareTo(other.getInstructions());
+				}
+			} 
+		} else result = 0;
+		
+		return result;
 	}
 	
 }
