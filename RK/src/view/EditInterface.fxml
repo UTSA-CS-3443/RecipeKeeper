@@ -43,7 +43,7 @@
                <children>
                   <Button fx:id="backward" mnemonicParsing="false" text="&lt;" />
                   <Button fx:id="forward" mnemonicParsing="false" text="&gt;" />
-                  <Button mnemonicParsing="false" text="⌂" />
+                  <Button fx:id="home" mnemonicParsing="false" text="⌂" />
                   <Region prefHeight="0.0" prefWidth="108.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="recipeName" alignment="CENTER" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
                   <Region prefHeight="27.0" prefWidth="48.0" HBox.hgrow="ALWAYS" />

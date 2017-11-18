@@ -77,7 +77,7 @@ public class WelcomeController implements Initializable {
 				originalStage.setScene(editWindow);
 				
 			} catch (IOException ioe) {
-
+				ioe.printStackTrace();
 			}
 			
 		});
