@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +32,23 @@ public class RecipeList {
 	
 	public void addRecipe(Recipe recipe) {
 		recipeList.add(recipe);
+	}
+	
+	/**
+	 * Takes in a Recipe object as a parameter, removes the recipe from
+	 * the RecipeList and deletes the recipe's file from the Recipe directory.
+	 * @param recipe
+	 */
+	public void rmvRecipe(Recipe recipe) {
+		try {		
+			String path = Paths.get(".").toAbsolutePath().normalize().toString() + "/src/model/Recipes/";
+			File file = new File(path + recipe.getName() + ".csv");
+			System.out.println("\nFile to delete: " + file.toString());
+			file.delete();
+			this.recipeList.remove(recipe);
+		} catch(Exception e) {
+			System.out.println("File to delete not found");
+		}
 	}
 
 	
@@ -145,7 +164,7 @@ public class RecipeList {
 	 * @param name
 	 * @param ingre
 	 * @param cate
-	 * @returna list of recipes that contains the requested category, name, and ingredient
+	 * @return a list of recipes that contains the requested category, name, and ingredient
 	 */
 	public ArrayList<Recipe> getRecipeByAll (String name, String ingre, String cate) {
 		ArrayList<Recipe> result = new ArrayList<Recipe>();
