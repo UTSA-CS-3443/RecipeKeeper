@@ -200,7 +200,14 @@ public class ReadController implements Initializable {
 				try {
 					String fxmlFileDir = "/view/EditInterface.fxml";
 					String cssFileDir = "/view/RecipeKeeper.css";
-					Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
+					
+					EditController controller = loader.getController();
+					controller.initData(new Recipe());
+					controller.initialize(location, loader.getResources());
+					
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();

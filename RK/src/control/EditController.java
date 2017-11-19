@@ -270,9 +270,9 @@ public class EditController implements Initializable{
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
 							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
-					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
-					else if (StringUtils.isBlank(ingreQty.getText())) throw new IngredientException("Quantity cannot be blank");
-					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
+//					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
+//					else if (StringUtils.isBlank(ingreQty.getText())) throw new IngredientException("Quantity cannot be blank");
+//					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
@@ -297,6 +297,9 @@ public class EditController implements Initializable{
 				}
 				catch (NullPointerException e) {
 					AlertBox.display("Warning", "One or more fields are empty");
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
