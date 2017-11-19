@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Recipe class will store a recipe's name and instructions in strings, 
@@ -119,7 +121,7 @@ public class Recipe implements Comparable<Recipe> {
 	}
 
 	/**
-	 * 
+	 * compareTo method of Recipe class
 	 * @param other
 	 * @return 1 if two recipes are identical, 0 otherwise
 	 */
@@ -127,28 +129,54 @@ public class Recipe implements Comparable<Recipe> {
 		int result = 0;
 		
 		if (this.getName().equals(other.getName())) {
-			for (Ingredient thisIngre : this.getIngredients()) {
-				for (Ingredient otherIngre : other.getIngredients()) {
-					result = otherIngre.compareTo(thisIngre);
-					if (result == 0) break;
-				}
-				if (result == 0) break;
-			}
-			if (result != 0) {
-				for (String thisCategory : this.getCategories()) {
-					for (String otherCategory : other.getCategories()) {
-						result = otherCategory.compareTo(thisCategory);
-						if (result == 0) break;
+			if(this.compareIngredient(other) == 1) {
+				if(this.compareCategory(other) == 1) {
+					if(this.getInstructions().equals(other.getInstructions())) {
+						result = 1;
 					}
-					if (result == 0) break;
 				}
-				if (result != 0) {
-					result = this.getInstructions().compareTo(other.getInstructions());
-				}
-			} 
-		} else result = 0;
-		
+			}
+		}
+
 		return result;
 	}
 	
+	/**
+	 * compare categories of two recipes
+	 * @param other
+	 * @return 1 if the lists of Categories are the same, 0 otherwise
+	 */
+	public int compareCategory(Recipe other) {
+		int result = 0;
+		Collection<String> thisCategories = this.getCategories();
+		Collection<String> otherCategories = other.getCategories();
+		
+		List<String> instr1 = new ArrayList<String>(thisCategories);
+		instr1.removeAll(otherCategories);
+		
+		if (instr1.size() == 0) {
+			result = 1;
+		}
+		return result;
+	}
+	
+	/**
+	 * compare ingredients of two recipes
+	 * @param other
+	 * @return 1 if the lists of Ingredients are the same, 0 otherwise
+	 */
+	public int compareIngredient(Recipe other) {
+		int result = 0;
+		Collection<Ingredient> thisIngredients = this.getIngredients();
+		Collection<Ingredient> otherIngredients = other.getIngredients();
+		
+		List<Ingredient> ingre1 = new ArrayList<Ingredient>(thisIngredients);
+		ingre1.removeAll(otherIngredients);
+		
+		if (ingre1.size() == 0) {
+			result = 1;
+		}
+		
+		return result;
+	}
 }

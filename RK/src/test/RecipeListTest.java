@@ -23,11 +23,11 @@ public class RecipeListTest {
 			System.out.print(recipe.getName() + " ");
 			WriteData.CreateRecipeFile(recipe.getName(), recipe);
 		}
-		//testRecipeList.rmvRecipe(r1); //Uncomment this line to remove r1 file and object
+		testRecipeList.rmvRecipe(r1); //Uncomment this line to remove r1 file and object
 		System.out.print("\nCurrent recipes: ");
 		for (Recipe recipe : testRecipeList.getRecipeList())
 			System.out.print(recipe.getName() + " ");
-		//testRecipeList.rmvRecipe(r2); //Uncomment this line to remove r2 file and object
+		testRecipeList.rmvRecipe(r2); //Uncomment this line to remove r2 file and object
 		System.out.print("\nCurrent recipes: ");
 		for (Recipe recipe : testRecipeList.getRecipeList())
 			System.out.print(recipe.getName() + " ");

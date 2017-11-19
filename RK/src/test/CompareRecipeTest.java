@@ -2,13 +2,32 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
+
+import model.Ingredient;
+import model.Recipe;
 
 public class CompareRecipeTest {
 
 	@Test
 	public void testCompareTo() {
-		fail("Not yet implemented");
+		Ingredient test1 = new Ingredient("chicken", 1, "bucket");
+		Ingredient test2 = new Ingredient("doritos", 3, "oil drum");
+		ArrayList<Ingredient> testIngredients = new ArrayList<Ingredient>();
+		testIngredients.add(test1);
+		testIngredients.add(test2);
+		ArrayList<String> testCategories = new ArrayList<String>();
+		testCategories.add("christmas");
+		testCategories.add("spooky");
+		Recipe test = new Recipe("test", testIngredients, testCategories, "cook");
+		Recipe rep2 = new Recipe("test", testIngredients, testCategories, "cook");
+		
+		System.out.println(test.compareCategory(rep2));
+		System.out.println(test.compareIngredient(rep2));
+		System.out.println(test.getName().equals(rep2.getName()));
+		System.out.println(test.compareTo(rep2));
 	}
 
 }
