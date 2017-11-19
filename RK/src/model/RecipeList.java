@@ -43,7 +43,7 @@ public class RecipeList {
 		try {		
 			String path = Paths.get(".").toAbsolutePath().normalize().toString() + "/src/model/Recipes/";
 			File file = new File(path + recipe.getName() + ".csv");
-			System.out.println("\nFile to delete: " + file.toString());
+			//System.out.println("\nFile to delete: " + file.toString()); //Uncomment this line to print to console the path being deleted
 			file.delete();
 			this.recipeList.remove(recipe);
 		} catch(Exception e) {
