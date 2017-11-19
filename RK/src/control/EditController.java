@@ -281,7 +281,7 @@ public class EditController implements Initializable{
 					String name, unit;
 					double qty;
 					name = ingreName.getText();
-					qty = Integer.valueOf(ingreQty.getText());
+					qty = Double.valueOf(ingreQty.getText());
 					unit = ingreUnit.getValue();
 					Ingredient i = new Ingredient (name, qty, unit);
 					// add to view and internal data
@@ -293,13 +293,13 @@ public class EditController implements Initializable{
 					// add more codes if needed
 				}
 				catch (IllegalArgumentException np) {
-					AlertBox.display("Warning", "One or more fields are empty");
+					AlertBox.display("Warning", "Cannot read input fields");
 				}
 				catch (NullPointerException e) {
 					AlertBox.display("Warning", "One or more fields are empty");
 				}
 				catch (Exception ex) {
-					ex.printStackTrace();
+					//ex.printStackTrace();
 				}
 			}
 		});
