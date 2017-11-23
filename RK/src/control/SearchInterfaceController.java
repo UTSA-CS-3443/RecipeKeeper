@@ -21,7 +21,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AlertBox;
+import model.ConfirmBox;
 import model.Constants;
+import model.ReadData;
 import model.Recipe;
 import model.RecipeList;
 
@@ -40,6 +42,9 @@ public class SearchInterfaceController implements Initializable {
 
 	@FXML // fx:id="open"
 	private Button open;
+	
+	@FXML // fx:id="delRep"
+	private Button delRep;
 
 	// list of recipe names
 	private ObservableList<String> recipeNames = FXCollections.observableArrayList();
@@ -70,6 +75,9 @@ public class SearchInterfaceController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		/**
+		 * open a recipe
+		 */
 		open.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -109,7 +117,40 @@ public class SearchInterfaceController implements Initializable {
 			}
 			
 		});
+		
+		/**
+		 * Delete a recipe from model FOREVER. 
+		 * Restoring by reset the closest commits 
+		 * (read the commits carefully before reseting)
+		 */
+		delRep.setOnAction(new EventHandler<ActionEvent>() {
 
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if (recipeNames.size() < 1) throw new RuntimeException();
+					
+					int selectedIndex = repList.getSelectionModel().getSelectedIndex();
+					if (selectedIndex >= 0) {
+						boolean confirm = ConfirmBox.display("Notice", "Are you sure to delete this recipe?");
+						if (confirm) {
+							Recipe itemToBeRemoved = readingData.get(selectedIndex);
+							RecipeList data = ReadData.readRecipes();
+							data.rmvRecipe(itemToBeRemoved);
+							repList.getItems().remove(selectedIndex);
+						}
+						else return;
+					}
+					else {
+						AlertBox.display("Warning", "No Item Selected");
+					}
+				} catch (RuntimeException e) {
+					AlertBox.display("Warning", "Recipe List is empty");
+				}
+			}
+			
+		});
+		
 	}
 
 	/**

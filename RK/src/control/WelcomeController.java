@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,22 +36,22 @@ import model.ReadData;
 public class WelcomeController implements Initializable {
 
 	@FXML // fx:id="motherPane"
-	private BorderPane motherPane = new BorderPane();
+	private BorderPane motherPane;
 
 	@FXML // fx:id="byName"
-	private TextField byName = new TextField();
+	private TextField byName;
 
 	@FXML // fx:id="byIngredient"
-	private TextField byIngredient = new TextField();
+	private TextField byIngredient;
 
 	@FXML // fx:id="byCategory"
-	private TextField byCategory = new TextField();
+	private TextField byCategory;
 
 	@FXML // fx:id="startRep"
-	private Button startRep = new Button();
+	private Button startRep;
 
 	@FXML // fx:id="findRep"
-	private Button findRep = new Button();
+	private Button findRep;
 
 	// search result
 	private ArrayList<Recipe> result;
