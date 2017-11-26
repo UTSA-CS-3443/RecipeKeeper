@@ -163,8 +163,17 @@ public class EditController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		// Event listener when name box is changed
+		recipeName.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+		        recipe.setName(newValue);
+		    }
+		});
+		
 		// instructions TextArea
 		instructions.setWrapText(true);
+		// Event listener when instructions box is changed
 		instructions.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
 		    public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
