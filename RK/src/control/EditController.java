@@ -184,6 +184,7 @@ public class EditController implements Initializable{
 						throw new IllegalArgumentException();
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
+						recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -206,6 +207,7 @@ public class EditController implements Initializable{
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
 							+ "\n" + "Clicking yes is to overwrite " + oldName);
 					if (notChangeName) {
+						recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
