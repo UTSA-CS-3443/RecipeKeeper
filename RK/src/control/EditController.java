@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,12 +9,18 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -24,13 +31,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AlertBox;
 import model.ConfirmBox;
+import model.ConfirmCancelBox;
 import model.Constants;
 import model.Ingredient;
 import model.IngredientException;
+import model.ReadData;
 import model.Recipe;
+import model.RecipeList;
 import model.WriteData;
 
 /**
@@ -81,7 +92,7 @@ public class EditController implements Initializable{
 
 	@FXML // fx:id"forward"
 	private Button forward;							// >
-	
+
 	@FXML // fx:id="home"
 	private Button home;							// home (⌂)
 
@@ -106,7 +117,10 @@ public class EditController implements Initializable{
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
-	
+
+	// previous recipe name (created when enter scene)
+	private String oldName;
+
 	// Another Recipe used to check if user hit save button
 	private Recipe previousRep = new Recipe();
 
@@ -148,10 +162,16 @@ public class EditController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		// instructions TextArea
 		instructions.setWrapText(true);
-		
+		instructions.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+		        recipe.setInstructions(newValue);
+		    }
+		});
+
 		// disable edit button
 		menuEdit.setDisable(true);
 
@@ -161,7 +181,7 @@ public class EditController implements Initializable{
 		// ComboBox for ingredient's units
 		ingreUnit.getItems().addAll(UNITS);
 		ingreUnit.setEditable(true);
-		
+
 		/**
 		 * Sets up serving size ComboBox and
 		 * its handler 
@@ -186,7 +206,6 @@ public class EditController implements Initializable{
 						throw new IllegalArgumentException();
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
-						recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -205,11 +224,12 @@ public class EditController implements Initializable{
 			try {
 				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 					throw new IllegalArgumentException();
-				if (previousRep.getName().equals(recipeName.getText())) {
+				RecipeList data = ReadData.readRecipes();
+
+				if (data.getRecipeByName(oldName).size() > 0) {
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
-							+ "\n" + "Clicking yes is to overwrite " + previousRep.getName());
+							+ "\n" + "Clicking yes is to replace " + oldName);
 					if (notChangeName) {
-						recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -218,6 +238,7 @@ public class EditController implements Initializable{
 				else {
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
+						//recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -245,12 +266,90 @@ public class EditController implements Initializable{
 
 			}
 		});
-		
+
 		// return to home screen
 		home.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				if (recipe.compareTo(previousRep) != 1) {
+					int clickResult = ConfirmCancelBox.display("Notice", "Do you want to make changes to " + recipeName.getText() + "?"
+							+ "\n" + "Your change(s) will be lost if you don't save them.");
+					switch (clickResult) {
+					case(-1):
+						try {
+							String fxmlFileDir = "/view/Welcome.fxml";
+							String cssFileDir = "/view/RecipeKeeper.css";
+							Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+							Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setScene(homeWindow);
+							originalStage.show();
+
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+						} catch (IOException ioe) {
+							AlertBox.display("Warning", "Oops! Something wrong happened.");
+						}
+					break;
+					case(0):
+						break;
+					case(1):
+					{
+						//recipe.setInstructions(instructions.getText());
+						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+						try {
+							String fxmlFileDir = "/view/Welcome.fxml";
+							String cssFileDir = "/view/RecipeKeeper.css";
+							Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+							Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setScene(homeWindow);
+							originalStage.show();
+
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+						} catch (IOException ioe) {
+							AlertBox.display("Warning", "Oops! Something wrong happened.");
+						}
+						break;
+					}
+
+					}
+				}
+				else {
+					try {
+						String fxmlFileDir = "/view/Welcome.fxml";
+						String cssFileDir = "/view/RecipeKeeper.css";
+						Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
+						Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+						originalStage.setTitle("New Recipe - Edit Mode");
+						originalStage.setScene(homeWindow);
+						originalStage.show();
+
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+					} catch (IOException ioe) {
+						AlertBox.display("Warning", "Oops! Something wrong happened.");
+					}
+				}
 
 			}
 		});
@@ -274,9 +373,9 @@ public class EditController implements Initializable{
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
 							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
-//					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
-//					else if (StringUtils.isBlank(ingreQty.getText())) throw new IngredientException("Quantity cannot be blank");
-//					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
+					//					else if (StringUtils.isBlank(ingreName.getText())) throw new IngredientException("Ingredient name cannot be blank");
+					//					else if (StringUtils.isBlank(ingreQty.getText())) throw new IngredientException("Quantity cannot be blank");
+					//					else if (StringUtils.isBlank(ingreUnit.getValue())) throw new IngredientException("Unit cannot be blank");
 					else if (containsDigit(ingreName.getText())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
@@ -397,6 +496,7 @@ public class EditController implements Initializable{
 	public void initData(Recipe r) {
 
 		this.recipe = r;
+		this.oldName = r.getName();
 		this.previousRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());

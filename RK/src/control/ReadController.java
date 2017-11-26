@@ -165,7 +165,7 @@ public class ReadController implements Initializable {
 					homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-					originalStage.setTitle("New Recipe - Edit Mode");
+					originalStage.setTitle("Recipe Keeper");
 					originalStage.setScene(homeWindow);
 					originalStage.show();
 
@@ -175,7 +175,7 @@ public class ReadController implements Initializable {
 					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 
 				} catch (IOException ioe) {
-					AlertBox.display("Warning", "File not found.");
+					AlertBox.display("Warning", "Oops! Something wrong happened.");
 				}
 			}
 		});
