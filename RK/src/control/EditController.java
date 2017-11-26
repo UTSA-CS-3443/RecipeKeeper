@@ -106,7 +106,9 @@ public class EditController implements Initializable{
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
-	private String oldName;
+	
+	// Another Recipe used to check if user hit save button
+	private Recipe previousRep = new Recipe();
 
 	// constants
 	private static Constants constants = new Constants();
@@ -203,9 +205,9 @@ public class EditController implements Initializable{
 			try {
 				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 					throw new IllegalArgumentException();
-				if (oldName.equals(recipeName.getText())) {
+				if (previousRep.getName().equals(recipeName.getText())) {
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
-							+ "\n" + "Clicking yes is to overwrite " + oldName);
+							+ "\n" + "Clicking yes is to overwrite " + previousRep.getName());
 					if (notChangeName) {
 						recipe.setInstructions(instructions.getText());
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
@@ -395,7 +397,7 @@ public class EditController implements Initializable{
 	public void initData(Recipe r) {
 
 		this.recipe = r;
-		this.oldName = r.getName();
+		this.previousRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
 
