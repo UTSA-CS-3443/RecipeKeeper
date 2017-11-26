@@ -206,6 +206,7 @@ public class EditController implements Initializable{
 						throw new IllegalArgumentException();
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
+						previousRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -230,6 +231,7 @@ public class EditController implements Initializable{
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
 							+ "\n" + "Clicking yes is to replace " + oldName);
 					if (notChangeName) {
+						previousRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -239,6 +241,7 @@ public class EditController implements Initializable{
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
 						//recipe.setInstructions(instructions.getText());
+						previousRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -302,6 +305,7 @@ public class EditController implements Initializable{
 					case(1):
 					{
 						//recipe.setInstructions(instructions.getText());
+						previousRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						try {
 							String fxmlFileDir = "/view/Welcome.fxml";
