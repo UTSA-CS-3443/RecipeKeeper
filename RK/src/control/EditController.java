@@ -45,7 +45,8 @@ import model.RecipeList;
 import model.WriteData;
 
 /**
- * NewController initializes when user chooses to create a new recipe
+ * EditController initializes when user chooses to create a new recipe
+ * or choose to edit a recipe being read
  * File -> New or File -> Edit
  * @author Hoa Pham
  *
@@ -119,7 +120,7 @@ public class EditController implements Initializable{
 	private Recipe recipe = new Recipe();
 
 	// previous recipe name (created when enter scene)
-	private String oldName;
+	//private String oldName;
 
 	// Another Recipe used to check if user hit save button
 	private Recipe previousRep = new Recipe();
@@ -236,9 +237,9 @@ public class EditController implements Initializable{
 					throw new IllegalArgumentException();
 				RecipeList data = ReadData.readRecipes();
 
-				if (data.getRecipeByName(oldName).size() > 0) {
+				if (data.getRecipeByName(recipeName.getText()).size() > 0) {
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
-							+ "\n" + "Clicking yes is to replace " + oldName);
+							+ "\n" + "Clicking yes is to replace " + recipeName.getText());
 					if (notChangeName) {
 						previousRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
@@ -504,7 +505,7 @@ public class EditController implements Initializable{
 	public void initData(Recipe r) {
 
 		this.recipe = r;
-		this.oldName = r.getName();
+		//this.oldName = r.getName();
 		this.previousRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
