@@ -265,19 +265,14 @@ public class EditController implements Initializable{
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-
+				if (previousRep.compareTo(recipe) != 1) {
+					// TODO: more codes
+				}
 			}
 		});
 
 		// return to the the page behind 
-		forward.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		forward.setDisable(true);
 
 		// return to home screen
 		home.setOnAction(new EventHandler<ActionEvent>() {
@@ -513,7 +508,7 @@ public class EditController implements Initializable{
 		this.previousRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
-
+		
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
