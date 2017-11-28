@@ -45,6 +45,12 @@ public class SearchInterfaceController implements Initializable {
 	
 	@FXML // fx:id="delRep"
 	private Button delRep;
+	
+	@FXML // fx:id="backward"
+	private Button backward;
+	
+	@FXML // fx:id="forward"
+	private Button forward;
 
 	// list of recipe names
 	private ObservableList<String> recipeNames = FXCollections.observableArrayList();
@@ -53,10 +59,14 @@ public class SearchInterfaceController implements Initializable {
 	private ArrayList<Recipe> readingData;
 
 	// constant values
-	static Constants constants = new Constants();
+	private static Constants constants = new Constants();
 
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
+	
+	// previous, forward data
+	private String backwardAddress;
+	private String forwardAddress;
 
 	/**
 	 * constructor
@@ -75,6 +85,7 @@ public class SearchInterfaceController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		/**
 		 * open a recipe
 		 */
@@ -151,6 +162,40 @@ public class SearchInterfaceController implements Initializable {
 			
 		});
 		
+		/**
+		 * backward listener
+		 */
+		backward.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					String cssFileDir = "/view/RecipeKeeper.css";
+					Parent root = FXMLLoader.load(getClass().getResource(backwardAddress));
+					Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+					originalStage.setTitle("Recipe Keeper");
+					originalStage.setScene(homeWindow);
+					originalStage.show();
+
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+				} catch (IOException ioe) {
+					AlertBox.display("Warning", "Oops! Something wrong happened.");
+				}
+			}
+			
+		});
+		
+		if (forwardAddress.equals("")) {
+			forward.setDisable(true);
+		}
+		
 	}
 
 	/**
@@ -167,6 +212,38 @@ public class SearchInterfaceController implements Initializable {
 		repList.setStyle("-fx-background-color: #FFFFFF; -fx-accent: #ff6c00; -fx-focus-color: #ff6c00;");
 		motherPane.setStyle("-fx-background-color: #FFFFFF");
 		open.setStyle("-fx-background-color: #ff9900");
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getBackward() {
+		return backwardAddress;
+	}
+
+	/**
+	 * 
+	 * @param previous
+	 */
+	public void setBackward(String previous) {
+		this.backwardAddress = previous;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getForward() {
+		return forwardAddress;
+	}
+
+	/**
+	 * 
+	 * @param forward
+	 */
+	public void setForward(String forward) {
+		this.forwardAddress = forward;
 	}
 
 }

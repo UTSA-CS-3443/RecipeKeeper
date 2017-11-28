@@ -229,6 +229,7 @@ public class EditController implements Initializable{
 		 * menuSaveAs handler
 		 */
 		menuSaveAs.setOnAction(action -> {
+			menuSave.setDisable(false);
 			try {
 				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 					throw new IllegalArgumentException();
@@ -536,6 +537,11 @@ public class EditController implements Initializable{
 			categories.add(s);
 		}
 		categoryTable.setItems(categories);
+		
+		// disable Save button if user enter edit mode
+		if (r.getName().equals("")) {
+			menuSave.setDisable(true);
+		}
 	}
 
 	/**

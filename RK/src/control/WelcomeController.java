@@ -173,6 +173,7 @@ public class WelcomeController implements Initializable {
 				URL location = new URL(loader.getLocation().toString());
 
 				SearchInterfaceController controller = loader.getController();
+				controller.setBackward("/view/Welcome.fxml");
 				controller.initData(result);
 				controller.initialize(location, loader.getResources());
 
@@ -200,6 +201,8 @@ public class WelcomeController implements Initializable {
 					URL location = new URL(loader.getLocation().toString());
 
 					SearchInterfaceController controller = loader.getController();
+					controller.setBackward("/view/Welcome.fxml");
+					controller.setForward("");
 					controller.initData(result);
 					controller.initialize(location, loader.getResources());
 
