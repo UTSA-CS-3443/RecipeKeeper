@@ -41,6 +41,7 @@ public class Recipe implements Comparable<Recipe> {
 		this.name = "";
 		this.ingredients = new ArrayList<Ingredient>();
 		this.categories = new ArrayList<String>();
+		this.instructions = "";
 	}
 	
 	/**

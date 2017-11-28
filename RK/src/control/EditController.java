@@ -123,7 +123,7 @@ public class EditController implements Initializable{
 	//private String oldName;
 
 	// Another Recipe used to check if user hit save button
-	private Recipe previousRep = new Recipe();
+	private Recipe oldRep = new Recipe();
 
 	// constants
 	private static Constants constants = new Constants();
@@ -213,7 +213,7 @@ public class EditController implements Initializable{
 						throw new IllegalArgumentException();
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
-						previousRep = recipe;
+						oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -238,7 +238,7 @@ public class EditController implements Initializable{
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
 							+ "\n" + "Clicking yes is to replace " + recipeName.getText());
 					if (notChangeName) {
-						previousRep = recipe;
+						oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -248,7 +248,7 @@ public class EditController implements Initializable{
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
 						//recipe.setInstructions(instructions.getText());
-						previousRep = recipe;
+						oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						AlertBox.display("Notice", recipeName.getText() + " is saved");
 					}
@@ -263,7 +263,7 @@ public class EditController implements Initializable{
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (previousRep.compareTo(recipe) != 1) {
+				if (oldRep.compareTo(recipe) != 1) {
 					// TODO: more codes
 				}
 			}
@@ -276,7 +276,7 @@ public class EditController implements Initializable{
 		home.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (recipe.compareTo(previousRep) != 1) {
+				if (recipe.compareTo(oldRep) != 1) {
 					int clickResult = ConfirmCancelBox.display("Notice", "Do you want to make changes to " + recipeName.getText() + "?"
 							+ "\n" + "Your change(s) will be lost if you don't save them.");
 					switch (clickResult) {
@@ -307,7 +307,7 @@ public class EditController implements Initializable{
 					case(1):
 					{
 						//recipe.setInstructions(instructions.getText());
-						previousRep = recipe;
+						oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						try {
 							String fxmlFileDir = "/view/Welcome.fxml";
@@ -503,7 +503,7 @@ public class EditController implements Initializable{
 
 		this.recipe = r;
 		//this.oldName = r.getName();
-		this.previousRep = r;
+		this.oldRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
 		
