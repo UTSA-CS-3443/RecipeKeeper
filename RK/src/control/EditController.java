@@ -185,9 +185,6 @@ public class EditController implements Initializable{
 		// disable edit button
 		menuEdit.setDisable(true);
 
-		// servingSize
-		servingSize.getItems().addAll(SERVSIZES);
-
 		// ComboBox for ingredient's units
 		ingreUnit.getItems().addAll(UNITS);
 		ingreUnit.setEditable(true);
@@ -509,6 +506,10 @@ public class EditController implements Initializable{
 		this.previousRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
+		
+		// servingSize
+		servingSize.getItems().addAll(SERVSIZES);
+		servingSize.setStyle("-fx-background-color: #ff9900");
 		
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");

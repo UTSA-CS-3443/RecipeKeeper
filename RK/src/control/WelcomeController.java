@@ -68,35 +68,37 @@ public class WelcomeController implements Initializable {
 		/**
 		 * Start a new recipe
 		 */
-		startRep.setOnAction( action -> {
-			try {
-				String fxmlFileDir = "/view/EditInterface.fxml";
-				String cssFileDir = "/view/RecipeKeeper.css";
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-				Parent root = loader.load();
-				URL location = new URL(loader.getLocation().toString());
-				
-				EditController controller = loader.getController();
-				controller.initData(new Recipe());
-				controller.initialize(location, loader.getResources());
-				
-				Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-				editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-				Stage originalStage = (Stage) motherPane.getScene().getWindow();
+		startRep.setOnAction(new EventHandler<ActionEvent>() {
+			@Override 
+			public void handle(ActionEvent e) {
+				try {
+					String fxmlFileDir = "/view/EditInterface.fxml";
+					String cssFileDir = "/view/RecipeKeeper.css";
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
 
-				originalStage.setTitle("New Recipe - Edit Mode");
-				originalStage.setScene(editWindow);
-				originalStage.show();
+					EditController controller = loader.getController();
+					controller.initData(new Recipe());
+					controller.initialize(location, loader.getResources());
 
-				// center the stage
-				Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-				originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-				originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-				
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
+					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+					originalStage.setTitle("New Recipe - Edit Mode");
+					originalStage.setScene(editWindow);
+					originalStage.show();
+
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+				} catch (IOException ioe) {
+					AlertBox.display("Warning", "File not found.");
+				}
 			}
-			
 		});
 		
 		/**

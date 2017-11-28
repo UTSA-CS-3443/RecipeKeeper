@@ -179,7 +179,7 @@ public class ReadController implements Initializable {
 				}
 			}
 		});
-		
+
 		/**
 		 * Second method for serving size listener
 		 * Listen for changes to the serving size selection
@@ -203,11 +203,11 @@ public class ReadController implements Initializable {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 					Parent root = loader.load();
 					URL location = new URL(loader.getLocation().toString());
-					
+
 					EditController controller = loader.getController();
 					controller.initData(new Recipe());
 					controller.initialize(location, loader.getResources());
-					
+
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
@@ -279,6 +279,7 @@ public class ReadController implements Initializable {
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
 		servingSize.setStyle("-fx-background-color: #ff9900");
+		
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
