@@ -1,2 +1,2 @@
 # RecipeKeeper
-Recipe Keeper - version 2.0
+To run the program, run RecipeKeeper.java
