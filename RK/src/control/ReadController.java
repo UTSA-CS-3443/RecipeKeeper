@@ -33,6 +33,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import model.Addresses;
 import model.AlertBox;
 import model.Constants;
 import model.Ingredient;
@@ -108,6 +109,11 @@ public class ReadController implements Initializable {
 	private List<Double> qtyPerServingSize = new ArrayList<Double>();
 
 	/**
+	 * user's accessing history
+	 */
+	private Addresses history = new Addresses();
+	
+	/**
 	 * 
 	 */
 	public ReadController() {
@@ -158,8 +164,8 @@ public class ReadController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					String fxmlFileDir = "/view/Welcome.fxml";
-					String cssFileDir = "/view/RecipeKeeper.css";
+					String fxmlFileDir = constants.getWelcomeDirectory();
+					String cssFileDir = constants.getCssDirectory();
 					Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
 					Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
@@ -198,8 +204,8 @@ public class ReadController implements Initializable {
 			@Override 
 			public void handle(ActionEvent e) {
 				try {
-					String fxmlFileDir = "/view/EditInterface.fxml";
-					String cssFileDir = "/view/RecipeKeeper.css";
+					String fxmlFileDir = constants.getEditDirectory();
+					String cssFileDir = constants.getCssDirectory();
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 					Parent root = loader.load();
 					URL location = new URL(loader.getLocation().toString());
@@ -232,8 +238,8 @@ public class ReadController implements Initializable {
 			@Override 
 			public void handle(ActionEvent e) {
 				try {
-					String fxmlFileDir = "/view/EditInterface.fxml";
-					String cssFileDir = "/view/RecipeKeeper.css";
+					String fxmlFileDir = constants.getEditDirectory();
+					String cssFileDir = constants.getCssDirectory();
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 					Parent root = loader.load();
 					URL location = new URL(loader.getLocation().toString());
@@ -331,4 +337,17 @@ public class ReadController implements Initializable {
 		table.getItems().set(row, newData);
 	}
 
+	/**
+	 * @return accessing history
+	 */
+	public Addresses getHistory() {
+		return history;
+	}
+	/**
+	 * set accessing history
+	 * @param history
+	 */
+	public void setHistory(Addresses history) {
+		this.history = history;
+	}
 }

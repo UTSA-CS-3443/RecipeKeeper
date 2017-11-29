@@ -22,8 +22,8 @@ public class RecipeKeeper extends Application {
 			Constants constants = new Constants();
 			int[] MIN_SIZES = constants.getMinSizes();
 			
-			String fileDirectory = "/view/Welcome.fxml";
-			String cssDirectory = "/view/RecipeKeeper.css";
+			String fileDirectory = constants.getWelcomeDirectory();
+			String cssDirectory = constants.getCssDirectory();
 
  			FXMLLoader loader = new FXMLLoader(getClass().getResource(fileDirectory));
  			Parent root = loader.load();

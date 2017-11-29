@@ -33,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.Addresses;
 import model.AlertBox;
 import model.ConfirmBox;
 import model.ConfirmCancelBox;
@@ -135,6 +136,10 @@ public class EditController implements Initializable{
 	// minimum size of the window
 	private final int[] MIN_SIZES = constants.getMinSizes();
 
+	/**
+	 * user's accessing history
+	 */
+	private Addresses history = new Addresses();
 
 	/**
 	 * temporary ingredient list
@@ -283,8 +288,8 @@ public class EditController implements Initializable{
 					switch (clickResult) {
 					case(-1):
 						try {
-							String fxmlFileDir = "/view/Welcome.fxml";
-							String cssFileDir = "/view/RecipeKeeper.css";
+							String fxmlFileDir = constants.getWelcomeDirectory();
+							String cssFileDir = constants.getCssDirectory();
 							Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
 							Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
@@ -311,8 +316,8 @@ public class EditController implements Initializable{
 						oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						try {
-							String fxmlFileDir = "/view/Welcome.fxml";
-							String cssFileDir = "/view/RecipeKeeper.css";
+							String fxmlFileDir = constants.getWelcomeDirectory();
+							String cssFileDir = constants.getCssDirectory();
 							Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
 							Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
@@ -337,8 +342,8 @@ public class EditController implements Initializable{
 				}
 				else {
 					try {
-						String fxmlFileDir = "/view/Welcome.fxml";
-						String cssFileDir = "/view/RecipeKeeper.css";
+						String fxmlFileDir = constants.getWelcomeDirectory();
+						String cssFileDir = constants.getCssDirectory();
 						Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
 						Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 						homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
@@ -598,6 +603,20 @@ public class EditController implements Initializable{
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * @return accessing history
+	 */
+	public Addresses getHistory() {
+		return history;
+	}
+	/**
+	 * set accessing history
+	 * @param history
+	 */
+	public void setHistory(Addresses history) {
+		this.history = history;
 	}
 
 }

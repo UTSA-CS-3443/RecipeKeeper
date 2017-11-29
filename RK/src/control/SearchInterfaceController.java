@@ -20,6 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.Addresses;
 import model.AlertBox;
 import model.ConfirmBox;
 import model.Constants;
@@ -42,13 +43,13 @@ public class SearchInterfaceController implements Initializable {
 
 	@FXML // fx:id="open"
 	private Button open;
-	
+
 	@FXML // fx:id="delRep"
 	private Button delRep;
-	
+
 	@FXML // fx:id="backward"
 	private Button backward;
-	
+
 	@FXML // fx:id="forward"
 	private Button forward;
 
@@ -63,10 +64,11 @@ public class SearchInterfaceController implements Initializable {
 
 	// minimum size of the window
 	private static final int[] MIN_SIZES = constants.getMinSizes();
-	
-	// previous, forward data
-	private String backwardAddress;
-	private String forwardAddress;
+
+	/**
+	 * user's accessing history
+	 */
+	private Addresses history = new Addresses();
 
 	/**
 	 * constructor
@@ -85,7 +87,7 @@ public class SearchInterfaceController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		/**
 		 * open a recipe
 		 */
@@ -101,11 +103,11 @@ public class SearchInterfaceController implements Initializable {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
-						
+
 						ReadController controller = loader.getController();
 						controller.initData(readingData.get(selectedIndex));
 						controller.initialize(location, loader.getResources());
-						
+
 						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 						editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 						Stage originalStage = (Stage) motherPane.getScene().getWindow();
@@ -113,12 +115,12 @@ public class SearchInterfaceController implements Initializable {
 						originalStage.setTitle(readingData.get(selectedIndex).getName() + " - View Mode");
 						originalStage.setScene(editWindow);
 						originalStage.show();
-						
+
 						// center the stage
 						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
 						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-						
+
 					} catch (IOException ioe) {
 						AlertBox.display("Warning", "File not found.");
 					}
@@ -126,9 +128,9 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "No item selected");
 				}
 			}
-			
+
 		});
-		
+
 		/**
 		 * Delete a recipe from model FOREVER. 
 		 * Restoring by reset the closest commits 
@@ -140,7 +142,7 @@ public class SearchInterfaceController implements Initializable {
 			public void handle(ActionEvent event) {
 				try {
 					if (recipeNames.size() < 1) throw new RuntimeException();
-					
+
 					int selectedIndex = repList.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						boolean confirm = ConfirmBox.display("Notice", "Are you sure to delete this recipe?");
@@ -159,9 +161,9 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "Recipe List is empty");
 				}
 			}
-			
+
 		});
-		
+
 		/**
 		 * backward listener
 		 */
@@ -170,32 +172,39 @@ public class SearchInterfaceController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					String cssFileDir = "/view/RecipeKeeper.css";
-					Parent root = FXMLLoader.load(getClass().getResource(backwardAddress));
-					Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-					homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-					Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-					originalStage.setTitle("Recipe Keeper");
-					originalStage.setScene(homeWindow);
-					originalStage.show();
+					if (history.getBackward().isEmpty()) {
+						return;
+					}
+					else {
+						String cssFileDir = "/view/RecipeKeeper.css";
+						Parent root = FXMLLoader.load(getClass().getResource(history.getBackward().pop()));
+						Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-					// center the stage
-					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						originalStage.setTitle("Recipe Keeper");
+						originalStage.setScene(homeWindow);
+						originalStage.show();
+
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					}
 
 				} catch (IOException ioe) {
 					AlertBox.display("Warning", "Oops! Something wrong happened.");
 				}
 			}
-			
+
 		});
-		
-		if (forwardAddress.equals("")) {
+
+		// disable forward button if there is no addresses accessed
+		if (history.getForward().isEmpty()) {
 			forward.setDisable(true);
 		}
-		
+
 	}
 
 	/**
@@ -215,35 +224,17 @@ public class SearchInterfaceController implements Initializable {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return history of this scene
 	 */
-	public String getBackward() {
-		return backwardAddress;
+	public Addresses getHistory() {
+		return history;
 	}
 
 	/**
-	 * 
-	 * @param previous
+	 * set history for this scene
+	 * @param history
 	 */
-	public void setBackward(String previous) {
-		this.backwardAddress = previous;
+	public void setHistory(Addresses history) {
+		this.history = history;
 	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getForward() {
-		return forwardAddress;
-	}
-
-	/**
-	 * 
-	 * @param forward
-	 */
-	public void setForward(String forward) {
-		this.forwardAddress = forward;
-	}
-
 }
