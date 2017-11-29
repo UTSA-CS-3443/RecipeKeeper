@@ -71,8 +71,6 @@ public class WelcomeController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rs) {
 
-
-
 		/**
 		 * Start a new recipe
 		 */

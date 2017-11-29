@@ -98,8 +98,8 @@ public class SearchInterfaceController implements Initializable {
 				int selectedIndex = repList.getSelectionModel().getSelectedIndex();
 				if (selectedIndex >= 0) {
 					try {
-						String fxmlFileDir = "/view/ReadInterface.fxml";
-						String cssFileDir = "/view/RecipeKeeper.css";
+						String fxmlFileDir = constants.getReadDirectory();
+						String cssFileDir = constants.getCssDirectory();
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
@@ -168,7 +168,6 @@ public class SearchInterfaceController implements Initializable {
 		 * backward listener
 		 */
 		backward.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				try {
@@ -177,8 +176,9 @@ public class SearchInterfaceController implements Initializable {
 						return;
 					}
 					else {
-						String cssFileDir = "/view/RecipeKeeper.css";
-						Parent root = FXMLLoader.load(getClass().getResource(history.getBackward().pop()));
+						String fxmlFileDir = history.getBackward().pop();
+						String cssFileDir = constants.getCssDirectory();
+						Parent root = FXMLLoader.load(getClass().getResource(fxmlFileDir));
 						Scene homeWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 						homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 						Stage originalStage = (Stage) motherPane.getScene().getWindow();
@@ -197,13 +197,33 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "Oops! Something wrong happened.");
 				}
 			}
-
 		});
 
 		// disable forward button if there is no addresses accessed
 		if (history.getForward().isEmpty()) {
 			forward.setDisable(true);
 		}
+		
+//		forward.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//				try {
+//					String fxmlFileDir = history.getForward().pop();
+//					String cssFileDir = constants.getCssDirectory();
+//					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+//					Parent root = loader.load();
+//					URL location = new URL(loader.getLocation().toString());
+//					
+//					
+//				} 
+//				catch (IOException ioe) {
+//					AlertBox.display("Warning", "Oops! Something wrong happened.");
+//				}
+//				catch (Exception e) {
+//					AlertBox.display("Warning", "Oops! Something wrong happened.");
+//				}
+//			}	
+//		});
 
 	}
 
