@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * list of addresses for backward and forward buttons
@@ -10,118 +10,55 @@ import java.util.ArrayList;
 public class Addresses {
 	
 	/**
-	 * variables that stores accessing history of user 
+	 * backward and forward accessing history
 	 */
-	private ArrayList<String> backward;
-	private ArrayList<String> forward;
-
-	/**
-	 * constructor
-	 * @param aStack
-	 */
-	public Addresses(Addresses aStack) {
-		this.backward = aStack.getBackward();
-	}
+	private Stack<String> backward;
+	private Stack<String> forward;
 	
 	/**
 	 * constructor
 	 */
 	public Addresses() {
-		this.backward = new ArrayList<String>();
+		this.backward = new Stack<String>();
+		this.forward = new Stack<String>();
 	}
-	
+
 	/**
-	 * push an address to backward history
-	 * @param anAddress
+	 * constructor
+	 * @param another
 	 */
-	public void pushBackList(String anAddress) {
-		backward.add(anAddress);
-	}
-	
-	/**
-	 * delete one address when the user 
-	 * clicks on backward button
-	 */
-	public boolean popBackList() {
-		boolean result = false;
-		if (!backward.isEmpty()) {
-			backward.remove(backward.size()-1);
-			result = true;
-		}
-		return result;
-	}
-	
-	/**
-	 * @return last added item of backward
-	 */
-	public String peekBackList() {
-		String result = "";
-		if (!backward.isEmpty()) {
-			result = backward.get(backward.size()-1);
-		}
-		return result;
-	}
-	
-	/**
-	 * 
-	 * @param anAddress
-	 */
-	public void pushForthList(String anAddress) {
-		forward.add(anAddress);
-	}
-	
-	/**
-	 * delete one address when the user 
-	 * clicks on forward button
-	 */
-	public boolean popForthList() {
-		boolean result = false;
-		if (!forward.isEmpty()) {
-			forward.remove(forward.size()-1);
-			result = true;
-		}
-		return result;
-	}
-	
-	/**
-	 * @return last added item of forward 
-	 */
-	public String peekFrontList() {
-		String result = "";
-		if (!forward.isEmpty()) {
-			result = forward.get(forward.size()-1);
-		}
-		return result;
+	public Addresses(Addresses another) {
+		setBackward(another.getBackward());
+		setForward(another.getForward());
 	}
 	
 	/**
 	 * @return backward history
 	 */
-	public ArrayList<String> getBackward() {
+	public Stack<String> getBackward() {
 		return backward;
 	}
 
 	/**
-	 * backward history setter
-	 * @param stack
+	 * set backward history
+	 * @param backward
 	 */
-	public void setBackward(ArrayList<String> stack) {
-		this.backward = stack;
+	public void setBackward(Stack<String> backward) {
+		this.backward = backward;
 	}
 
 	/**
 	 * @return forward history
 	 */
-	public ArrayList<String> getForward() {
+	public Stack<String> getForward() {
 		return forward;
 	}
 
 	/**
-	 * forward history setter
+	 * set forward history
 	 * @param forward
 	 */
-	public void setForward(ArrayList<String> forward) {
+	public void setForward(Stack<String> forward) {
 		this.forward = forward;
 	}
-	
 }
