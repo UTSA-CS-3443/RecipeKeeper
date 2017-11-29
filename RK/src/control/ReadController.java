@@ -112,7 +112,7 @@ public class ReadController implements Initializable {
 	 * user's accessing history
 	 */
 	private Addresses history = new Addresses();
-	
+
 	/**
 	 * 
 	 */
@@ -145,7 +145,36 @@ public class ReadController implements Initializable {
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				try {
+					if (history.getBackward().isEmpty()) return;
+					else {
+						String fxmlFileDir = history.getBackward().pop();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
+						URL location = new URL(loader.getLocation().toString());
+
+						Object controller = loader.getController();
+						if (controller instanceof SearchInterfaceController) {
+							//SearchInterfaceController.class.cast(controller);
+							history.getForward().push(constants.getReadDirectory());
+							((SearchInterfaceController) controller).setHistory(history);
+							((SearchInterfaceController) controller).initialize(location, loader.getResources());
+
+							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+							originalStage.setTitle("Recipe Keeper");
+							originalStage.setScene(recipeListView);
+							originalStage.show();
+
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						}
+					}
+				} catch (Exception e) {
+					AlertBox.display("Warning", "Oops! Something went wrong.");
+				}
 
 			}
 		});
@@ -154,7 +183,11 @@ public class ReadController implements Initializable {
 		forward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				try {
+					
+				} catch (Exception e) {
+					AlertBox.display("Warning", "Oops! Something went wrong.");
+				}
 
 			}
 		});
@@ -285,7 +318,7 @@ public class ReadController implements Initializable {
 		// add serving sizes
 		servingSize.getItems().addAll(SERVSIZES);
 		servingSize.setStyle("-fx-background-color: #ff9900");
-		
+
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

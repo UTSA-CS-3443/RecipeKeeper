@@ -105,6 +105,8 @@ public class SearchInterfaceController implements Initializable {
 						URL location = new URL(loader.getLocation().toString());
 
 						ReadController controller = loader.getController();
+						history.getBackward().push(constants.getSearchDirectory());
+						controller.setHistory(history);
 						controller.initData(readingData.get(selectedIndex));
 						controller.initialize(location, loader.getResources());
 
@@ -200,30 +202,51 @@ public class SearchInterfaceController implements Initializable {
 		});
 
 		// disable forward button if there is no addresses accessed
-		if (history.getForward().isEmpty()) {
-			forward.setDisable(true);
-		}
-		
-//		forward.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//				try {
-//					String fxmlFileDir = history.getForward().pop();
-//					String cssFileDir = constants.getCssDirectory();
-//					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-//					Parent root = loader.load();
-//					URL location = new URL(loader.getLocation().toString());
-//					
-//					
-//				} 
-//				catch (IOException ioe) {
-//					AlertBox.display("Warning", "Oops! Something wrong happened.");
-//				}
-//				catch (Exception e) {
-//					AlertBox.display("Warning", "Oops! Something wrong happened.");
-//				}
-//			}	
-//		});
+//		if (history.getForward().isEmpty()) {
+//			forward.setDisable(true);
+//		}
+
+		forward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if (history.getForward().isEmpty()) return;
+					else {
+						String fxmlFileDir = history.getForward().pop();
+						String cssFileDir = constants.getCssDirectory();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
+						URL location = new URL(loader.getLocation().toString());
+
+						Object controller = loader.getController();
+						if (controller instanceof ReadController) {
+							history.getBackward().push(constants.getSearchDirectory());
+							((ReadController) controller).setHistory(history);
+							((ReadController) controller).initialize(location, loader.getResources());
+
+							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							recipeListView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+							originalStage.setScene(recipeListView);
+							originalStage.setTitle("View Mode");
+							originalStage.show();
+
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						}
+					}
+				} 
+				catch (IOException ioe) {
+					AlertBox.display("Warning", "Oops! Something wrong happened.");
+				}
+				catch (Exception e) {
+					AlertBox.display("Warning", "Oops! Something wrong happened.");
+				}
+			}	
+		});
 
 	}
 
