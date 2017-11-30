@@ -85,7 +85,8 @@ public class WelcomeController implements Initializable {
 					URL location = new URL(loader.getLocation().toString());
 
 					EditController controller = loader.getController();
-					controller.initData(new Recipe());
+					history.getBackward().push(constants.getWelcomeDirectory());
+					controller.initFlowingData(history, new Recipe(), new ArrayList<Recipe>());
 					controller.initialize(location, loader.getResources());
 
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);

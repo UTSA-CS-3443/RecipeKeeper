@@ -12,12 +12,12 @@ import java.util.List;
  *
  */
 public class Recipe implements Comparable<Recipe> {
-	
+
 	String name;
 	ArrayList<Ingredient> ingredients;
 	ArrayList<String> categories;
 	String instructions;
-	
+
 	/**
 	 * get Intructions
 	 * @return intructions as a string
@@ -43,7 +43,7 @@ public class Recipe implements Comparable<Recipe> {
 		this.categories = new ArrayList<String>();
 		this.instructions = "";
 	}
-	
+
 	/**
 	 * Constructor
 	 * @param name
@@ -56,7 +56,7 @@ public class Recipe implements Comparable<Recipe> {
 		this.categories = categories;
 		this.instructions = instructions;
 	}
-	
+
 	/**
 	 * Get recipe name
 	 * @return
@@ -104,7 +104,7 @@ public class Recipe implements Comparable<Recipe> {
 	public void setCategories(ArrayList<String> categories) {
 		this.categories = categories;
 	}
-	
+
 	/**
 	 * toString method
 	 */
@@ -128,7 +128,7 @@ public class Recipe implements Comparable<Recipe> {
 	 */
 	public int compareTo(Recipe other) {
 		int result = 0;
-		
+
 		if (this.getName().equals(other.getName())) {
 			if(this.compareIngredient(other) == 1) {
 				if(this.compareCategory(other) == 1) {
@@ -141,7 +141,7 @@ public class Recipe implements Comparable<Recipe> {
 
 		return result;
 	}
-	
+
 	/**
 	 * compare categories of two recipes
 	 * @param other
@@ -149,18 +149,21 @@ public class Recipe implements Comparable<Recipe> {
 	 */
 	public int compareCategory(Recipe other) {
 		int result = 0;
-		Collection<String> thisCategories = this.getCategories();
-		Collection<String> otherCategories = other.getCategories();
-		
-		List<String> instr1 = new ArrayList<String>(thisCategories);
-		instr1.removeAll(otherCategories);
-		
-		if (instr1.size() == 0) {
-			result = 1;
+		if (this.getCategories().size() != other.getCategories().size()) return result;
+		else {
+			ArrayList<String> differenceList = new ArrayList<String>();
+			for (String thisCat : this.getCategories()) {
+				for (String otherCat : other.getCategories()) {
+					if (!thisCat.equals(otherCat)) {
+						differenceList.add(otherCat);
+					}
+				}
+			}
+			if (differenceList.size() == 0) result = 1;
 		}
 		return result;
 	}
-	
+
 	/**
 	 * compare ingredients of two recipes
 	 * @param other
@@ -168,16 +171,19 @@ public class Recipe implements Comparable<Recipe> {
 	 */
 	public int compareIngredient(Recipe other) {
 		int result = 0;
-		Collection<Ingredient> thisIngredients = this.getIngredients();
-		Collection<Ingredient> otherIngredients = other.getIngredients();
-		
-		List<Ingredient> ingre1 = new ArrayList<Ingredient>(thisIngredients);
-		ingre1.removeAll(otherIngredients);
-		
-		if (ingre1.size() == 0) {
-			result = 1;
+		if (this.getIngredients().size() != other.getIngredients().size()) return result;
+		else {
+			ArrayList<Ingredient> differenceList = new ArrayList<Ingredient>();
+			for (Ingredient thisIngre : this.getIngredients()) {
+				for (Ingredient otherIngre : other.getIngredients()) {
+					if (thisIngre.compareTo(otherIngre) == 0) {
+						differenceList.add(otherIngre);
+					}
+				}
+			}
+			if (differenceList.size() == 0) result = 1;
 		}
-		
+
 		return result;
 	}
 }

@@ -90,6 +90,9 @@ public class ReadController implements Initializable {
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
 	
+	// Recipe passed from previous edit view (if there is)
+	private Recipe prevRep = new Recipe();
+	
 	// Data passed from welcome screen
 	private ArrayList<Recipe> readingData;
 
@@ -189,7 +192,35 @@ public class ReadController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					
+					if (history.getForward().isEmpty()) return;
+					else {
+						String fxmlFileDir = history.getForward().pop();
+						String cssFileDir = constants.getCssDirectory();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
+						URL location = new URL(loader.getLocation().toString());
+						Object controller = loader.getController();
+						
+						if (controller instanceof EditController) {
+							history.getBackward().push(constants.getReadDirectory());
+							((EditController) controller).initFlowingData(history, prevRep, readingData);
+							((EditController) controller).initialize(location, loader.getResources());
+							
+							Scene editView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							editView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+							originalStage.setScene(editView);
+							originalStage.setTitle(prevRep.getName() + " - Edit Mode");
+							originalStage.show();
+							
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						}
+						
+					}
 				} catch (Exception e) {
 					AlertBox.display("Warning", "Oops! Something went wrong.");
 				}
@@ -283,7 +314,8 @@ public class ReadController implements Initializable {
 					URL location = new URL(loader.getLocation().toString());
 
 					EditController controller = loader.getController();
-					controller.initData(getData());
+					history.getBackward().push(constants.getReadDirectory());
+					controller.initFlowingData(history, recipe, readingData);
 					controller.initialize(location, loader.getResources());
 
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -367,42 +399,7 @@ public class ReadController implements Initializable {
 	 * @param repList
 	 */
 	public void initFlowingData(Addresses history, Recipe r, ArrayList<Recipe> repList) {
-		
-		this.recipe = r;
-		// Initialize and set editable to false (recipeName and instructions
-		recipeName.setText(r.getName());
-		instructions.setText(r.getInstructions());
-
-		// add serving sizes
-		servingSize.getItems().addAll(SERVSIZES);
-		servingSize.setStyle("-fx-background-color: #ff9900");
-
-		// Ingredient column
-		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
-		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		// Quantity column
-		TableColumn<Ingredient, String> quantityColumn = new TableColumn<>("Quantity");
-		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));	
-
-		// Quantity column
-		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
-		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
-
-		// Set ingredientsTable
-		for (Ingredient i : r.getIngredients()) {
-			rIngredients.add(i);
-			qtyPerServingSize.add(i.getQuantity());
-		}
-		ingredientsTable.setItems(rIngredients);
-		ingredientsTable.setStyle("-fx-background-color: #ff9900");
-		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
-
-		// Initialize categoryTable
-		for (String s : r.getCategories()) {
-			rCategories.add(s);
-		}
-		categoryTable.setItems(rCategories);
-		
+		initData(r);
 		setHistory(history);
 		setReadingData(repList);
 	}
@@ -473,5 +470,21 @@ public class ReadController implements Initializable {
 		for (Recipe r : readingData) {
 			System.out.println(r.getName());
 		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Recipe getPrevRep() {
+		return prevRep;
+	}
+
+	/**
+	 * 
+	 * @param prevRep
+	 */
+	public void setPrevRep(Recipe prevRep) {
+		this.prevRep = prevRep;
 	}
 }

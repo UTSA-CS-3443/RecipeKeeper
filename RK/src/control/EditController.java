@@ -120,8 +120,8 @@ public class EditController implements Initializable{
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
 
-	// previous recipe name (created when enter scene)
-	//private String oldName;
+	// previous recipe from reading view
+	private Recipe recipeFromRead = new Recipe();
 
 	// Another Recipe used to check if user hit save button
 	private Recipe oldRep = new Recipe();
@@ -140,6 +140,9 @@ public class EditController implements Initializable{
 	 * user's accessing history
 	 */
 	private Addresses history = new Addresses();
+	
+	// Data passed from welcome screen
+	private ArrayList<Recipe> readingData;
 
 	/**
 	 * temporary ingredient list
@@ -261,6 +264,34 @@ public class EditController implements Initializable{
 						break;
 					}
 					}
+				} else {
+					try {
+						String fxmlFileDir = constants.getEditDirectory();
+						String cssFileDir = constants.getCssDirectory();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
+						URL location = new URL(loader.getLocation().toString());
+
+						EditController controller = loader.getController();
+						controller.initData(new Recipe());
+						controller.initialize(location, loader.getResources());
+
+						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+						originalStage.setTitle("New Recipe - Edit Mode");
+						originalStage.setScene(editWindow);
+						originalStage.show();
+
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+					} catch (IOException ioe) {
+						AlertBox.display("Warning", "File not found.");
+					}
 				}
 			}
 		});
@@ -343,18 +374,96 @@ public class EditController implements Initializable{
 			}
 		});
 
+		forward.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if (history.getForward().isEmpty()) return;
+					else {
+						String fxmlFileDir = history.getForward().pop();
+						String cssFileDir = constants.getCssDirectory();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+						Parent root = loader.load();
+						URL location = new URL(loader.getLocation().toString());
+						Object controller = loader.getController();
+						
+						if (controller instanceof EditController) {
+							history.getBackward().push(constants.getEditDirectory());
+							((EditController) controller).initFlowingData(history, recipe, readingData);
+							((EditController) controller).initialize(location, loader.getResources());
+							
+							Scene editView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							editView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+							originalStage.setScene(editView);
+							originalStage.setTitle(recipe.getName() + " - Edit Mode");
+							originalStage.show();
+							
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+						}
+						
+					}
+				} catch (Exception e) {
+					AlertBox.display("Warning", "Oops! Something went wrong.");
+				}
+			}
+		});
+		
 		// return to the previous page
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (oldRep.compareTo(recipe) != 1) {
-					// TODO: more codes
+				try {
+					String fxmlFileDir = history.getBackward().pop();
+					String cssFileDir = constants.getCssDirectory();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
+					Object controller = loader.getController();
+					
+					if (controller instanceof ReadController) {
+						history.getForward().push(constants.getEditDirectory());
+						((ReadController) controller).initFlowingData(history, recipeFromRead, readingData);
+						((ReadController) controller).setPrevRep(recipe);
+						((ReadController) controller).initialize(location, loader.getResources());
+						
+						Scene readingView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						readingView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+						originalStage.setScene(readingView);
+						originalStage.setTitle(recipeFromRead.getName() + " - View Mode");
+						originalStage.show();
+						
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					}
+					else if (controller instanceof WelcomeController) {
+						Scene welcomeView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						welcomeView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+						originalStage.setScene(welcomeView);
+						originalStage.setTitle("Recipe Keeper");
+						originalStage.show();
+						
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					}
+				} catch (Exception e) {
+					AlertBox.display("Warning", "Oops! Something went wrong");
+					e.printStackTrace();
 				}
 			}
 		});
-
-		// return to the the page behind 
-		forward.setDisable(true);
 
 		// return to home screen
 		home.setOnAction(new EventHandler<ActionEvent>() {
@@ -626,6 +735,19 @@ public class EditController implements Initializable{
 			menuSave.setDisable(true);
 		}
 	}
+	
+	/**
+	 * initialize and store flowing data between scenes
+	 * @param history
+	 * @param r
+	 * @param repList
+	 */
+	public void initFlowingData(Addresses history, Recipe r, ArrayList<Recipe> repList) {
+		initData(r);
+		setRecipeFromRead(r);
+		setHistory(history);
+		setReadingData(repList);
+	}
 
 	/**
 	 * get Data, recipe getter
@@ -695,6 +817,38 @@ public class EditController implements Initializable{
 	 */
 	public void setHistory(Addresses history) {
 		this.history = history;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Recipe> getReadingData() {
+		return readingData;
+	}
+
+	/**
+	 * 
+	 * @param readingData
+	 */
+	public void setReadingData(ArrayList<Recipe> readingData) {
+		this.readingData = readingData;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Recipe getRecipeFromRead() {
+		return recipeFromRead;
+	}
+
+	/**
+	 * 
+	 * @param recipeFromRead
+	 */
+	public void setRecipeFromRead(Recipe recipeFromRead) {
+		this.recipeFromRead = recipeFromRead;
 	}
 
 }
