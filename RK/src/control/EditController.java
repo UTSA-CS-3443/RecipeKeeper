@@ -71,8 +71,8 @@ public class EditController implements Initializable{
 	@FXML //fx:id="instructions"
 	private TextArea instructions;
 
-	@FXML // fx:id="servingSize"
-	private ComboBox<String> servingSize;
+//	@FXML // fx:id="servingSize"
+//	private ComboBox<String> servingSize;
 
 	@FXML // fx:id="ingreUnit"
 	private ComboBox<String> ingreUnit;
@@ -155,7 +155,7 @@ public class EditController implements Initializable{
 	 * used for changing servingSize. Ex: when user enter (chicken, 1, lb)
 	 * qtyPerServingSize will add 1 
 	 */
-	List<Double> qtyPerServingSize = new ArrayList<Double>();
+//	List<Double> qtyPerServingSize = new ArrayList<Double>();
 
 	public EditController() {
 		super();
@@ -307,13 +307,13 @@ public class EditController implements Initializable{
 		 * Sets up serving size ComboBox and
 		 * its handler 
 		 */
-		servingSize.setOnAction( e -> {
-			for (int i = 0; i < ingredients.size(); i++) {
-				double tempQty;
-				tempQty = Double.parseDouble(servingSize.getValue()) * qtyPerServingSize.get(i);
-				changeValueAt(i, 2, tempQty, ingredientsTable);
-			}
-		});
+//		servingSize.setOnAction( e -> {
+//			for (int i = 0; i < ingredients.size(); i++) {
+//				double tempQty;
+//				tempQty = Double.parseDouble(servingSize.getValue()) * qtyPerServingSize.get(i);
+//				changeValueAt(i, 2, tempQty, ingredientsTable);
+//			}
+//		});
 
 		/**
 		 * menuSave
@@ -588,7 +588,7 @@ public class EditController implements Initializable{
 					Ingredient i = new Ingredient (name, qty, unit);
 					// add to view and internal data
 					ingredients.add(i);
-					qtyPerServingSize.add(qty);
+					//qtyPerServingSize.add(qty);
 					recipe.getIngredients().add(i);
 				} 
 				catch (IngredientException e) { 
@@ -619,7 +619,7 @@ public class EditController implements Initializable{
 					if (selectedIndex >= 0) {
 						// remove from view and internal data
 						ingredientsTable.getItems().remove(selectedIndex);
-						qtyPerServingSize.remove(selectedIndex);
+						//qtyPerServingSize.remove(selectedIndex);
 						recipe.getIngredients().remove(selectedIndex);
 					}
 					else {
@@ -700,9 +700,9 @@ public class EditController implements Initializable{
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
 
-		// servingSize
-		servingSize.getItems().addAll(SERVSIZES);
-		servingSize.setStyle("-fx-background-color: #ff9900");
+//		// servingSize
+//		servingSize.getItems().addAll(SERVSIZES);
+//		servingSize.setStyle("-fx-background-color: #ff9900");
 
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
@@ -719,7 +719,7 @@ public class EditController implements Initializable{
 		// Set ingredientsTable
 		for (Ingredient i : recipe.getIngredients()) {
 			ingredients.add(i);
-			qtyPerServingSize.add(i.getQuantity());
+			//qtyPerServingSize.add(i.getQuantity());
 		}
 		ingredientsTable.setItems(ingredients);
 		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
@@ -783,11 +783,11 @@ public class EditController implements Initializable{
 	 * @param value
 	 * @param table
 	 */
-	private static void changeValueAt(int row, int col, double value, TableView<Ingredient> table) {
-		Ingredient newData = table.getItems().get(row);
-		newData.setQuantity(value);
-		table.getItems().set(row, newData);
-	}	
+//	private static void changeValueAt(int row, int col, double value, TableView<Ingredient> table) {
+//		Ingredient newData = table.getItems().get(row);
+//		newData.setQuantity(value);
+//		table.getItems().set(row, newData);
+//	}	
 
 	/**
 	 * check if a String contains a digit
