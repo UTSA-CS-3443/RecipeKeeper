@@ -225,8 +225,7 @@ public class SearchInterfaceController implements Initializable {
 						Object controller = loader.getController();
 						if (controller instanceof ReadController) {
 							history.getBackward().push(constants.getSearchDirectory());
-							((ReadController) controller).initData(selectedRecipe);
-							((ReadController) controller).setHistory(history);
+							((ReadController) controller).initFlowingData(history, selectedRecipe, readingData);
 							((ReadController) controller).initialize(location, loader.getResources());
 
 							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -280,7 +279,16 @@ public class SearchInterfaceController implements Initializable {
 	public void initFlowingData(Addresses history, Recipe r, ArrayList<Recipe> repList) {
 		this.history = history;
 		this.selectedRecipe = r;
+		
+		for (Recipe rep : repList) {
+			recipeNames.add(rep.getName());
+		}
 		this.readingData = repList;
+		// for
+		this.repList.setItems(recipeNames);
+		this.repList.setStyle("-fx-background-color: #FFFFFF; -fx-accent: #ff6c00; -fx-focus-color: #ff6c00;");
+		motherPane.setStyle("-fx-background-color: #FFFFFF");
+		open.setStyle("-fx-background-color: #ff9900");
 	}
 	
 	/**

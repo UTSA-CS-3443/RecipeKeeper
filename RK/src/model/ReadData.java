@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ReadData {
+	
+	private ArrayList<Recipe> readingReps;
+	
 	public static RecipeList readRecipes() {
 		Path currentRelativePath = Paths.get("");
 		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes";
@@ -72,6 +75,15 @@ public class ReadData {
 			}
 		}
 		RecipeList recipeList = new RecipeList(newRecipeArray);
+		
 		return recipeList;
+	}
+
+	public ArrayList<Recipe> getReadingReps() {
+		return readingReps;
+	}
+
+	public void setReadingReps(ArrayList<Recipe> readingReps) {
+		readingReps = readingReps;
 	}
 }

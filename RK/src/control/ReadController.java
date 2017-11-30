@@ -160,6 +160,7 @@ public class ReadController implements Initializable {
 						if (controller instanceof SearchInterfaceController) {
 							//SearchInterfaceController.class.cast(controller);
 							history.getForward().push(constants.getReadDirectory());
+							//toStringReadingReps();
 							((SearchInterfaceController) controller).initFlowingData(history, recipe, readingData);
 							((SearchInterfaceController) controller).initialize(location, loader.getResources());
 
@@ -177,6 +178,7 @@ public class ReadController implements Initializable {
 					}
 				} catch (Exception e) {
 					AlertBox.display("Warning", "Oops! Something went wrong.");
+					e.printStackTrace();
 				}
 
 			}
@@ -462,5 +464,14 @@ public class ReadController implements Initializable {
 	 */
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
+	}
+	
+	/**
+	 * test method
+	 */
+	public void toStringReadingReps() {
+		for (Recipe r : readingData) {
+			System.out.println(r.getName());
+		}
 	}
 }
