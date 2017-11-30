@@ -171,20 +171,54 @@ public class EditController implements Initializable{
 
 		// Event listener when name box is changed
 		recipeName.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
-		        recipe.setName(newValue);
-		    }
+			@Override
+			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+				recipe.setName(newValue);
+			}
 		});
-		
+
 		// instructions TextArea
 		instructions.setWrapText(true);
 		// Event listener when instructions box is changed
 		instructions.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
-		        recipe.setInstructions(newValue);
-		    }
+			@Override
+			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+				recipe.setInstructions(newValue);
+			}
+		});
+
+		// menuNew listener
+		menuNew.setOnAction(new EventHandler<ActionEvent>() {
+			@Override 
+			public void handle(ActionEvent e) {
+				try {
+					String fxmlFileDir = constants.getEditDirectory();
+					String cssFileDir = constants.getCssDirectory();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
+
+					EditController controller = loader.getController();
+					controller.initData(new Recipe());
+					controller.initialize(location, loader.getResources());
+
+					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+					originalStage.setTitle("New Recipe - Edit Mode");
+					originalStage.setScene(editWindow);
+					originalStage.show();
+
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+				} catch (IOException ioe) {
+					AlertBox.display("Warning", "File not found.");
+				}
+			}
 		});
 
 		// disable edit button
@@ -512,11 +546,11 @@ public class EditController implements Initializable{
 		this.oldRep = r;
 		recipeName.setText(recipe.getName());
 		instructions.setText(recipe.getInstructions());
-		
+
 		// servingSize
 		servingSize.getItems().addAll(SERVSIZES);
 		servingSize.setStyle("-fx-background-color: #ff9900");
-		
+
 		// Ingredient column
 		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
 		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -542,7 +576,7 @@ public class EditController implements Initializable{
 			categories.add(s);
 		}
 		categoryTable.setItems(categories);
-		
+
 		// disable Save button if user enter edit mode
 		if (r.getName().equals("")) {
 			menuSave.setDisable(true);

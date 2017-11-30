@@ -89,6 +89,9 @@ public class ReadController implements Initializable {
 
 	// Recipe chose from model
 	private Recipe recipe = new Recipe();
+	
+	// Data passed from welcome screen
+	private ArrayList<Recipe> readingData;
 
 	// ingredients from recipe for reading
 	private ObservableList<Ingredient> rIngredients = FXCollections.observableArrayList();
@@ -157,7 +160,7 @@ public class ReadController implements Initializable {
 						if (controller instanceof SearchInterfaceController) {
 							//SearchInterfaceController.class.cast(controller);
 							history.getForward().push(constants.getReadDirectory());
-							((SearchInterfaceController) controller).setHistory(history);
+							((SearchInterfaceController) controller).initFlowingData(history, recipe, readingData);
 							((SearchInterfaceController) controller).initialize(location, loader.getResources());
 
 							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -355,7 +358,53 @@ public class ReadController implements Initializable {
 		return this.recipe;
 	}
 
+	/**
+	 * initialize flowing data between scenes
+	 * @param history
+	 * @param r
+	 * @param repList
+	 */
+	public void initFlowingData(Addresses history, Recipe r, ArrayList<Recipe> repList) {
+		
+		this.recipe = r;
+		// Initialize and set editable to false (recipeName and instructions
+		recipeName.setText(r.getName());
+		instructions.setText(r.getInstructions());
 
+		// add serving sizes
+		servingSize.getItems().addAll(SERVSIZES);
+		servingSize.setStyle("-fx-background-color: #ff9900");
+
+		// Ingredient column
+		TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
+		ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		// Quantity column
+		TableColumn<Ingredient, String> quantityColumn = new TableColumn<>("Quantity");
+		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));	
+
+		// Quantity column
+		TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
+		unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+
+		// Set ingredientsTable
+		for (Ingredient i : r.getIngredients()) {
+			rIngredients.add(i);
+			qtyPerServingSize.add(i.getQuantity());
+		}
+		ingredientsTable.setItems(rIngredients);
+		ingredientsTable.setStyle("-fx-background-color: #ff9900");
+		ingredientsTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
+
+		// Initialize categoryTable
+		for (String s : r.getCategories()) {
+			rCategories.add(s);
+		}
+		categoryTable.setItems(rCategories);
+		
+		setHistory(history);
+		setReadingData(repList);
+	}
+	
 	/**
 	 * Change value at specific location of TableView
 	 * used for servingSize onAction
@@ -382,5 +431,36 @@ public class ReadController implements Initializable {
 	 */
 	public void setHistory(Addresses history) {
 		this.history = history;
+	}
+
+	/**
+	 * @return the list of recipes was reading in list view
+	 */
+	public ArrayList<Recipe> getReadingData() {
+		return readingData;
+	}
+
+	/**
+	 * saving the list of recipes was reading in list view
+	 * @param readingData
+	 */
+	public void setReadingData(ArrayList<Recipe> readingData) {
+		this.readingData = readingData;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	/**
+	 * 
+	 * @param recipe
+	 */
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 }

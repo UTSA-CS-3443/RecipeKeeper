@@ -59,6 +59,9 @@ public class SearchInterfaceController implements Initializable {
 	// Data passed from welcome screen
 	private ArrayList<Recipe> readingData;
 
+	// passing this recipe between views
+	private Recipe selectedRecipe;
+	
 	// constant values
 	private static Constants constants = new Constants();
 
@@ -106,8 +109,9 @@ public class SearchInterfaceController implements Initializable {
 
 						ReadController controller = loader.getController();
 						history.getBackward().push(constants.getSearchDirectory());
-						controller.setHistory(history);
-						controller.initData(readingData.get(selectedIndex));
+						controller.initFlowingData(history, readingData.get(selectedIndex), readingData);
+//						controller.setHistory(history);
+//						controller.initData(readingData.get(selectedIndex));
 						controller.initialize(location, loader.getResources());
 
 						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -221,6 +225,7 @@ public class SearchInterfaceController implements Initializable {
 						Object controller = loader.getController();
 						if (controller instanceof ReadController) {
 							history.getBackward().push(constants.getSearchDirectory());
+							((ReadController) controller).initData(selectedRecipe);
 							((ReadController) controller).setHistory(history);
 							((ReadController) controller).initialize(location, loader.getResources());
 
@@ -267,6 +272,18 @@ public class SearchInterfaceController implements Initializable {
 	}
 
 	/**
+	 * Initialize flowing data
+	 * @param history
+	 * @param r
+	 * @param repList
+	 */
+	public void initFlowingData(Addresses history, Recipe r, ArrayList<Recipe> repList) {
+		this.history = history;
+		this.selectedRecipe = r;
+		this.readingData = repList;
+	}
+	
+	/**
 	 * @return history of this scene
 	 */
 	public Addresses getHistory() {
@@ -279,5 +296,36 @@ public class SearchInterfaceController implements Initializable {
 	 */
 	public void setHistory(Addresses history) {
 		this.history = history;
+	}
+
+	/**
+	 * 
+	 * @return recipe being selected
+	 */
+	public Recipe getSelectedRecipe() {
+		return selectedRecipe;
+	}
+
+	/**
+	 * set the previously selected recipe
+	 * @param selectedRecipe
+	 */
+	public void setSelectedRecipe(Recipe selectedRecipe) {
+		this.selectedRecipe = selectedRecipe;
+	}
+	
+	/**
+	 * @return list of recipes being read
+	 */
+	public ArrayList<Recipe> getReadingData() {
+		return readingData;
+	}
+	
+	/**
+	 * set list of recipe being read 
+	 * @param readingData
+	 */
+	public void setReadingData(ArrayList<Recipe> readingData) {
+		this.readingData = readingData;
 	}
 }
