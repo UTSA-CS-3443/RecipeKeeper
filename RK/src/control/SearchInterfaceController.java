@@ -234,7 +234,7 @@ public class SearchInterfaceController implements Initializable {
 							Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
 							originalStage.setScene(recipeListView);
-							originalStage.setTitle("View Mode");
+							originalStage.setTitle(selectedRecipe.getName() + " - View Mode");
 							originalStage.show();
 
 							// center the stage

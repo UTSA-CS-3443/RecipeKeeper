@@ -191,32 +191,76 @@ public class EditController implements Initializable{
 		menuNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
-				try {
-					String fxmlFileDir = constants.getEditDirectory();
-					String cssFileDir = constants.getCssDirectory();
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-					Parent root = loader.load();
-					URL location = new URL(loader.getLocation().toString());
+				if (recipe.compareTo(oldRep) != 1) {
+					int clickResult = ConfirmCancelBox.display("Notice", "Do you want to make changes to " + recipeName.getText() + "?"
+							+ "\n" + "Your change(s) will be lost if you don't save them.");
+					switch(clickResult) {
+					case(-1):
+					{
+						try {
+							String fxmlFileDir = constants.getEditDirectory();
+							String cssFileDir = constants.getCssDirectory();
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+							Parent root = loader.load();
+							URL location = new URL(loader.getLocation().toString());
 
-					EditController controller = loader.getController();
-					controller.initData(new Recipe());
-					controller.initialize(location, loader.getResources());
+							EditController controller = loader.getController();
+							controller.initData(new Recipe());
+							controller.initialize(location, loader.getResources());
 
-					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-					originalStage.setTitle("New Recipe - Edit Mode");
-					originalStage.setScene(editWindow);
-					originalStage.show();
+							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setScene(editWindow);
+							originalStage.show();
 
-					// center the stage
-					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 
-				} catch (IOException ioe) {
-					AlertBox.display("Warning", "File not found.");
+						} catch (IOException ioe) {
+							AlertBox.display("Warning", "File not found.");
+						}
+						break;
+					}
+					case(0):
+						break;
+					case(1):
+					{
+						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+						try {
+							String fxmlFileDir = constants.getEditDirectory();
+							String cssFileDir = constants.getCssDirectory();
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+							Parent root = loader.load();
+							URL location = new URL(loader.getLocation().toString());
+
+							EditController controller = loader.getController();
+							controller.initData(new Recipe());
+							controller.initialize(location, loader.getResources());
+
+							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+
+							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setScene(editWindow);
+							originalStage.show();
+
+							// center the stage
+							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+
+						} catch (IOException ioe) {
+							AlertBox.display("Warning", "File not found.");
+						}
+						break;
+					}
+					}
 				}
 			}
 		});
@@ -347,7 +391,7 @@ public class EditController implements Initializable{
 					case(1):
 					{
 						//recipe.setInstructions(instructions.getText());
-						oldRep = recipe;
+						//oldRep = recipe;
 						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
 						try {
 							String fxmlFileDir = constants.getWelcomeDirectory();
