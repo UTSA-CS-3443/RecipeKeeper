@@ -147,18 +147,25 @@ public class ReadController implements Initializable {
 		menuSave.setDisable(true);
 		menuSaveAs.setDisable(true);
 
-		// return to the previous page
+		/**
+		 * backward event handler
+		 * there is one case for backward in read mode to handle: read view -> list view
+		 */
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
 					if (history.getBackward().isEmpty()) return;
 					else {
+						// pop directory from top of backward stack
 						String fxmlFileDir = history.getBackward().pop();
+						String cssFileDir = constants.getCssDirectory();
+						// use FXMLLoader so the controller can be obtained later
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
 
+						// controller setup
 						Object controller = loader.getController();
 						if (controller instanceof SearchInterfaceController) {
 							//SearchInterfaceController.class.cast(controller);
@@ -167,7 +174,11 @@ public class ReadController implements Initializable {
 							((SearchInterfaceController) controller).initFlowingData(history, recipe, readingData);
 							((SearchInterfaceController) controller).initialize(location, loader.getResources());
 
+							// set scene
 							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+							recipeListView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							
+							// set stage
 							Stage originalStage = (Stage) motherPane.getScene().getWindow();
 							originalStage.setTitle("Recipe Keeper");
 							originalStage.setScene(recipeListView);
@@ -187,13 +198,17 @@ public class ReadController implements Initializable {
 			}
 		});
 
-		// return to the the page behind 
+		/**
+		 * forward event handler
+		 * there is one case for forward in read mode to handle: read view -> edit view
+		 */
 		forward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
 					if (history.getForward().isEmpty()) return;
 					else {
+						// pop the top address from the forward list
 						String fxmlFileDir = history.getForward().pop();
 						String cssFileDir = constants.getCssDirectory();
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
@@ -268,7 +283,9 @@ public class ReadController implements Initializable {
 			}
 		});
 
-		// menuNew listener
+		/**
+		 * create a new recipe
+		 */
 		menuNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
@@ -280,7 +297,8 @@ public class ReadController implements Initializable {
 					URL location = new URL(loader.getLocation().toString());
 
 					EditController controller = loader.getController();
-					controller.initData(new Recipe());
+					history.getBackward().push(constants.getEditDirectory());
+					controller.initFlowingData(history, new Recipe(), readingData);
 					controller.initialize(location, loader.getResources());
 
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
@@ -302,7 +320,9 @@ public class ReadController implements Initializable {
 			}
 		});
 
-		// menuEdit listener
+		/**
+		 * edit the recipe is being read
+		 */
 		menuEdit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {

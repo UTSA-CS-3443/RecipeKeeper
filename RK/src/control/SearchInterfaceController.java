@@ -92,32 +92,40 @@ public class SearchInterfaceController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		/**
-		 * open a recipe
+		 * open a recipe in read mode
 		 */
 		open.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				int selectedIndex = repList.getSelectionModel().getSelectedIndex();
 				if (selectedIndex >= 0) {
 					try {
+						// get directory from constant class
 						String fxmlFileDir = constants.getReadDirectory();
 						String cssFileDir = constants.getCssDirectory();
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
 
-						ReadController controller = loader.getController();
+						/**
+						 * push directory of this view to backward stack 
+						 * so the user can go back to their search results
+						 * if they wish to
+						 */
 						history.getBackward().push(constants.getSearchDirectory());
+						// controller setup
+						ReadController controller = loader.getController();
 						controller.initFlowingData(history, readingData.get(selectedIndex), readingData);
 //						controller.setHistory(history);
 //						controller.initData(readingData.get(selectedIndex));
 						controller.initialize(location, loader.getResources());
 
+						// set scene
 						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 						editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						
+						// set stage
 						Stage originalStage = (Stage) motherPane.getScene().getWindow();
-
 						originalStage.setTitle(readingData.get(selectedIndex).getName() + " - View Mode");
 						originalStage.setScene(editWindow);
 						originalStage.show();
@@ -134,21 +142,19 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "No item selected");
 				}
 			}
-
 		});
 
 		/**
 		 * Delete a recipe from model FOREVER. 
 		 * Restoring by reset the closest commits 
 		 * (read the commits carefully before reseting)
+		 * refresh the project every time this button is clicked
 		 */
 		delRep.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				try {
 					if (recipeNames.size() < 1) throw new RuntimeException();
-
 					int selectedIndex = repList.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						boolean confirm = ConfirmBox.display("Notice", "Are you sure to delete this recipe?");
@@ -167,17 +173,16 @@ public class SearchInterfaceController implements Initializable {
 					AlertBox.display("Warning", "Recipe List is empty");
 				}
 			}
-
 		});
 
 		/**
 		 * backward listener
+		 * there is one case for back ward to handle: return to main view
 		 */
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-
 					if (history.getBackward().isEmpty()) {
 						return;
 					}
@@ -210,28 +215,37 @@ public class SearchInterfaceController implements Initializable {
 //			forward.setDisable(true);
 //		}
 
+		/**
+		 * forward event handler
+		 * there is one case for forward to handle: list View -> read view
+		 */
 		forward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
 					if (history.getForward().isEmpty()) return;
 					else {
+						// pop directory from forward stack
 						String fxmlFileDir = history.getForward().pop();
 						String cssFileDir = constants.getCssDirectory();
+						// use FXMLLoader so the controller can be obtained later
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
 
+						// controller setup
 						Object controller = loader.getController();
 						if (controller instanceof ReadController) {
 							history.getBackward().push(constants.getSearchDirectory());
 							((ReadController) controller).initFlowingData(history, selectedRecipe, readingData);
 							((ReadController) controller).initialize(location, loader.getResources());
 
+							// set scene
 							Scene recipeListView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 							recipeListView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+							
+							//set Stage
 							Stage originalStage = (Stage) motherPane.getScene().getWindow();
-
 							originalStage.setScene(recipeListView);
 							originalStage.setTitle(selectedRecipe.getName() + " - View Mode");
 							originalStage.show();

@@ -96,7 +96,7 @@ public class EditController implements Initializable{
 	private Button forward;							// >
 
 	@FXML // fx:id="home"
-	private Button home;							// home (⌂)
+	private Button home;								// home (⌂)
 
 	@FXML // fx:id="addIngredient"
 	private Button addIngredient;					// "+" button for ingredients
@@ -132,7 +132,7 @@ public class EditController implements Initializable{
 	// list of units
 	private final String[] UNITS = constants.getUnits();
 	// serving Sizes
-	private final String[] SERVSIZES = constants.getServsizes();
+	//private final String[] SERVSIZES = constants.getServsizes();
 	// minimum size of the window
 	private final int[] MIN_SIZES = constants.getMinSizes();
 
@@ -194,104 +194,163 @@ public class EditController implements Initializable{
 		menuNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
-				if (recipe.compareTo(oldRep) != 1) {
-					int clickResult = ConfirmCancelBox.display("Notice", "Do you want to make changes to " + recipeName.getText() + "?"
-							+ "\n" + "Your change(s) will be lost if you don't save them.");
-					switch(clickResult) {
-					case(-1):
-					{
-						try {
-							String fxmlFileDir = constants.getEditDirectory();
-							String cssFileDir = constants.getCssDirectory();
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-							Parent root = loader.load();
-							URL location = new URL(loader.getLocation().toString());
+//				if (recipe.compareTo(oldRep) != 1) {
+//					int clickResult = ConfirmCancelBox.display("Notice", "Do you want to make changes to " + recipeName.getText() + "?"
+//							+ "\n" + "Your change(s) will be lost if you don't save them.");
+//					switch(clickResult) {
+//					case(-1):
+//					{
+//						try {
+//							// get directories
+//							String fxmlFileDir = constants.getEditDirectory();
+//							String cssFileDir = constants.getCssDirectory();
+//							// use FXMLLoader so the controller can be obtained later
+//							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+//							Parent root = loader.load();
+//							// don't want to type much while initializing the controller
+//							URL location = new URL(loader.getLocation().toString());
+//
+//							// controller setup
+//							EditController controller = loader.getController();
+//							controller.initData(new Recipe());
+//							controller.initialize(location, loader.getResources());
+//
+//							// set scene
+//							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+//							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+//							
+//							// set stage
+//							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+//							originalStage.setTitle("New Recipe - Edit Mode");
+//							originalStage.setScene(editWindow);
+//							originalStage.show();
+//
+//							// center the stage
+//							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+//							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+//							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+//
+//						} catch (IOException ioe) {
+//							AlertBox.display("Warning", "File not found.");
+//						}
+//						break;
+//					}
+//					case(0):
+//						break;
+//					case(1):
+//					{
+//						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
+//						try {
+//							// get directories
+//							String fxmlFileDir = constants.getEditDirectory();
+//							String cssFileDir = constants.getCssDirectory();
+//							// use FXMLLoader so the controller can be obtained later
+//							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+//							Parent root = loader.load();
+//							// don't want to type much while initializing the controller
+//							URL location = new URL(loader.getLocation().toString());
+//
+//							// controller setup
+//							EditController controller = loader.getController();
+//							controller.initData(new Recipe());
+//							controller.initialize(location, loader.getResources());
+//
+//							// set scene
+//							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+//							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+//							
+//							//set stage
+//							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+//							originalStage.setTitle("New Recipe - Edit Mode");
+//							originalStage.setScene(editWindow);
+//							originalStage.show();
+//
+//							// center the stage
+//							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+//							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+//							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+//
+//						} catch (IOException ioe) {
+//							AlertBox.display("Warning", "File not found.");
+//						}
+//						break;
+//					}
+//					}
+//				} else {
+//					try {
+//						// get directories
+//						String fxmlFileDir = constants.getEditDirectory();
+//						String cssFileDir = constants.getCssDirectory();
+//						// use FXMLLoader so the controller can be obtained later
+//						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+//						Parent root = loader.load();
+//						URL location = new URL(loader.getLocation().toString());
+//
+//						// controller setup
+//						EditController controller = loader.getController();
+//						controller.initData(new Recipe());
+//						controller.initialize(location, loader.getResources());
+//
+//						// scene setup
+//						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+//						editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+//						
+//						// stage setup
+//						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+//						originalStage.setTitle("New Recipe - Edit Mode");
+//						originalStage.setScene(editWindow);
+//						originalStage.show();
+//
+//						// center the stage
+//						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+//						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+//						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+//
+//					} catch (IOException ioe) {
+//						AlertBox.display("Warning", "File not found.");
+//					}
+//				}
+				
+				/**
+				 * start a new recipe in edit mode
+				 */
+				try {
+					// get directories
+					String fxmlFileDir = constants.getEditDirectory();
+					String cssFileDir = constants.getCssDirectory();
+					// use FXMLLoader so the controller can be obtained later
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
+					Parent root = loader.load();
+					URL location = new URL(loader.getLocation().toString());
 
-							EditController controller = loader.getController();
-							controller.initData(new Recipe());
-							controller.initialize(location, loader.getResources());
+					// controller setup
+					EditController controller = loader.getController();
+					history.getBackward().push(constants.getEditDirectory());
+					controller.initFlowingData(history, new Recipe(), readingData);
+					/**
+					 * if the user clicks backward button while making a new recipe
+					 * it will bring them back to edit mode of that recipe
+					 */
+					controller.setRecipeFromRead(recipe);
+					controller.initialize(location, loader.getResources());
 
-							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-							Stage originalStage = (Stage) motherPane.getScene().getWindow();
+					// scene setup
+					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					
+					// stage setup
+					Stage originalStage = (Stage) motherPane.getScene().getWindow();
+					originalStage.setTitle("New Recipe - Edit Mode");
+					originalStage.setScene(editWindow);
+					originalStage.show();
 
-							originalStage.setTitle("New Recipe - Edit Mode");
-							originalStage.setScene(editWindow);
-							originalStage.show();
+					// center the stage
+					Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+					originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+					originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 
-							// center the stage
-							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-
-						} catch (IOException ioe) {
-							AlertBox.display("Warning", "File not found.");
-						}
-						break;
-					}
-					case(0):
-						break;
-					case(1):
-					{
-						WriteData.CreateRecipeFile(recipeName.getText(), recipe);
-						try {
-							String fxmlFileDir = constants.getEditDirectory();
-							String cssFileDir = constants.getCssDirectory();
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-							Parent root = loader.load();
-							URL location = new URL(loader.getLocation().toString());
-
-							EditController controller = loader.getController();
-							controller.initData(new Recipe());
-							controller.initialize(location, loader.getResources());
-
-							Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-							editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-							Stage originalStage = (Stage) motherPane.getScene().getWindow();
-
-							originalStage.setTitle("New Recipe - Edit Mode");
-							originalStage.setScene(editWindow);
-							originalStage.show();
-
-							// center the stage
-							Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-							originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-							originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-
-						} catch (IOException ioe) {
-							AlertBox.display("Warning", "File not found.");
-						}
-						break;
-					}
-					}
-				} else {
-					try {
-						String fxmlFileDir = constants.getEditDirectory();
-						String cssFileDir = constants.getCssDirectory();
-						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
-						Parent root = loader.load();
-						URL location = new URL(loader.getLocation().toString());
-
-						EditController controller = loader.getController();
-						controller.initData(new Recipe());
-						controller.initialize(location, loader.getResources());
-
-						Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
-						editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
-						Stage originalStage = (Stage) motherPane.getScene().getWindow();
-
-						originalStage.setTitle("New Recipe - Edit Mode");
-						originalStage.setScene(editWindow);
-						originalStage.show();
-
-						// center the stage
-						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
-						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
-
-					} catch (IOException ioe) {
-						AlertBox.display("Warning", "File not found.");
-					}
+				} catch (IOException ioe) {
+					AlertBox.display("Warning", "File not found.");
 				}
 			}
 		});
@@ -301,6 +360,7 @@ public class EditController implements Initializable{
 
 		// ComboBox for ingredient's units
 		ingreUnit.getItems().addAll(UNITS);
+		// user can make their own units
 		ingreUnit.setEditable(true);
 
 		/**
@@ -323,6 +383,7 @@ public class EditController implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				try {
+					//check if name field is empty (because it's the file's name)
 					if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 						throw new IllegalArgumentException();
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
@@ -345,10 +406,12 @@ public class EditController implements Initializable{
 		menuSaveAs.setOnAction(action -> {
 			menuSave.setDisable(false);
 			try {
+				// check if name field is empty (because it's the file's name)
 				if (recipeName.getText().equals(null) || recipeName.getText().equals("") || StringUtils.isBlank(recipeName.getText()))
 					throw new IllegalArgumentException();
+				
+				// check duplication
 				RecipeList data = ReadData.readRecipes();
-
 				if (data.getRecipeByName(recipeName.getText()).size() > 0) {
 					boolean notChangeName = ConfirmBox.display("Warning", "You have not changed your recipe's name." 
 							+ "\n" + "Clicking yes is to replace " + recipeName.getText());
@@ -359,6 +422,7 @@ public class EditController implements Initializable{
 					}
 					else return;
 				}
+				// if recipe name is not duplicate, ask the user to confirm saving
 				else {
 					boolean wantToSave = ConfirmBox.display("Notice", "Do you want make change(s) to this recipe?");
 					if (wantToSave) {
@@ -374,14 +438,20 @@ public class EditController implements Initializable{
 			}
 		});
 
+		/**
+		 * forward event handler
+		 * Ex: Main -> list View -> read view -> edit view -> backward to read view -> forward to edit view
+		 */
 		forward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
 					if (history.getForward().isEmpty()) return;
 					else {
+						// pop directory from top of forward stack
 						String fxmlFileDir = history.getForward().pop();
 						String cssFileDir = constants.getCssDirectory();
+						// use FXMLLoader so the controller can be obtained later
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 						Parent root = loader.load();
 						URL location = new URL(loader.getLocation().toString());
@@ -413,11 +483,16 @@ public class EditController implements Initializable{
 			}
 		});
 		
-		// return to the previous page
+		/**
+		 * backward event handler
+		 * there are 3 possible cases for backward to handle 
+		 * edit view -> edit view, edit view -> read view, edit view -> main view
+		 */
 		backward.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
+					// pop the top address from the backward list
 					String fxmlFileDir = history.getBackward().pop();
 					String cssFileDir = constants.getCssDirectory();
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
@@ -425,6 +500,7 @@ public class EditController implements Initializable{
 					URL location = new URL(loader.getLocation().toString());
 					Object controller = loader.getController();
 					
+					// edit -> read
 					if (controller instanceof ReadController) {
 						history.getForward().push(constants.getEditDirectory());
 						((ReadController) controller).initFlowingData(history, recipeFromRead, readingData);
@@ -444,6 +520,7 @@ public class EditController implements Initializable{
 						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
 						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 					}
+					// edit -> main
 					else if (controller instanceof WelcomeController) {
 						Scene welcomeView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 						welcomeView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
@@ -458,6 +535,25 @@ public class EditController implements Initializable{
 						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
 						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
 					}
+					// edit -> edit
+					else if (controller instanceof EditController) {
+						history.getForward().push(constants.getEditDirectory());
+						((EditController) controller).initFlowingData(history, recipeFromRead, readingData);
+						((EditController) controller).initialize(location, loader.getResources());
+						
+						Scene prevEditView = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
+						prevEditView.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+						
+						Stage originalStage = (Stage) motherPane.getScene().getWindow();
+						originalStage.setScene(prevEditView);
+						originalStage.setTitle(recipeFromRead.getName() + " - View Mode");
+						originalStage.show();
+						
+						// center the stage
+						Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+						originalStage.setX((primScreenBounds.getWidth() - originalStage.getWidth()) / 2);
+						originalStage.setY((primScreenBounds.getHeight() - originalStage.getHeight()) / 2);
+					}
 				} catch (Exception e) {
 					AlertBox.display("Warning", "Oops! Something went wrong");
 					e.printStackTrace();
@@ -465,7 +561,9 @@ public class EditController implements Initializable{
 			}
 		});
 
-		// return to home screen
+		/**
+		 * return to home screen
+		 */
 		home.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -569,6 +667,9 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 
+					/**
+					 * verify user's inputs, make sure they not empty, null or contains all blanks
+					 */
 					if (ingreName.getText().equals(null) || ingreQty.getText().equals(null) || ingreUnit.getValue().equals(null) || 
 							ingreName.getText().equals("") || ingreQty.getText().equals("") || ingreUnit.getValue().equals("")) 
 						throw new IngredientException("One or more fields are empty");
@@ -579,7 +680,7 @@ public class EditController implements Initializable{
 					else if (containsDigit(ingreUnit.getValue())) throw new IngredientException("Ingredient name can't contains digit");
 					else if (!isNumeric(ingreQty.getText())) throw new IngredientException("Ingredient quantity");
 
-
+					// add to displaying ingredient
 					String name, unit;
 					double qty;
 					name = ingreName.getText();
@@ -614,7 +715,6 @@ public class EditController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 					if (ingredients.size() < 1) throw new RuntimeException(); 
-
 					int selectedIndex = ingredientsTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						// remove from view and internal data
@@ -625,7 +725,6 @@ public class EditController implements Initializable{
 					else {
 						AlertBox.display("Warning", "No Item Selected");
 					}
-
 				} catch (RuntimeException e) {
 					AlertBox.display("Warning", "Ingredient List Is Empty");
 				}
@@ -636,10 +735,8 @@ public class EditController implements Initializable{
 		 * Event Handler for adding a category
 		 */
 		addCategory.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-
 				try {
 					if (textCategory.getText().equals(null) || textCategory.getText().equals("")) throw new NullPointerException();
 					else if (textCategory.getText().contains("[a-zA-Z]+")) throw new IllegalArgumentException();
@@ -654,22 +751,17 @@ public class EditController implements Initializable{
 				} catch (IngredientException ie) {
 					AlertBox.display("Warning", "Category field cannot contain all spaces");
 				}
-
 			}
-
 		});
 
 		/**
 		 * Event Handler for deleting a category
 		 */
 		delCategory.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-
 				try {
 					if (categories.size() < 1) throw new RuntimeException();
-
 					int selectedIndex = categoryTable.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						// remove from view and internal data
@@ -682,9 +774,7 @@ public class EditController implements Initializable{
 				} catch (RuntimeException e) {
 					AlertBox.display("Warning", "Category List Is Empty");
 				}
-
 			}
-
 		});
 	}
 

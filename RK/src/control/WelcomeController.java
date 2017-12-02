@@ -72,27 +72,32 @@ public class WelcomeController implements Initializable {
 	public void initialize(URL url, ResourceBundle rs) {
 
 		/**
-		 * Start a new recipe
+		 * Start a new recipe in edit mode
 		 */
 		startRep.setOnAction(new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent e) {
 				try {
+					// get directories
 					String fxmlFileDir = constants.getEditDirectory();
 					String cssFileDir = constants.getCssDirectory();
+					// use FXMLLoader so the controller can be obtained later
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileDir));
 					Parent root = loader.load();
 					URL location = new URL(loader.getLocation().toString());
 
+					// controller setup
 					EditController controller = loader.getController();
 					history.getBackward().push(constants.getWelcomeDirectory());
 					controller.initFlowingData(history, new Recipe(), new ArrayList<Recipe>());
 					controller.initialize(location, loader.getResources());
 
+					// scene setup
 					Scene editWindow = new Scene(root, MIN_SIZES[0], MIN_SIZES[1]);
 					editWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
+					
+					// stage setup
 					Stage originalStage = (Stage) motherPane.getScene().getWindow();
-
 					originalStage.setTitle("New Recipe - Edit Mode");
 					originalStage.setScene(editWindow);
 					originalStage.show();
@@ -109,7 +114,7 @@ public class WelcomeController implements Initializable {
 		});
 
 		/**
-		 * find a recipe and enter read mode
+		 * find a recipe and enter list view
 		 */
 		findRep.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
