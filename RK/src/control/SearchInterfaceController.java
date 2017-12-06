@@ -29,9 +29,19 @@ import model.Recipe;
 import model.RecipeList;
 
 /**
+ * Controller for List View
+ * this class can be initialized by main controller (WelcomeController) by clicking "Find a Recipe" button
+ * or by ReadController by clicking "<" button
  * 
+ * SearchInterfaceController will receive a ArrayList<Recipe> and all Recipes' name on a ListView.
+ * When user checks out a Recipe, this array list is still saved in background in case the user wants
+ * to go back to their search result again.
+ * 
+ * forward Button EventHandler (line 231 - 276) explains how "backward" and "open" are handled
+ * 	(similar implementations)  
+ * 
+ * @author Loc Nguyen
  * @author Hoa Pham
- *
  */
 public class SearchInterfaceController implements Initializable {
 

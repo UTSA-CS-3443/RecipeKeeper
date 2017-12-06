@@ -4,6 +4,7 @@ import java.util.Stack;
 
 /**
  * list of addresses for backward and forward buttons
+ * contains 2 stacks: 1 for backward and 1 for forward
  * @author Hoa Pham
  *
  */

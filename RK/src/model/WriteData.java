@@ -5,6 +5,13 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * WriteData
+ * Create a new csv file with customized format when user hit
+ * "Save, Save As" in edit mode
+ * @author Hoa Pham
+ * @author Loc Nguyen
+ */
 public class WriteData {
 	
 	/**

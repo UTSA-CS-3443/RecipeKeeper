@@ -3,7 +3,6 @@ package control;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,11 +25,25 @@ import model.AlertBox;
 import model.Constants;
 import model.Recipe;
 import model.RecipeList;
-import model.Ingredient;
 import model.ReadData;
 
 /**
- * Welcome Controller
+ * WelcomeController
+ * initialized by main method RecipeKeeper.java
+ * 
+ * WelcomeController allows user to do two tasks:
+ * 1. Create a new Recipe -> enter edit mode of a blank recipe
+ * 2. Search a Recipe: by name, by Ingredient, or by category. If user just wants to see
+ * all of the existed Recipe, click "Find a Recipe" without entering anything in the fields
+ * 
+ *  - if one or more input fields contain a character other than " ", and the user hits "Find a Recipe"
+ *  		RecipeKeeper will run through model.Recipes to check if there is one of more Recipes
+ *  		that contain the demanding data from the user. Then it will add the result Recipes into 
+ *  		an ArrayList<Recipe> and initialize SearchInterfaceController with this ArrayList
+ *  - if all of the input fields are empty (or contain empty and spaces), and the user hits "Find a Recipe"
+ *  		RecipeKeeper will obtain all of the Recipe in model.Recipes and initialize SearchInterfaceController
+ * 
+ * @author Robert Neuhaus
  * @author Hoa Pham
  *
  */
@@ -119,6 +132,8 @@ public class WelcomeController implements Initializable {
 		findRep.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				
+				// to go back to main view if user enters list view and hit "<"
 				history = new Addresses();
 				history.getBackward().push(constants.getWelcomeDirectory());
 

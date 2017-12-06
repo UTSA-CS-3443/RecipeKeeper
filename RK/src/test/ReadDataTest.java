@@ -1,8 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
-
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +10,11 @@ import model.ReadData;
 import model.Recipe;
 import model.RecipeList;
 
+/**
+ * Test ReadData class
+ * @author Hoa Pham
+ *
+ */
 public class ReadDataTest {
 
 	@BeforeClass

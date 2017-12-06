@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import model.Ingredient;
 
+/**
+ * Test compare method in Ingredient class
+ * @author Hoa Pham
+ *
+ */
 public class CompareIngredientTest {
 
 	@Test

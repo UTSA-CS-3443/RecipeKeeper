@@ -1,7 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -9,6 +7,11 @@ import org.junit.Test;
 import model.Ingredient;
 import model.Recipe;
 
+/**
+ * Test toString method of Recipe class
+ * @author Hoa Pham
+ *
+ */
 public class RecipeTest {
 
 	@Test

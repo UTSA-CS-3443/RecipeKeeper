@@ -10,6 +10,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * create a warning window that force the user to choose an action
+ * before continuing to use the app
+ * @author Hoa Pham
+ *
+ */
 public class ConfirmCancelBox {
 	//Create variable
     static int answer;

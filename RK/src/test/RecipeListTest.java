@@ -6,6 +6,11 @@ import model.RecipeList;
 import model.Recipe;
 import model.WriteData;
 
+/**
+ * Test RecipeList class and WriteData class
+ * @author Hoa Pham
+ *
+ */
 public class RecipeListTest {
 
 	@Test

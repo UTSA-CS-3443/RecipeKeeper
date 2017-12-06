@@ -1,7 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -9,8 +7,12 @@ import org.junit.Test;
 import model.Ingredient;
 import model.Recipe;
 import model.WriteData;
-import control.*;
 
+/**
+ * test WriteData class
+ * @author Hoa Pham
+ *
+ */
 public class WriteDataTest {
 
 	@Test

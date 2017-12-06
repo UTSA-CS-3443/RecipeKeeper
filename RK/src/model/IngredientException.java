@@ -1,11 +1,16 @@
 package model;
 
 /**
- * 
+ * Customized Exception class, used in EditController
  * @author Hoa Pham
  *
  */
 public class IngredientException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public IngredientException() {
 		super();

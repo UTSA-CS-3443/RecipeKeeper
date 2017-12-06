@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -9,6 +8,11 @@ import org.junit.Test;
 import model.Ingredient;
 import model.Recipe;
 
+/**
+ * Test compare method in Recipe Class
+ * @author Hoa Pham
+ *
+ */
 public class CompareRecipeTest {
 
 	@Test

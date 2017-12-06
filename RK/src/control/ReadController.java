@@ -10,11 +10,8 @@ import java.util.ResourceBundle;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +38,20 @@ import model.Recipe;
 import model.RecipeList;
 
 /**
- * Controller for Reading interface
+ * ReadController 
+ * Can be initialized by SearchInterFaceController or EditController
+ * 
+ * When user checks out a Recipe in SearchInterface.fxml, SearchInterfaceController will use that Recipe(A) to
+ * 	initialize a ReadController, which is reading Recipe(A) in ReadInterface.fxml
+ * 
+ * Notice that user cannot do anything to modify the user in this view
+ * 
+ * ReadController is initialized by EditController when user switches between Edit Mode and View Mode of a Recipe
+ * 
+ * Event Handlers of ReadController are mostly used for switching between different views.
+ * 	Therefore EventHandler for backward Button (line 167) will explain most of other buttons: 
+ * 	(menuNew, menuEdit, forward, home)
+ * 
  * @author Hoa Pham
  *
  */

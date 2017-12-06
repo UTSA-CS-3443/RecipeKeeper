@@ -10,6 +10,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * 
+ * @author Robert Neuhaus
+ *
+ */
 public class ReadData {
 	
 	private ArrayList<Recipe> readingReps;

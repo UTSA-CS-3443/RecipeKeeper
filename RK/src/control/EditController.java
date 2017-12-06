@@ -3,8 +3,6 @@ package control;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +46,12 @@ import model.WriteData;
 /**
  * EditController initializes when user chooses to create a new recipe
  * or choose to edit a recipe being read
- * File -> New or File -> Edit
+ * In edit mode, user can modify an existed recipe and save it, or save as their own version
+ * edit view can be switched between read, main view or other edit view 
+ * (Ex: user chooses to create a new recipe in edit mode of an existed recipe)
+ * 
+ * Most of the implementations for buttons that switch scenes are explained from line 318-358:
+ * 	(menuNew, backward, forward, home)
  * @author Hoa Pham
  *
  */
@@ -580,7 +583,7 @@ public class EditController implements Initializable{
 							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 							Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setTitle("Recipe Keeper");
 							originalStage.setScene(homeWindow);
 							originalStage.show();
 
@@ -608,7 +611,7 @@ public class EditController implements Initializable{
 							homeWindow.getStylesheets().add(getClass().getResource(cssFileDir).toExternalForm());
 							Stage originalStage = (Stage) motherPane.getScene().getWindow();
 
-							originalStage.setTitle("New Recipe - Edit Mode");
+							originalStage.setTitle("Recipe Keeper");
 							originalStage.setScene(homeWindow);
 							originalStage.show();
 

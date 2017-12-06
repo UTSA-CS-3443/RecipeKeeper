@@ -1,7 +1,11 @@
 package model;
 
 /**
- *
+ * Constants contain:
+ * - UNITS for edit mode
+ * - SERVSIZE: serving size for read mode
+ * - MIN_SIZES: Minimum sizes of windows
+ * - Directories: fxml addresses of all of the views and css directory
  * @author Hoa Pham
  *
  */

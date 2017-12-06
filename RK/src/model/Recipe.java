@@ -1,12 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Recipe class will store a recipe's name and instructions in strings, 
  * and its ingredients and categories in ArrayLists.
+ * can be compared to another Recipe (incomplete)
  * @author Robert Neuhaus
  * @author Hoa Pham
  *

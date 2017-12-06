@@ -6,6 +6,12 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+/**
+ * create a warning window that force the user to choose an action
+ * before continuing to use the app
+ * @author Hoa Pham
+ *
+ */
 public class ConfirmBox {
 
     //Create variable

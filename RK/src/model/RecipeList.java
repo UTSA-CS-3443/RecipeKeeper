@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * RecipeList class contains all of the recipe in model
+ * used to store search result
  * @author Hoa Pham
  *
  */
