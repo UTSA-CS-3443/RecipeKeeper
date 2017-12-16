@@ -21,7 +21,7 @@ public class ReadData {
 	
 	public static RecipeList readRecipes() {
 		Path currentRelativePath = Paths.get("");
-		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes";
+		String path = currentRelativePath.toAbsolutePath().toString() + "/Recipes/";
 		File dir = new File(path);
 		File[] recipeFiles = dir.listFiles();
 		BufferedReader br = null;

@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -33,7 +35,14 @@ public class WriteData {
 	
 	public static void CreateRecipeFile(String recipeName, Recipe recipe) {
 		Path currentRelativePath = Paths.get("");
-		String path = currentRelativePath.toAbsolutePath().toString() + "/src/model/Recipes/";
+		String path = currentRelativePath.toAbsolutePath().toString() + "/Recipes/";
+		Path pPath = Paths.get(path);
+		if (!Files.exists(pPath))
+			try {
+				Files.createDirectories(pPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		File file = new File( path + recipeName + ".csv");
 		try {
 			if (!file.exists()) {
